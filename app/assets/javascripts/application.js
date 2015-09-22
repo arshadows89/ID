@@ -21,6 +21,7 @@
 
 $(document).ready(function() {
 	$(".various").fancybox({
+		type		: "iframe",
 		padding     : 0,
 		maxWidth	: 800,
 		maxHeight	: 600,
@@ -42,9 +43,9 @@ $(document).ready(function() {
 		closeBtn	: false
 	});
 
-$( ".closefb" ).click(function() {
-  parent.$.fancybox.close();
-});
+	$( ".closefb" ).click(function() {
+	  parent.$.fancybox.close();
+	});
 
 });
 

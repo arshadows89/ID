@@ -22,7 +22,8 @@ class UsersController < ApplicationController
     if @user.save
       redirect_to root_path, notice: "User successfully created"
     else
-      redirect_to root_path, notice: "Failed to create an account"
+      # redirect_to root_path, notice: "Failed to create an account"
+      render '_form'
     end
   end
 
@@ -47,7 +48,7 @@ class UsersController < ApplicationController
   	params.require(:user).permit(:username, :password, :admin, :email)
   end
 
-  def current_user
-    session[:user_id] ? User.find(session[:user_id]) :nil
-  end
+  # def current_user
+  #   session[:user_id] ? User.find(session[:user_id]) :nil
+  # end
 end
