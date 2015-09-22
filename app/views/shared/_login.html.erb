@@ -1,0 +1,21 @@
+<% if current_user %>
+	<div id="username"><%= current_user.username %></div> | 
+		<%= link_to 'sign out', logout_path, id: 'user-password' %>
+<% else %>
+
+	<%= form_tag(signin_path, method: :post) do %>
+		<div id="username">
+			<%= label_tag %>
+			Username <%= text_field_tag "user[username]", nil, placeholder: 'Username' %>
+		</div>
+		<div id="user-password">
+			<%= label_tag %>
+			Password <%= password_field_tag "user[password]", nil, placeholder: 'Password' %>
+		</div>
+		
+		<a class="various" data-fancybox-type="iframe" style="text-decoration : none" href="<%= new_user_path %>"><input type="submit" class="guildbutton" value="Sign Up" /> <br></a>
+
+		<%= submit_tag "Login", class: 'login-button' %>
+		
+	<% end %>
+<% end %>
