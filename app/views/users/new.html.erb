@@ -1,3 +1,21 @@
+<script>
+	$(document).ready(function(){
+		$("#new_user").submit(function(){
+			var user_name = $('#user_username').val();
+			var email_name = $('#user_email').val();
+			var password_name = $('#user_password').val();
+
+			// $.post( "/users", { user: {username: user_name, emailname: email, password: password_name } }, function() {}, "json" )
+
+		    deferred = $.post( "/users", { user: {username: user_name, email: email_name, password: password_name } }, function() {}, "json" )
+
+		    deferred.success(function () {
+		        parent.$.fancybox.close();
+		    });
+		});
+	});
+</script>
+
 <div id="header" class="container-fluid">
 	<div id="header-row" class="row">
 		<div id="signupform" class='col-sm-12'>

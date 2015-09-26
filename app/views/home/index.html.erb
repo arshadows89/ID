@@ -22,14 +22,153 @@
 							</ul>
 						</div>
 					</div>	
+				</div> 
+				<!-- Nav bar closes -->
+				
+				<!-- News section/side panel -->
+				<div id="header" class="container-fluid">
+					<div id="header-row" class="row paneladd">
+						<!-- News Panel -->
+						<div id="news" class='col-md-9'>
+							<div class="newstitle">
+								Fel Lord Downed Sept 23rd!
+							</div>
+							<div class="newstext">
+								A year later and we killed Fel Lord, screen shot to follow. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aut sequi, nostrum optio non nemo nam rerum. Ut vitae minima animi, dolor accusamus, tenetur molestiae obcaecati soluta impedit nihil. Minus, est! Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias natus rem nobis similique facilis ab earum repellendus consectetur aspernatur rerum, dolorum, aliquid. Molestias velit officiis saepe nostrum reprehenderit ut. Eaque.
+							</div>
+							<div class="newsdate">
+								September 20th 2014
+							</div>
+
+
+
+							<div class="newstitle">
+								Need a better construct main!
+							</div>
+							<div class="newstext">
+								Today We killed Socrethar after 392 attempts. This was mainly due to our construct tank failing every pull.  Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aut sequi, nostrum optio non nemo nam rerum. Ut vitae minima animi, dolor accusamus, tenetur molestiae obcaecati soluta impedit nihil. Minus, est! Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias natus rem nobis similique facilis ab earum repellendus consectetur aspernatur rerum, dolorum, aliquid. Molestias velit officiis saepe nostrum reprehenderit ut. Eaque. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Similique necessitatibus facere sint, debitis accusantium ipsa. Esse, libero reprehenderit doloremque cumque expedita autem obcaecati repellendus qui, atque inventore, error cupiditate vero.Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quia vero, totam ad, consequatur necessitatibus odit! Perferendis vel vitae omnis hic, reiciendis provident quidem pariatur minima autem neque qui libero, consequatur!
+							</div>
+							<%= image_tag("testscreenshot.png", :alt => "rss feed", :class => 'newsimage') %>
+							<div class="newsdate">
+								September 10th 2013
+							</div>
+						</div>
+						<!-- News Panel Closed -->
+						<div id="side-panel" class='col-md-3'>
+<a class="notice"><%= flash[:notice] if flash[:notice] %></a>
+<a class="alert"><%= flash[:alert] if flash[:alert] %></a>
+						<!-- Recruitment Panel -->
+							<div id="recruitment-panel">
+							<div id='recruitingtext'>Currently Recruiting</div>
+								<div id='DeathKnightClass' class="wowclass row">
+									<div class='col-md-4 wowclassname'>Death Knight</div>
+									<div class='col-md-8'>
+									<%= image_tag("dk_blood.jpg", :alt => "rss feed") %>
+									<%= image_tag("dk_frost.jpg", :alt => "rss feed") %>
+									<%= image_tag("dk_unholy.jpg", :alt => "rss feed") %>
+									</div>
+								</div>
+								<div id='DruidClass' class="wowclass row">
+									<div class='col-md-4 wowclassname'>Druid</div>
+									<div class='col-md-8'>
+									<%= image_tag("druid_balance.jpg", :alt => "rss feed") %>
+									<%= image_tag("druid_feral.jpg", :alt => "rss feed") %>
+									<%= image_tag("druid_guardian.jpg", :alt => "rss feed") %>
+									<%= image_tag("druid_resto.jpg", :alt => "rss feed") %>
+									</div>
+								</div>
+								<div id='HunterClass' class="wowclass row">
+									<div class='col-md-4 wowclassname'>Hunter</div>
+									<div class='col-md-8'>
+									<%= image_tag("hunter_bm.jpg", :alt => "rss feed") %>
+									<%= image_tag("hunter_marksman.jpg", :alt => "rss feed") %>
+									<%= image_tag("hunter_survival.jpg", :alt => "rss feed") %>
+									</div>
+								</div>
+								<div id='MageClass' class="wowclass row">
+									<div class='col-md-4 wowclassname'>Mage</div>
+									<div class='col-md-8'>
+									<%= image_tag("mage_arcane.jpg", :alt => "rss feed") %>
+									<%= image_tag("mage_fire.jpg", :alt => "rss feed") %>
+									<%= image_tag("mage_frost.jpg", :alt => "rss feed") %>
+									</div>
+								</div>
+								<div id='MonkClass' class="wowclass row">
+									<div class='col-md-4 wowclassname'>Monk</div>
+									<div class='col-md-8'>
+									<%= image_tag("monk_brewmaster.jpg", :alt => "rss feed") %>
+									<%= image_tag("monk_mistweaver.jpg", :alt => "rss feed") %>
+									<%= image_tag("monk_windwalker.jpg", :alt => "rss feed") %>
+									</div>
+								</div>
+								<div id='PaladinClass' class="wowclass row">
+									<div class='col-md-4 wowclassname'>Paladin</div>
+									<div class='col-md-8'>
+									<%= image_tag("paladin_holy.jpg", :alt => "rss feed") %>
+									<%= image_tag("paladin_protection.jpg", :alt => "rss feed") %>
+									<%= image_tag("paladin_retribution.jpg", :alt => "rss feed") %>
+									</div>
+								</div>
+								<div id='PriestClass' class="wowclass row">
+									<div class='col-md-4 wowclassname'>Priest</div>
+									<div class='col-md-8'>
+									<%= image_tag("priest_disc.jpg", :alt => "rss feed") %>
+									<%= image_tag("priest_holy.jpg", :alt => "rss feed") %>
+									<%= image_tag("priest_shadow.jpg", :alt => "rss feed") %>
+									</div>
+								</div>
+								<div id='RogueClass' class="wowclass row">
+									<div class='col-md-4 wowclassname'>Rogue</div>
+									<div class='col-md-8'>
+									<%= image_tag("rogue_assasination.jpg", :alt => "rss feed") %>
+									<%= image_tag("rogue_combat.jpg", :alt => "rss feed") %>
+									<%= image_tag("rogue_subtlety.jpg", :alt => "rss feed") %>
+									</div>
+								</div>
+								<div id='ShamanClass' class="wowclass row">
+									<div class='col-md-4 wowclassname'>Shaman</div>
+									<div class='col-md-8'>
+									<%= image_tag("shaman_elemental.jpg", :alt => "rss feed") %>
+									<%= image_tag("shaman_enchancement.jpg", :alt => "rss feed") %>
+									<%= image_tag("shaman_resto.jpg", :alt => "rss feed") %>
+									</div>
+								</div>
+								<div id='WarlockClass' class="wowclass row">
+									<div class='col-md-4 wowclassname'>Warlock</div>
+									<div class='col-md-8'>
+									<%= image_tag("warlock_affliction.jpg", :alt => "rss feed") %>
+									<%= image_tag("warlock_demo.jpg", :alt => "rss feed") %>
+									<%= image_tag("warlock_destro.jpg", :alt => "rss feed") %>
+									</div>
+								</div>
+								<div id='WarriorClass' class="wowclass row">
+									<div class='col-md-4 wowclassname'>Warrior</div>
+									<div class='col-md-8'>
+									<%= image_tag("warrior_arms.jpg", :alt => "rss feed") %>
+									<%= image_tag("warrior_fury.jpg", :alt => "rss feed") %>
+									<%= image_tag("warrior_prot.jpg", :alt => "rss feed") %>
+									</div>
+								</div>
+							</div>
+							<!-- Recruitment Panel Closed -->
+							<!-- Logs Panel -->
+							<div id="WarcraftLogsPanel">
+								<div id="logstext">Warcraft Logs</div>
+								<iframe src="http://www.warcraftlogs.com/guilds/recent_reports/28086/" allowtransparency="true" frameborder="0"></iframe>	
+							</div>
+							<!-- Logs Panel Closed -->
+							<!-- Youtube Panel -->
+							<div id="YoutubePanel">
+							<div id="youtubetext">Latest Video</div>
+								<iframe src="https://www.youtube.com/embed/UHHXOzOBndY?list=PLmjR_jJNKIOowQQTRH7VFmjli6tIqICNi" frameborder="0" allowfullscreen></iframe>
+							</div>
+							<!-- Youtube Panel Closed -->
+						</div>
+						<!-- Side Panel Closed -->
+
+					</div>
 				</div>
-				<div>account up top...
-				news / warcraft logs / recruitment 
-				carrosel images
-				</div>
-				<a class="notice"><%= flash[:notice] if flash[:notice] %></a>
-      			<a class="alert"><%= flash[:alert] if flash[:alert] %></a>
-				<iframe src="http://www.warcraftlogs.com/guilds/recent_reports/28086/" width="245" height="140" allowtransparency="true" frameborder="0" style="margin-left: 80px;"></iframe>
+				<!-- news section/side panels closed div -->
 			</div>
 			<div id='empty' class='col-md-1'></div>
 		</div>

@@ -172,6 +172,184 @@ input.login-button {
 	display: inline-block;
 }
 
+#side-panel {
+	padding-right: 30px;
+}
+
+.paneladd {
+	padding-bottom: 30px;
+}
+
+// recruitment panel
+#recruitment-panel,
+#WarcraftLogsPanel,
+#YoutubePanel {
+	color: black;
+	border: 1px solid black;
+	margin-top: 15px;
+	border-radius: 10px;
+	box-shadow: 0px 0px 1px 0px black, 0px 3px 15px 2px black;
+	background: rgba(0, 0, 0, 0.8);
+    background-image: repeating-linear-gradient(45deg, $secondary-color-op 0%, $secondary-color-op 25%, transparent 25%, transparent 50%);
+    background-image: -webkit-repeating-linear-gradient(45deg, $secondary-color-op 0%, $secondary-color-op 25%, transparent 25%, transparent 50%);
+    background-image: -moz-repeating-linear-gradient(45deg, $secondary-color-op 0%, $secondary-color-op 25%, transparent 25%, transparent 50%);
+    background-image: -ms-repeating-linear-gradient(45deg, $secondary-color-op 0%, $secondary-color-op 25%, transparent 25%, transparent 50%);
+    background-image: -o-repeating-linear-gradient(45deg, $secondary-color-op 0%, $secondary-color-op 25%, transparent 25%, transparent 50%);
+    -webkit-background-size: 5px 5px;
+    -moz-background-size: 5px 5px;
+    -o-background-size: 5px 5px;
+    background-size: 5px 5px;
+}
+
+#recruitingtext,
+#logstext,
+#youtubetext {
+	text-align: center;
+	padding-top: 7px;
+	color: $secondary-color;
+	font-size: 25px;
+}
+
+.wowclass {
+	// padding-left: 20%;
+	text-align: center;
+	font-size: 15px;
+	padding: 5px 0;
+	display: flex;
+    align-items: center;
+}
+
+#DeathKnightClass {
+	color: #FF3232;
+	padding-top: 15px;
+}
+
+.wowclassname {
+	padding: 0;
+	text-align: left;
+	padding-left: 30px;
+	padding-right: 0px;
+}
+
+#DruidClass {
+	color: #ff8315;
+}
+
+div#DruidClass.wowclass.row div.col-md-8 img {
+	padding: 0 2px;
+}
+
+#HunterClass {
+	color: #a3d461;
+}
+
+#MageClass {
+	color: #2ea7d2;
+}
+
+#MonkClass {
+    color: #008467;
+}
+
+#PaladinClass {
+	color: #de86ae;
+}
+
+#PriestClass {
+	color: #ababab;
+}
+
+#RogueClass {
+	color: #d4cb40;
+}
+
+#ShamanClass {
+	color: #016dd9;
+}
+
+#WarlockClass {
+	color: #8a7abb;
+}
+
+#WarriorClass {
+	color: #bd9468;
+	padding-bottom: 15px;
+}
+
+div.col-md-8 img {
+	padding: 0 5px;
+}
+
+// Logs Panel
+div#WarcraftLogsPanel iframe {
+	width: 100%;
+	padding: 0 15px;
+}
+
+// Youtube Panel
+div#YoutubePanel iframe {
+	width: 100%;
+	padding: 10px 15px;
+}
+
+// News Panel
+
+#news {
+	margin-top: 15px;
+}
+
+.newstitle {
+	color: $secondary-color;
+	font-size: 16px;
+	background: rgba(0, 0, 0, 0.8);
+    background-image: repeating-linear-gradient(45deg, $secondary-color-op 0%, $secondary-color-op 25%, transparent 25%, transparent 50%);
+    background-image: -webkit-repeating-linear-gradient(45deg, $secondary-color-op 0%, $secondary-color-op 25%, transparent 25%, transparent 50%);
+    background-image: -moz-repeating-linear-gradient(45deg, $secondary-color-op 0%, $secondary-color-op 25%, transparent 25%, transparent 50%);
+    background-image: -ms-repeating-linear-gradient(45deg, $secondary-color-op 0%, $secondary-color-op 25%, transparent 25%, transparent 50%);
+    background-image: -o-repeating-linear-gradient(45deg, $secondary-color-op 0%, $secondary-color-op 25%, transparent 25%, transparent 50%);
+    -webkit-background-size: 5px 5px;
+    -moz-background-size: 5px 5px;
+    -o-background-size: 5px 5px;
+    background-size: 5px 5px;
+    -webkit-clip-path: polygon(100% 0, 100% 0%, 95% 100%, 0 100%, 0 0);
+    clip-path: polygon(100% 0, 100% 0%, 95% 100%, 0 100%, 0 0);
+    margin-bottom: 15px;
+    text-align: center;
+    font-size: 25px;
+    padding: 5px 0;
+    clear: both;
+}
+
+.newsimage {
+	width: 90%;
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.newsdate {
+	color: $primary-color;
+	float: right;
+	font-size: 12px;
+	margin: 10px 0;
+}
+
+.newstext {
+	color: $primary-color;
+	margin-bottom: 15px;
+	width: 95%;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+// alert
+.alert {
+	padding: 0;
+	margin-bottom: 0;
+	border-radius: 0;
+	border: none;
+}
 
 
 

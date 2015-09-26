@@ -47,6 +47,81 @@ $(document).ready(function() {
 	  parent.$.fancybox.close();
 	});
 
+	// alert(document.getElementsByClassName("fancybox-iframe")[0].contentWindow.location.href);
+
+	// $( "#signupformbut" ).click(function() {
+	// 	if (document.getElementsByClassName("fancybox-iframe")[0].contentWindow.location.href === "http://localhost:3000/") {
+	// 		parent.$.fancybox.close();
+	// 	};
+	// });
+
+	// $('.fancybox-iframe').contents().find("#signupformbut").click(function() {
+	// 	if (document.getElementsByClassName("fancybox-iframe")[0].contentWindow.location.href === "http://localhost:3000/") {
+	// 		parent.$.fancybox.close();
+	// 	};
+	// });
+
+	// $('.fancybox-iframe').contents().find('#signupformbut').click(function() {
+	// 	if ($('.fancybox-iframe').contents().find('#login').length > 0) {
+	// 		parent.$.fancybox.close();
+	// 	};
+	// });
+
+
+
+
 });
+
+// function formSubmitFunction() {
+// 	// alert('test')
+// 		// if (document.getElementsByClassName("fancybox-iframe")[0].contentWindow.location.href === "http://localhost:3000/") {
+// 			parent.$.fancybox.close();
+// 		// };
+// }
+
+	// $('.fancybox-iframe').contents().find('#signupformbut').click(function() {
+	// 	if ($('.fancybox-iframe').contents().find('#login').length > 0) {
+	// 		parent.$.fancybox.close();
+	// 	};
+	// });
+
+// $('.fancybox-iframe').load(function(){
+//   $(this).contents().find("#signupformbut").on('click', function(event) { alert('test'); });
+// });
+
+// 		$('.fancybox-iframe').contents().find("#signupformbut").click(function() {
+// alert(document.getElementsByClassName("fancybox-iframe")[0].contentWindow.location.href)
+// 	});
+
+	// $('.fancybox-iframe').load(function(){
+	// 	$(this).contents().find("#signupformbut").on('click', function(event) { alert('test'); });
+	// });
+
+
+
+
+
+
+
+
+
+
+
+// when button is click if iframe location = that then clock window?
+
+
+
+// document.addEventListener('DOMContentLoaded', function() {
+	// if ($('.fancybox-iframe').contents().find('#login') {
+	// 	alert("hey")
+	// });
+// });
+// alert(document.getElementsByClassName("fancybox-iframe")[0].contentWindow.location.href)
+
+// var closefancybox = parent.$.fancybox.close();
+
+
+
+
 
 
