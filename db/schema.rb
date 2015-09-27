@@ -11,10 +11,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150922165859) do
+ActiveRecord::Schema.define(version: 20150927020837) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "streams", force: :cascade do |t|
+    t.string   "text"
+    t.string   "link"
+    t.string   "streamer"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "users", force: :cascade do |t|
     t.string   "username"
@@ -27,6 +35,13 @@ ActiveRecord::Schema.define(version: 20150922165859) do
     t.string   "password_reset_token"
     t.datetime "password_reset_sent_at"
     t.string   "password_digest"
+  end
+
+  create_table "videos", force: :cascade do |t|
+    t.string   "text"
+    t.string   "link"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
 end

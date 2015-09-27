@@ -8,7 +8,39 @@
 </head>
 <body>
 
+<div id="header" class="container-fluid">
+	<div id="header-row" class="row">
+		<div id="content" class='col-md-12'>
+			<div id='empty' class='col-md-1'></div>
+			<div id="content-frame" class='col-md-10'>
+				<div id="title">
+				</div>
+				<div id="header" class="container-fluid">
+					<div id="header-row" class="row">
+						<div id='login'>
+							<%= render 'shared/login' %>
+						</div>
+						<div id="navbar" class='col-md-12'>
+							<ul id="navbarul">
+								<li class='col-md-2 hvr-box-shadow-outset'><%= link_to "Home",root_path %></li>
+								<li class='col-md-2 hvr-box-shadow-outset'><%= link_to "Forums",root_path %></li>
+								<li class='col-md-2 hvr-box-shadow-outset'><%= link_to "Videos",videos_path %></li>
+								<li class='col-md-2 hvr-box-shadow-outset'><%= link_to "Streams", streams_path %></li>
+								<li class='col-md-2 hvr-box-shadow-outset'><%= link_to "Apply",root_path %></li>
+								<li class='col-md-2 hvr-box-shadow-outset'><%= link_to "About Us",root_path %></li>
+							</ul>
+						</div>
+					</div>	
+				</div> 
+				<!-- Nav bar closes -->
+
 <%= yield %>
+
+			</div>
+			<div id='empty' class='col-md-1'></div>
+		</div>
+	</div>
+</div>
 
 </body>
 </html>

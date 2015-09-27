@@ -1,0 +1,21 @@
+Video Model
+
+Title          = text
+Video Link     = link 
+
+need to input oldest first
+
+<div id="YoutubePage" class="row">
+
+<% unless Video.all.empty? %>
+  <% Video.all.each do |vid| %>
+	<div class='col-md-4'>
+		<div id="youtubepagetext"><%= vid.text %></div>
+		<iframe src="<%= vid.link %>" frameborder="0" allowfullscreen></iframe>
+	</div>
+  <% end %>
+<% end %>
+
+
+
+</div>

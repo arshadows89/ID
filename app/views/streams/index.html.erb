@@ -1,0 +1,28 @@
+<div id='streamlist' class="row">
+<!-- 	<div class='col-md-4 twitchstream'>
+		<iframe src="http://www.twitch.tv/twopalz/embed" frameborder="0" allowfullscreen></iframe>
+	</div>
+	<div class='col-md-4 twitchstream'>
+		<iframe src="http://www.twitch.tv/lostkaz19/embed" frameborder="0" allowfullscreen></iframe>
+	</div>
+	<div class='col-md-4 twitchstream'>
+		<iframe src="http://www.twitch.tv/arshadows89/embed" frameborder="0" allowfullscreen></iframe>
+	</div>
+
+
+	<div class='col-md-4 twitchstream'>
+		<iframe src="http://www.twitch.tv/eatskagg/embed" frameborder="0" allowfullscreen></iframe>
+	</div> -->
+
+	<div class='col-md-4 twitchstream'>
+	<% unless Stream.all.empty? %>
+  <% Stream.all.each do |twitch| %>
+	<div class='col-md-4'>
+		<div id="streampagestreamer"><%= twitch.streamer %></div>
+		<div id="streampagetext"><%= twitch.text %> POV Stream</div>
+		<iframe src="<%= twitch.link %>" frameborder="0" allowfullscreen></iframe>
+	</div>
+  <% end %>
+<% end %>
+
+</div>

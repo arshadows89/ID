@@ -351,5 +351,12 @@ div#YoutubePanel iframe {
 	border: none;
 }
 
-
+// stream page
+.twitchstream iframe {
+	width: 80%;
+    height: 100%;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
 

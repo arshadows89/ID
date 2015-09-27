@@ -13,6 +13,9 @@ get "signup" => "users#new", :as => "signup"
   resources :users
   resources :sessions
   resources :password_resets
+  resources :streams
+  resources :videos
+  
 
   # get '/signin', to: 'sessions#new'
   # post '/signin', to: 'sessions#create'
