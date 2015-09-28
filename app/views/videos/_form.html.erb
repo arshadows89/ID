@@ -1,0 +1,23 @@
+<% if @video.errors.any? %>
+	<ul>
+		<% @video.errors.full_messages.each do |message| %>
+
+			 <li><%= message %></li>
+
+		<% end %>
+	</ul>
+
+<% end %>
+
+<a class="notice"><%= flash[:notice] if flash[:notice] %></a>
+
+<%= form_for @video, :html => {  :multipart => true } do |f| %>
+	
+	<%= f.text_field :text, placeholder: "Video Title" %><br />
+	<%= f.text_field :link, placeholder: "Youtube Link"  %><br />
+	<button type="button" class="formbuttons closefb">Cancel</button>
+	<%= f.submit :class => 'formbuttons submitbutton', :id => 'signupformbut'%>
+	<br />
+<br />
+
+<% end %>

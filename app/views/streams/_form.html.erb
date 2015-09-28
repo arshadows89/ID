@@ -1,0 +1,23 @@
+<% if @streamer.errors.any? %>
+	<ul>
+		<% @streamer.errors.full_messages.each do |message| %>
+
+			 <li><%= message %></li>
+
+		<% end %>
+	</ul>
+
+<% end %>
+
+<a class="notice"><%= flash[:notice] if flash[:notice] %></a>
+
+<%= form_for @streamer, :html => {  :multipart => true } do |f| %>
+	
+	<%= f.text_field :streamer, placeholder: "Streamer's Name" %><br />
+	<%= f.text_field :link, placeholder: "Stream Link"  %><br />
+	<button type="button" class="formbuttons closefb">Cancel</button>
+	<%= f.submit :class => 'formbuttons submitbutton', :id => 'signupformbut'%>
+	<br />
+<br />
+
+<% end %>

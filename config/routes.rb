@@ -15,7 +15,9 @@ get "signup" => "users#new", :as => "signup"
   resources :password_resets
   resources :streams
   resources :videos
-  
+
+
+  get 'home/closefb'
 
   # get '/signin', to: 'sessions#new'
   # post '/signin', to: 'sessions#create'

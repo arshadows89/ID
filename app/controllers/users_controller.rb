@@ -1,5 +1,7 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:edit, :update, :show, :destroy]
+  layout false
+  layout 'application', :except => :new
 
   def index
   	@user = current_user
@@ -15,6 +17,7 @@ class UsersController < ApplicationController
 
   def new
   	@user = User.new
+    render :layout => "../users/new"
   end
 
   def create
@@ -23,7 +26,7 @@ class UsersController < ApplicationController
       if @user.save
         # format.html { redirect_to :back }
        #  flash.now[:notice] = 'Account successfully created'
-       redirect_to root_path, notice: "Account successfully created"
+       redirect_to home_closefb_path, notice: "Account successfully created"
        # # #redirect to root_path and close fancybox
        # respond_to do |format|
        #   format.html { redirect_to root_path, notice: "Account successfully created" }
