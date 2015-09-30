@@ -3,7 +3,7 @@
   <% Video.all.sort_by {|vid| vid.id}.reverse.each do |vid| %>
 	<div class='col-md-4'>
 		<div id="youtubepagetext"><%= vid.text %></div>
-		<iframe src="<%= vid.link %>" frameborder="0" allowfullscreen></iframe>
+		<iframe class="videoframe" src="<%= vid.link %>" frameborder="0" allowfullscreen></iframe>
 	</div>
   <% end %>
 <% end %>

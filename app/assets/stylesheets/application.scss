@@ -18,6 +18,7 @@
 
 @import "bootstrap-sprockets";
 @import "bootstrap";
+@import url(https://fonts.googleapis.com/css?family=Merriweather);
 
 $primary-color: #333333;
 $secondary-color: rgb(225, 242, 245);
@@ -39,6 +40,19 @@ body {
     -moz-background-size: 5px 5px;
     -o-background-size: 5px 5px;
     background-size: 5px 5px;
+}
+
+html, body, .body-height {
+	height: 100% !important;
+}
+
+#header-row {
+	height: 100%;
+}
+
+.body-height-auto {
+	// height: 100% !important;
+	min-height: 100%;
 }
 
 #content-frame {
@@ -351,12 +365,36 @@ div#YoutubePanel iframe {
 	border: none;
 }
 
-// stream page
-.twitchstream iframe {
-	width: 80%;
-    height: 100%;
+// stream page + Video Page
+.streamframe,
+.videoframe {
     display: block;
     margin-left: auto;
     margin-right: auto;
 }
+
+#streampagestreamer,
+#youtubepagetext {
+	text-align: center;
+	color: $primary-color;
+	font-size: 25px;
+	padding-bottom: 6px;
+	text-decoration: underline;
+	font-family: 'Merriweather', serif;
+}
+
+#streamlist,
+#YoutubePage {
+	padding-top: 20px;
+}
+
+
+
+
+
+
+
+
+
+
 
