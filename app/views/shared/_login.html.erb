@@ -6,7 +6,7 @@
   		<%= label_tag :remember_me %>
 <% else %>
 
-	<%= form_tag(sessions_path) do %>
+	<%= form_tag(sessions_path)  do %>
 		<div id="username">
 			<%= label_tag %>
 			Username <%= text_field_tag "user[username]", nil, placeholder: 'Username' %>
@@ -16,9 +16,9 @@
 			Password <%= password_field_tag "user[password]", nil, placeholder: 'Password' %>
 		</div>
 
-		<a class="various iframe" data-fancybox-type="iframe" style="text-decoration : none" href="<%= new_user_path %>"><input type="submit" class="guildbutton" value="Sign Up" /></a>
-
 		<%= submit_tag "Login", class: 'login-button' %>
+
+		<a class="various iframe" data-fancybox-type="iframe" style="text-decoration : none" href="<%= new_user_path %>"><input type="submit" class="guildbutton" value="Sign Up" /></a>
 		
 	<% end %>
 <% end %>

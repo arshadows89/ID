@@ -35,7 +35,7 @@ class UsersController < ApplicationController
       else
         # redirect_to root_path, notice: "Failed to create an account"
         #REDIRECT TO ROOT BUT RENDER _FORM IN FANCYBOX
-        render '_form'
+        render :layout => "../users/new"
       # end
     end
   end
@@ -43,6 +43,8 @@ class UsersController < ApplicationController
   def update
   		if @user.update(user_params)
   		redirect_to @user, notice: "User successfully updated."
+    else
+      render :layout => "../users/new"
   	end
   end
 

@@ -23,7 +23,7 @@ class StreamsController < ApplicationController
   def create
   	@streamer = Stream.new(stream_params)
       if @streamer.save
-       redirect_to root_path, notice: "Stream was successfully created"
+       redirect_to streams_path, notice: "Stream was successfully created"
       else
         render '_form'
     end
@@ -47,7 +47,7 @@ class StreamsController < ApplicationController
   end
 
   def stream_params
-  	params.require(:stream).permit(:link, :streamer, :text)
+  	params.require(:stream).permit(:link, :streamer)
   end
 
 end

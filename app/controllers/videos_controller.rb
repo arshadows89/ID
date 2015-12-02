@@ -22,7 +22,7 @@ class VideosController < ApplicationController
   def create
   	@video = Video.new(video_params)
       if @video.save
-       redirect_to root_path, notice: "Video was successfully created"
+       redirect_to videos_path, notice: "Video was successfully created"
       else
         render '_form'
     end

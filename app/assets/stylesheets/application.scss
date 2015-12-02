@@ -77,12 +77,14 @@ html, body, .body-height {
 	padding-left: 35px;
 }
 
-.login-button {
+.login-button,
+.guildbutton {
 	background-color: $primary-color;
 	text-decoration: none;
 }
 
-a.login-button {
+a.login-button,
+.guildbutton {
 	text-decoration: none;
 	color: $secondary-color
 }
@@ -182,7 +184,8 @@ a.various {
 	display: inline-block;
 }
 
-input.login-button {
+input.login-button,
+.guildbutton {
 	display: inline-block;
 }
 
@@ -386,6 +389,7 @@ div#YoutubePanel iframe {
 #streamlist,
 #YoutubePage {
 	padding-top: 20px;
+	padding-bottom: 30px;
 }
 
 

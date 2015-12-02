@@ -19,5 +19,29 @@
 # To learn more, please read the Rails Internationalization guide
 # available at http://guides.rubyonrails.org/i18n.html.
 
-en:
-  hello: "Hello world"
+en:  
+  activerecord:
+    models: 
+      stream: "Stream"
+      video: "Video"
+    attributes:
+      video:
+        link: "Youtube Link"
+        text: "Video Title"
+      stream:
+        link: "Streamer's Link"
+        streamer: "Streamer's Name"
+    errors:
+      models:
+        video:
+          attributes:
+            link:
+              blank: "cannot be empty"
+            text:
+              blank: "cannot be empty"
+        streamer:
+          attributes:
+            link:
+              blank: "cannot be empty"
+            streamer:
+              blank: "cannot be empty"
