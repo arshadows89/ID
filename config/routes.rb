@@ -5,6 +5,8 @@ Rails.application.routes.draw do
 
   get 'home/index'
   root 'home#index'
+
+  get 'admin/streams'
   
 get "logout" => "sessions#destroy", :as => "logout"
 get "login" => "sessions#new", :as => "login"
@@ -15,7 +17,7 @@ get "signup" => "users#new", :as => "signup"
   resources :password_resets
   resources :streams
   resources :videos
-
+  resources :admin
 
   get 'home/closefb'
 

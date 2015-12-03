@@ -37,7 +37,7 @@ class StreamsController < ApplicationController
 
   def destroy
   	@streamer.destroy
-  	redirect_to root_path, notice: "Stream was deleted."
+  	redirect_to admin_streams_path, notice: "Stream was deleted."
   end
 
   private

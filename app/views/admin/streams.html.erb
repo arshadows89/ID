@@ -1,0 +1,31 @@
+<div id='adminnoticediv'>
+	<a class="notice"><%= flash[:notice] if flash[:notice] %></a>
+	<a class="alert"><%= flash[:alert] if flash[:alert] %></a>
+</div>
+
+<div id="adminstreamheader">Admin Stream's Controlls</div>
+	<div class='hvr-grow lasthvrgrow'>
+		<a class="various iframe" data-fancybox-type="iframe" style="text-decoration : none" href="<%= new_stream_path %>"><input type="submit" class="guildbutton" value="Add Streamer" /></a>
+	</div>
+	<div id="adminstreamerlist">
+      <% @streamer.reverse.each do |admin| %>
+          <div id='adminstreamername'><%= admin.streamer %></div>
+          <%= link_to 'Edit', edit_stream_path(admin) %>
+          <div id="adminstreamerdelete"><%= link_to 'Delete', admin, method: :delete, data: { confirm: 'Are you sure?' } %></div>
+          <br>
+      <% end %>
+    </div>
+
+
+Add Streamer 
+
+When streamer create it shows sucessfull in notice and failure in alert
+	- fix user to do this
+
+Show streamer List, Can delete or edit streamer
+
+Need to make this page only acessable to admins
+
+need to make stream new page only accessable to admins
+
+re-add gardria
