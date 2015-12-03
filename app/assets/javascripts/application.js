@@ -30,11 +30,12 @@ $(document).ready(function() {
 		height		: '70%',
 		autoSize	: false,
 		closeClick	: false,
-		helpers : { 
-            overlay : {
-                closeClick: false
-            }
-        },
+// closes fancybox when you click outside the box
+		// helpers : { 
+  //           overlay : {
+  //               closeClick: false
+  //           }
+  //       },
         iframe : {
         	preload: false
     	},

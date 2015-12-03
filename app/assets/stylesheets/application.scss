@@ -15,7 +15,6 @@
  *= require fancybox
  */
 
-
 @import "bootstrap-sprockets";
 @import "bootstrap";
 @import url(https://fonts.googleapis.com/css?family=Merriweather);
@@ -75,6 +74,7 @@ html, body, .body-height {
 	float: right;
 	background-image: radial-gradient(circle at 0 0, rgba(204,0,0,0) 30px, $primary-color 33.3px);
 	padding-left: 35px;
+	margin-right: -2px;
 }
 
 .login-button,
@@ -90,8 +90,14 @@ a.login-button,
 }
 
 #username,
-#user-password {
+#user-password,
+.hvr-grow {
 	display: inline-block;
+	margin: 0 2.5px;
+}
+
+.lasthvrgrow {
+	margin-right: 5px;
 }
 
 #navbar {
@@ -144,6 +150,26 @@ a:active {
   box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.6);
 }
 
+/* Grow */
+.hvr-grow {
+  display: inline-block;
+  vertical-align: middle;
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
+  box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-transition-duration: 0.3s;
+  transition-duration: 0.3s;
+  -webkit-transition-property: transform;
+  transition-property: transform;
+}
+.hvr-grow:hover, .hvr-grow:focus, .hvr-grow:active {
+  -webkit-transform: scale(1.1);
+  transform: scale(1.1);
+}
+
 
 #signupform input {
 	text-align: center;
@@ -191,13 +217,37 @@ input.login-button,
 
 #side-panel {
 	padding-right: 30px;
+	text-align: center;
+	// margin-top: 15px;
 }
 
 .paneladd {
 	padding-bottom: 30px;
 }
 
+input:-webkit-autofill, 
+textarea:-webkit-autofill, 
+select:-webkit-autofill {
+    background-color: white !important;
+    background-image: none;
+    color: rgb(0, 0, 0);
+}
+input:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0px 1000px white inset;
+}
+
+.notice:hover {
+	text-decoration: none;
+	color: #337ab7;
+}
+#noticediv{
+	margin: 15px 0;
+}
+
 // recruitment panel
+#recruitment-panel {
+	margin-top: 0px !important;
+}
 #recruitment-panel,
 #WarcraftLogsPanel,
 #YoutubePanel {

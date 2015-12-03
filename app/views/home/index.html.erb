@@ -29,8 +29,10 @@
 						</div>
 						<!-- News Panel Closed -->
 						<div id="side-panel" class='col-md-3'>
-<a class="notice"><%= flash[:notice] if flash[:notice] %></a>
-<a class="alert"><%= flash[:alert] if flash[:alert] %></a>
+							<div id='noticediv'>
+								<a class="notice"><%= flash[:notice] if flash[:notice] %></a>
+								<a class="alert"><%= flash[:alert] if flash[:alert] %></a>
+							</div>
 						<!-- Recruitment Panel -->
 							<div id="recruitment-panel">
 							<div id='recruitingtext'>Currently Recruiting</div>
