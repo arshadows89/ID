@@ -7,7 +7,7 @@
   defaults = {
     min: 15,
     max: 25,
-    tolerance: 0.5,
+    tolerance: 0.25,
     truncate: true,
     width: null,
     sampleNumberOfLetters: 10,
