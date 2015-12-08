@@ -5,10 +5,10 @@
   pluginName = 'quickfit';
 
   defaults = {
-    min: 20,
+    min: 15,
     max: 25,
     tolerance: 0.02,
-    truncate: false,
+    truncate: true,
     width: null,
     sampleNumberOfLetters: 10,
     sampleFontSize: 12
