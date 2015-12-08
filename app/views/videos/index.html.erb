@@ -9,11 +9,19 @@
 
 <div id="YoutubePage" class="row">
 <% unless Video.all.empty? %>
+<% x = 1 %>
   <% Video.all.sort_by {|vid| vid.id}.reverse.each do |vid| %>
 	<div class='col-md-4'>
 		<div id="quickfit" class="youtubepagetext"><%= vid.text %></div>
 		<iframe class="videoframe" src="<%= vid.link %>" frameborder="0" allowfullscreen></iframe>
 	</div>
+	<% if x == Video.count %>
+		</div>
+	<% elsif x % 3 == 0 %>
+		</div>
+		<div id="YoutubePage" class="row">
+	<% end %>
+	<% x = x + 1 %>
   <% end %>
 <% end %>
 </div>

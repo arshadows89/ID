@@ -22,6 +22,7 @@
 
 $(document).ready(function() {
 	$('.youtubepagetext').quickfit();
+	$('.streampagestreamer').quickfit();
 	$(".various").fancybox({
 		type		: "iframe",
 		padding     : 0,
@@ -70,7 +71,7 @@ $(document).ready(function() {
 	// 	};
 	// });
 
-	$('.youtubepagetext').quickfit();
+
 
 });
 

@@ -1,10 +1,28 @@
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script src="https://rawgit.com/arshadows89/ID/master/app/assets/javascripts/jquery.quickfit.js" />
+
+<script type="text/javascript">
+  $(document).ready(function() {
+    $('.streampagestreamer').quickfit();
+  });
+</script>
+
+
 <div id='streamlist' class="row">
 	<% unless Stream.all.empty? %>
+		<% x = 1 %>
 		<% Stream.all.sort_by {|stream| stream.id}.each do |twitch| %>
-		<div class='col-md-4'>
-			<div id="streampagestreamer"><%= twitch.streamer %></div>
-			<iframe class = 'streamframe' src="<%= twitch.link %>/embed" frameborder="0" allowfullscreen></iframe>
-		</div>
+			<div class='col-md-4'>
+				<div id="quickfit" class="streampagestreamer"><%= twitch.streamer %></div>
+				<iframe class = 'streamframe' src="<%= twitch.link %>/embed" frameborder="0" allowfullscreen></iframe>
+			</div>
+			<% if x == Stream.count %>
+				</div>
+			<% elsif x % 3 == 0 %>
+				</div>
+				<div id="streamlist" class="row">
+			<% end %>
+			<% x = x + 1 %>
 		<% end %>
 	<% end %>
 </div>
