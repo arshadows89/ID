@@ -11,7 +11,7 @@
 			<a class="various iframe" data-fancybox-type="iframe" style="text-decoration : none" href="<%= new_video_path %>"><input type="submit" class="guildbutton" value="Add Video" /></a>
 		</div>
 		<div id="adminstreamerlist">
-		    <% @videos.reverse.each do |admin| %>
+		    <% @videos.all.sort.reverse.each do |admin| %>
 		        <div id='adminstreamername'><%= admin.text %></div>
 		        <a class="various iframe" data-fancybox-type="iframe" style="text-decoration : none" href="<%= edit_video_path(admin) %>">Edit</a>
 		        <div id="adminstreamerdelete"><%= link_to 'Delete', admin, method: :delete, data: { confirm: 'Are you sure?' } %></div>
@@ -31,7 +31,6 @@
 <% end %>
 
 
-fix text to scale
 
 fix youtube channel thing so latest always first???
 
