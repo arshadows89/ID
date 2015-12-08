@@ -12,7 +12,7 @@ class VideosController < ApplicationController
 
   def edit
     @video = current_video
-    render :layout => "../videos/new"
+    render :layout => "../videos/edit"
   end
 
   def new
@@ -36,7 +36,7 @@ class VideosController < ApplicationController
     if @video.update(video_params)
       redirect_to home_closefb_path, notice: "Video successfully updated."
     else
-      render :layout => "../videos/new"
+      render :layout => "../videos/edit"
     end
 
   end
@@ -57,7 +57,7 @@ class VideosController < ApplicationController
   end
 
   def current_video
-    Stream.find(params[:id])
+    Video.find(params[:id])
   end
 
 end

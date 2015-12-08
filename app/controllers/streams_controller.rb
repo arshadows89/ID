@@ -12,7 +12,7 @@ class StreamsController < ApplicationController
 
   def edit
   	@streamer = current_streamer
-    render :layout => "../streams/new"
+    render :layout => "../streams/edit"
   end
 
   def new
@@ -36,7 +36,7 @@ class StreamsController < ApplicationController
   	if @streamer.update(stream_params)
   		redirect_to home_closefb_path, notice: "Stream successfully updated."
   	else
-      render :layout => "../streams/new"
+      render :layout => "../streams/edit"
     end
 
   end
