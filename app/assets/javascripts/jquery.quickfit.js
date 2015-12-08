@@ -5,7 +5,7 @@
   pluginName = 'quickfit';
 
   defaults = {
-    min: 8,
+    min: 20,
     max: 25,
     tolerance: 0.02,
     truncate: false,
