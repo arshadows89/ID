@@ -1,25 +1,8 @@
-<!-- If not admin -->
-<%if current_user.admin == false %>
-  <div id="notadminmargin">
-    <div id="notadmin">
-      <div id="notadminbanner">
-        404 Page Not Found
-      </div>
-      <div id="notadmintext">
-        The page you were looking for was not found. It may have been moved or deleted.
-      </div>
-      <div id="notadminlink">
-       <%= link_to 'Click Here to Reload the Page', root_path %>
-      </div>
-    </div>
-  </div>
-<% end %>
-
-
-
+<!-- if loged in -->
+<% if current_user != nil %>
 <!-- If admin -->
-<% if current_user.admin %>
-  <div id="admin-icon-list">
+  <% if current_user.admin %>
+    <div id="admin-icon-list">
     <div id="admin-row" class="row">
       <div id="admin-icons" class='col-md-4 body-height'>
         <div id='icontext'>Update Stream Page</div>
@@ -27,7 +10,7 @@
       </div>
       <div id="admin-icons" class='col-md-4 body-height'>
         <div id='icontext'>Update Video Page</div>
-        <a href="/admin_update_past_work"><i class="fa fa-film fa-lg"></i></a>
+        <a href="/admin/videos"><i class="fa fa-film fa-lg"></i></a>
       </div>
       <div id="admin-icons" class='col-md-4 body-height'>
         <div id='icontext'>Update Forums</div>
@@ -49,17 +32,11 @@
 
 
 
-
-
-
-
-
-
-  <p id="notice"><%= notice %></p>
+<!-- delete this once you add it to the page -->
+    <p id="notice"><%= notice %></p>
 
   <h1>Listing Admins</h1>
 
-    <tbody>
       <% @users.reverse.each do |admin| %>
           <%= admin.username %>
           <%= link_to 'Show', admin %>
@@ -72,4 +49,12 @@
   <br>
 
   <%= link_to 'New Admin', new_admin_path %>
+
+<!-- If not admin -->
+  <% else %>
+    <%= render 'shared/noaccess' %>    
+  <% end %>
+<% else %>
+  <%= render 'shared/noaccess' %>  
 <% end %>
+

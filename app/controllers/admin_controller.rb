@@ -7,4 +7,8 @@ class AdminController < ApplicationController
   def streams
   	@streamer = Stream.all 
   end
+
+  def videos
+  	@videos = Video.all
+  end
 end

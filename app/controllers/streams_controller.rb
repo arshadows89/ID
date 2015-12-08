@@ -11,28 +11,34 @@ class StreamsController < ApplicationController
   end
 
   def edit
-  	@streamer = current_user
+  	@streamer = current_streamer
+    render :layout => "../streams/new"
   end
 
   def new
-
   	@streamer = Stream.new
-  	  	render :layout => "../streams/new"
+  	render :layout => "../streams/new"
   end
 
   def create
   	@streamer = Stream.new(stream_params)
       if @streamer.save
-       redirect_to streams_path, notice: "Stream was successfully created"
+        # respond_to do |format|
+          # format.js { render :js => "my_function();" }
+        #  end
+       redirect_to home_closefb_path, notice: "Stream was successfully created"
       else
-        render '_form'
+        render :layout => "../streams/new"
     end
   end
 
   def update
-  		if @streamer.update(stream_params)
-  		redirect_to root_path, notice: "Stream successfully updated."
-  	end
+  	if @streamer.update(stream_params)
+  		redirect_to home_closefb_path, notice: "Stream successfully updated."
+  	else
+      render :layout => "../streams/new"
+    end
+
   end
 
   def destroy
@@ -48,6 +54,10 @@ class StreamsController < ApplicationController
 
   def stream_params
   	params.require(:stream).permit(:link, :streamer)
+  end
+
+  def current_streamer
+    Stream.find(params[:id])
   end
 
 end

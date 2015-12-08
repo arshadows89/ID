@@ -91,6 +91,12 @@ a.login-button,
 	color: $secondary-color
 }
 
+input#user_username,
+input#user_password {
+	color: black;
+	border-top: solid 1px $primary-color;
+}
+
 #username,
 #user-password,
 .hvr-grow {
@@ -242,8 +248,13 @@ input:-webkit-autofill {
 	text-decoration: none;
 	color: #337ab7;
 }
-#noticediv{
+#noticediv {
 	margin: 15px 0;
+}
+
+#back-button a {
+	float: right;
+	padding-right: 20px;
 }
 
 // recruitment panel
@@ -521,6 +532,22 @@ div#YoutubePanel iframe {
 #icontext {
 	margin-bottom: -25px;
 	font: normal normal normal 14px/1 FontAwesome;
+}
+
+i.fa.fa-twitch.fa-lg {
+	color: #6441a5
+}
+
+i.fa.fa-users.fa-lg {
+	color: #FF8A62;
+}
+
+i.fa.fa-comments.fa-lg {
+	color: #FF2E21;
+}
+
+i.fa.fa-home.fa-lg {
+	color : #027DBF;
 }
 
 // Admin Stream Page
