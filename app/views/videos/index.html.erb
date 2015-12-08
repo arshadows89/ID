@@ -1,8 +1,17 @@
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script src="https://rawgit.com/chunksnbits/jquery-quickfit/master/jquery.quickfit.js" />
+
+<script type="text/javascript">
+  $(function() {
+    $('#quickfit').quickfit();
+  });
+</script>
+
 <div id="YoutubePage" class="row">
 <% unless Video.all.empty? %>
   <% Video.all.sort_by {|vid| vid.id}.reverse.each do |vid| %>
 	<div class='col-md-4'>
-		<div id="youtubepagetext"><%= vid.text %></div>
+		<div id="quickfit" class="youtubepagetext"><%= vid.text %></div>
 		<iframe class="videoframe" src="<%= vid.link %>" frameborder="0" allowfullscreen></iframe>
 	</div>
   <% end %>

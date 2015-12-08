@@ -440,11 +440,12 @@ div#YoutubePanel iframe {
 }
 
 #streampagestreamer,
-#youtubepagetext {
+.youtubepagetext {
 	text-align: center;
+	white-space:nowrap;
 	color: $primary-color;
-	font-size: 25px;
-	padding-bottom: 6px;
+	// font-size: 25px;
+	padding: 6px 0;
 	text-decoration: underline;
 	font-family: 'Merriweather', serif;
 }
