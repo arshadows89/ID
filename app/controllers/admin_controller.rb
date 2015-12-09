@@ -11,4 +11,8 @@ class AdminController < ApplicationController
   def videos
   	@videos = Video.all
   end
+
+  def home
+
+  end
 end
