@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   get 'admin/streams'
   get 'admin/videos'
   get 'admin/home'
+  get 'admin/recruitment'
   
 get "logout" => "sessions#destroy", :as => "logout"
 get "login" => "sessions#new", :as => "login"

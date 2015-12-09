@@ -1,0 +1,71 @@
+<!-- if loged in -->
+<% if current_user != nil %>
+<!-- If admin -->
+	<% if current_user.admin %>
+		<div id="recruitmenttitle">Recruitment Icons</div>
+		<% Recruitmentclass.all.each do |wowclass| %>
+			<div id="recruitmentclasstitle">
+				<%= wowclass.wowclass %>
+			</div>
+			<% Recruitmentclass.find(wowclass.id).recruitments.all.each do |wowclassspec| %>
+				<div id="recruitmentspec">
+					<%= wowclassspec.spec %>
+					<form>
+    					<input id='question' type="checkbox" name=<%= wowclassspec.spec + "wowspec" %> value="true" 
+    					checked 
+    					> Currently Recruiting?
+					</form>
+					 <script>
+					//   $(document).ready(function(){
+					//     $("#update_recruitment").submit(function(){
+					//       if($('input[name="wowspec"]:checked').val() === 'undefined'){
+    	// 					var recruitingyn = false
+					// 	  } else if (typeof $('input[name="wowspec"]:checked').val() === true){
+					// 		var recruitingyn = true	
+					// 	  };
+					//       $.post( "/recruitmentclasses/<%= wowclassspec.id %>/recruitment", { recruitment: {recruiting: recruitingyn} }, function() {}, "json" )
+					//     });
+					//    });
+					//   </script>
+
+				</div>
+			<% end %>
+		<% end %>
+		
+		<div id="back-button">
+			<%= link_to "Back", admin_home_path %>
+		</div>
+
+<!-- If not admin -->
+	<% else %>
+		<%= render 'shared/noaccess' %>	   
+	<% end %>
+<% else %>
+	<%= render 'shared/noaccess' %>	 
+<% end %>
+
+
+
+
+
+need a form for so when it submits, it submits json one also...
+
+
+
+
+everything set to true (so images shouldnt be sat)
+
+
+
+Recruitment
+ - maybe on off switch for classes we recruiting???
+  Rogue
+    <!-- Combat <checked off> sub <not checked> ass <not checked> -->
+    checked off means we are recruiting... should be visable
+    not checked off should be slightly fade / transparent
+
+  -spec same name as picture so if we are recruiting i change it   to _sat to make it saturated ext...
+  - when admin wants to update its a simple if... dk_unholy then say Unholy DK for admin to understand what it means...
+
+Update home page once finished
+  home page might want to take the class icons and put it in a col-12 to preven it from dropping down if no room

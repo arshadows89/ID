@@ -11,10 +11,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151202221532) do
+ActiveRecord::Schema.define(version: 20151209211301) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "recruitmentclasses", force: :cascade do |t|
+    t.string "wowclass"
+  end
+
+  create_table "recruitments", force: :cascade do |t|
+    t.string  "spec"
+    t.boolean "recruiting"
+    t.integer "recruitmentclass_id"
+  end
 
   create_table "streams", force: :cascade do |t|
     t.string   "text"

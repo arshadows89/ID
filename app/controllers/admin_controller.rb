@@ -15,4 +15,8 @@ class AdminController < ApplicationController
   def home
 
   end
+
+  def recruitment
+    @wowclassspec = Recruitment.new
+  end
 end

@@ -16,12 +16,14 @@
         <a href="/admin/videos"><i class="fa fa-youtube"></i></a>
       </div>
       <div id="admin-icons" class='col-md-4 body-height'>
-        <div id='icontext'>Update Recruitment Icons</div>
-        <a href="/admin_update_current_work_home"><i><%= image_tag("wowicon.png", :class => "wowicon", :alt => "rss feed") %></i></a>
+        <div id='icontext' class="recruiticon">Update Recruitment Icons</div>
+        <a href="/admin/recruitment"><i><%= image_tag("wowicon.png", :class => "wowicon", :alt => "rss feed") %></i></a>
       </div>
     </div>
   </div>  
-
+    <div id="back-button">
+      <%= link_to "Back", admin_index_path %>
+    </div>
 
 <!-- If not admin -->
   <% else %>
@@ -31,12 +33,17 @@
   <%= render 'shared/noaccess' %>  
 <% end %>
 
-update recruitment classes
-wowicon.png
+Even them out
+  - some squares are bigger...
+
+News
+ - add new news (need database)
+ - if exceeds 5 news create a new home page
+
+Video
+ - Edit video only (no add)
+ - need really good regex so people dont fuck up
+ - should give good instructions
 
 
-
-update news
-fa-newspaper-o 
-gray
-
+home page might want to take the class icons and put it in a col-12 to preven it from dropping down if no room

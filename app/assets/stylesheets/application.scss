@@ -563,6 +563,10 @@ i.fa.fa-newspaper-o {
 	width: 28%;
 }
 
+.recruiticon {
+	margin-bottom: 0 !important;
+}
+
 // Admin Stream Page
 
 #adminstreamheader {
@@ -592,3 +596,23 @@ i.fa.fa-newspaper-o {
 	padding-right: 10px;
 	text-align: right;
 }
+
+// Admin/Recruitment Page
+#recruitmentspec,
+#recruitmentclasstitle {
+	color: $primary-color;
+}
+
+#recruitmenttitle {
+	font-size: 36px;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    text-align: center;
+    color: $primary-color;
+}
+
+#recruitmentspec {
+	display: inline-block;
+}
+
+
