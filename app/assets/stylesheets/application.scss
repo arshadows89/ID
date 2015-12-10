@@ -253,6 +253,7 @@ input:-webkit-autofill {
 }
 
 #back-button a {
+	clear: right;
 	float: right;
 	padding-right: 20px;
 }
@@ -598,12 +599,11 @@ i.fa.fa-newspaper-o {
 }
 
 // Admin/Recruitment Page
-#recruitmentspec,
-#recruitmentclasstitle {
+#recruitmentpage {
 	color: $primary-color;
 }
 
-#recruitmenttitle {
+#recruitmentheader {
 	font-size: 36px;
     margin-top: 20px;
     margin-bottom: 10px;
@@ -614,5 +614,26 @@ i.fa.fa-newspaper-o {
 #recruitmentspec {
 	display: inline-block;
 }
+#recruitmentpage table {
+	margin: 0 auto;
+	border-collapse: collapse;
+	margin: 20px 0;
+    td, th {
+    	padding: 3px 8px;
+    	border: solid 1px #CCC;
+    }
+    td.price {
+    	text-align: right; 
+    }
+}
+
+#recruitmentpage input[type="submit"] {
+	float: right;
+}
+
+#recruitmenthelp {
+	margin-left: 30px;
+}
+
 
 

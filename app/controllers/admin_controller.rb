@@ -13,10 +13,13 @@ class AdminController < ApplicationController
   end
 
   def home
+  end
 
+  def playlist
   end
 
   def recruitment
+    @recruitments = Recruitment.all
     @wowclassspec = Recruitment.new
   end
 end

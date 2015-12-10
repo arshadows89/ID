@@ -29,27 +29,6 @@
     </div>
   </div>  
 
-
-
-
-<!-- delete this once you add it to the page -->
-    <p id="notice"><%= notice %></p>
-
-  <h1>Listing Admins</h1>
-
-      <% @users.reverse.each do |admin| %>
-          <%= admin.username %>
-          <%= link_to 'Show', admin %>
-          <%= link_to 'Edit', edit_admin_path(admin) %>
-          <%= link_to 'Destroy', admin, method: :delete, data: { confirm: 'Are you sure?' } %>
-          <br>
-      <% end %>
-
-
-  <br>
-
-  <%= link_to 'New Admin', new_admin_path %>
-
 <!-- If not admin -->
   <% else %>
     <%= render 'shared/noaccess' %>    

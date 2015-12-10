@@ -3,7 +3,7 @@
 <!-- If admin -->
   <% if current_user.admin %>
 
-
+<h1> this is the procuts index page</h1>
 
   <div id="admin-icon-list">
     <div id="admin-row" class="row">
@@ -13,7 +13,7 @@
       </div>
       <div id="admin-icons" class='col-md-4 body-height'>
         <div id='icontext'>Update Youtube Playlist</div>
-        <a href="/admin/videos"><i class="fa fa-youtube"></i></a>
+        <a href="/admin/playlist"><i class="fa fa-youtube"></i></a>
       </div>
       <div id="admin-icons" class='col-md-4 body-height'>
         <div id='icontext' class="recruiticon">Update Recruitment Icons</div>
@@ -33,8 +33,8 @@
   <%= render 'shared/noaccess' %>  
 <% end %>
 
-Even them out
-  - some squares are bigger...
+
+
 
 News
  - add new news (need database)
@@ -46,4 +46,3 @@ Video
  - should give good instructions
 
 
-home page might want to take the class icons and put it in a col-12 to preven it from dropping down if no room

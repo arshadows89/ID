@@ -35,96 +35,21 @@
 							</div>
 						<!-- Recruitment Panel -->
 							<div id="recruitment-panel">
-							<div id='recruitingtext'>Currently Recruiting</div>
-								<div id='DeathKnightClass' class="wowclass row">
-									<div class='col-md-4 wowclassname'>Death Knight</div>
-									<div class='col-md-8'>
-									<%= image_tag("dk_blood.jpg", :alt => "rss feed") %>
-									<%= image_tag("dk_frost.jpg", :alt => "rss feed") %>
-									<%= image_tag("dk_unholy.jpg", :alt => "rss feed") %>
+								<div id='recruitingtext'>Currently Recruiting</div>
+								<% Recruitmentclass.all.each do |wowclass| %>
+									<div id='<%= wowclass.wowclass.delete(' ') %>Class' class="wowclass row">
+										<div class='col-md-4 wowclassname'><%= wowclass.wowclass %></div>
+										<div class='col-md-8'>
+										<% Recruitmentclass.find(wowclass.id).recruitments.all.sort.each do |recruitment| %>
+											<% if recruitment.recruiting == true %>
+												<%= image_tag(wowclass.wowclass.gsub(" ","_").downcase + '_' + recruitment.spec.gsub(' ','_') + '.jpg', :alt => "rss feed") %>
+											<% elsif recruitment.recruiting == false %>
+												<%= image_tag(wowclass.wowclass.gsub(" ","_").downcase + '_' + recruitment.spec.gsub(' ','_') + '_sat.jpg', :alt => "rss feed") %>
+											<% end %>		
+										<% end %>
+										</div>
 									</div>
-								</div>
-								<div id='DruidClass' class="wowclass row">
-									<div class='col-md-4 wowclassname'>Druid</div>
-									<div class='col-md-8'>
-									<%= image_tag("druid_balance.jpg", :alt => "rss feed") %>
-									<%= image_tag("druid_feral.jpg", :alt => "rss feed") %>
-									<%= image_tag("druid_guardian.jpg", :alt => "rss feed") %>
-									<%= image_tag("druid_resto.jpg", :alt => "rss feed") %>
-									</div>
-								</div>
-								<div id='HunterClass' class="wowclass row">
-									<div class='col-md-4 wowclassname'>Hunter</div>
-									<div class='col-md-8'>
-									<%= image_tag("hunter_bm.jpg", :alt => "rss feed") %>
-									<%= image_tag("hunter_marksman.jpg", :alt => "rss feed") %>
-									<%= image_tag("hunter_survival.jpg", :alt => "rss feed") %>
-									</div>
-								</div>
-								<div id='MageClass' class="wowclass row">
-									<div class='col-md-4 wowclassname'>Mage</div>
-									<div class='col-md-8'>
-									<%= image_tag("mage_arcane.jpg", :alt => "rss feed") %>
-									<%= image_tag("mage_fire.jpg", :alt => "rss feed") %>
-									<%= image_tag("mage_frost.jpg", :alt => "rss feed") %>
-									</div>
-								</div>
-								<div id='MonkClass' class="wowclass row">
-									<div class='col-md-4 wowclassname'>Monk</div>
-									<div class='col-md-8'>
-									<%= image_tag("monk_brewmaster.jpg", :alt => "rss feed") %>
-									<%= image_tag("monk_mistweaver.jpg", :alt => "rss feed") %>
-									<%= image_tag("monk_windwalker.jpg", :alt => "rss feed") %>
-									</div>
-								</div>
-								<div id='PaladinClass' class="wowclass row">
-									<div class='col-md-4 wowclassname'>Paladin</div>
-									<div class='col-md-8'>
-									<%= image_tag("paladin_holy.jpg", :alt => "rss feed") %>
-									<%= image_tag("paladin_protection.jpg", :alt => "rss feed") %>
-									<%= image_tag("paladin_retribution.jpg", :alt => "rss feed") %>
-									</div>
-								</div>
-								<div id='PriestClass' class="wowclass row">
-									<div class='col-md-4 wowclassname'>Priest</div>
-									<div class='col-md-8'>
-									<%= image_tag("priest_disc.jpg", :alt => "rss feed") %>
-									<%= image_tag("priest_holy.jpg", :alt => "rss feed") %>
-									<%= image_tag("priest_shadow.jpg", :alt => "rss feed") %>
-									</div>
-								</div>
-								<div id='RogueClass' class="wowclass row">
-									<div class='col-md-4 wowclassname'>Rogue</div>
-									<div class='col-md-8'>
-									<%= image_tag("rogue_assasination.jpg", :alt => "rss feed") %>
-									<%= image_tag("rogue_combat.jpg", :alt => "rss feed") %>
-									<%= image_tag("rogue_subtlety.jpg", :alt => "rss feed") %>
-									</div>
-								</div>
-								<div id='ShamanClass' class="wowclass row">
-									<div class='col-md-4 wowclassname'>Shaman</div>
-									<div class='col-md-8'>
-									<%= image_tag("shaman_elemental.jpg", :alt => "rss feed") %>
-									<%= image_tag("shaman_enchancement.jpg", :alt => "rss feed") %>
-									<%= image_tag("shaman_resto.jpg", :alt => "rss feed") %>
-									</div>
-								</div>
-								<div id='WarlockClass' class="wowclass row">
-									<div class='col-md-4 wowclassname'>Warlock</div>
-									<div class='col-md-8'>
-									<%= image_tag("warlock_affliction.jpg", :alt => "rss feed") %>
-									<%= image_tag("warlock_demo.jpg", :alt => "rss feed") %>
-									<%= image_tag("warlock_destro.jpg", :alt => "rss feed") %>
-									</div>
-								</div>
-								<div id='WarriorClass' class="wowclass row">
-									<div class='col-md-4 wowclassname'>Warrior</div>
-									<div class='col-md-8'>
-									<%= image_tag("warrior_arms.jpg", :alt => "rss feed") %>
-									<%= image_tag("warrior_fury.jpg", :alt => "rss feed") %>
-									<%= image_tag("warrior_prot.jpg", :alt => "rss feed") %>
-									</div>
-								</div>
+								<% end %>
 							</div>
 							<!-- Recruitment Panel Closed -->
 							<!-- Logs Panel -->
