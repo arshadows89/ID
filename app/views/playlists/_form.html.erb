@@ -3,7 +3,6 @@
 <!-- If admin -->
   <% if current_user.admin %>
 
-
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
@@ -11,7 +10,7 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
 
 <style>
-	/*
+  /*
  *= require_tree .
  *= require_self
  *= require fancybox
@@ -29,10 +28,10 @@ $fourth-color: 496F75;
 $black-color: 313536;*/
 
 body {
-	margin: 0 auto;
-	color: 313536;
-	font-size: 16px;
-	background: rgba(0, 0, 0, 0.8);
+  margin: 0 auto;
+  color: 313536;
+  font-size: 16px;
+  background: rgba(0, 0, 0, 0.8);
     background-image: repeating-linear-gradient(45deg, rgba(225, 242, 245, 0.05) 0%, rgba(225, 242, 245, 0.05) 25%, transparent 25%, transparent 50%);
     background-image: -webkit-repeating-linear-gradient(45deg, rgba(225, 242, 245, 0.05) 0%, rgba(225, 242, 245, 0.05) 25%, transparent 25%, transparent 50%);
     background-image: -moz-repeating-linear-gradient(45deg, rgba(225, 242, 245, 0.05) 0%, rgba(225, 242, 245, 0.05) 25%, transparent 25%, transparent 50%);
@@ -45,70 +44,70 @@ body {
 }
 
 html, body, .body-height {
-	height: 100% !important;
+  height: 100% !important;
 }
 
 #header-row {
-	height: 100%;
+  height: 100%;
 }
 
 .body-height-auto {
-	// height: 100% !important;
-	min-height: 100%;
+  // height: 100% !important;
+  min-height: 100%;
 }
 
 #content-frame {
-	padding: 0;
-	background-color: white;
+  padding: 0;
+  background-color: white;
     border: 1px solid #5c5c5c;
-	border-top: 1px solid #999;
+  border-top: 1px solid #999;
     box-shadow: 0px 0px 1px 0px black, 0px 3px 15px 2px black;
 }
 
 #title {
-	height: 140px;
-	text-align: center;
-	position: relative;
-	background-image: url("testguildlogo.png");
-	background-position: center;
+  height: 140px;
+  text-align: center;
+  position: relative;
+  background-image: url("testguildlogo.png");
+  background-position: center;
 }
 
 #login {
-	float: right;
-	background-image: radial-gradient(circle at 0 0, rgba(204,0,0,0) 30px, $primary-color 33.3px);
-	padding-left: 35px;
+  float: right;
+  background-image: radial-gradient(circle at 0 0, rgba(204,0,0,0) 30px, $primary-color 33.3px);
+  padding-left: 35px;
 }
 
 .login-button {
-	background-color: $primary-color;
-	text-decoration: none;
+  background-color: $primary-color;
+  text-decoration: none;
 }
 
 a.login-button {
-	text-decoration: none;
-	color: $secondary-color
+  text-decoration: none;
+  color: $secondary-color
 }
 
 
 #signupform input {
-	text-align: center;
-	margin: 0 auto;
-	display: block;
+  text-align: center;
+  margin: 0 auto;
+  display: block;
 }
 
 #signupform {
-	margin: 0 auto;
-	text-align: center;
-	position: absolute;
+  margin: 0 auto;
+  text-align: center;
+  position: absolute;
     width: 500px;
     height: 435px;
     z-index: 15;
     top: 50%;
     left: 50%;
     margin: -217.5px 0 0 -250px;
-	background-color: white;
+  background-color: white;
     border: 1px solid #5c5c5c;
-	border-top: 1px solid #999;
+  border-top: 1px solid #999;
     box-shadow: 0px 0px 1px 0px black, 0px 3px 15px 2px black;
 }
 #signupformtext {
@@ -122,62 +121,72 @@ a.login-button {
 }
 
 input.formbuttons.submitbutton {
-	display: inline-block !important;
+  display: inline-block !important;
 }
 
 button.formbuttons.closefb {
-	display: inline-block;
+  display: inline-block;
 }
 
 form.form-horizontal {
-	display: inline;
+  display: inline;
 }
 
 a.various {
-	display: inline-block;
+  display: inline-block;
 }
 
 input.login-button {
-	display: inline-block;
+  display: inline-block;
 }
 
 #side-panel {
-	padding-right: 30px;
+  padding-right: 30px;
 }
 
 .paneladd {
-	padding-bottom: 30px;
+  padding-bottom: 30px;
 }
 
 ul {
-	list-style-type: decimal;
-	padding: 0;
-	color: red;
-	text-align: left;
-	padding-left: 30px;
+  list-style-type: decimal;
+  padding: 0;
+  color: red;
+  text-align: left;
+  padding-left: 30px;
+}
+
+#youtubeplaylisttext {
+  text-align: left;
+  font-size: 12px;
 }
 </style>
 
-<% if @streamer.errors.any? %>
-	<ul>
-		<% @streamer.errors.full_messages.each do |message| %>
+<div id="youtubeplaylisttext">Go to playlists and click share then embeded to get the correct link.</div>
+<div id="youtubeplaylisttext">example of correct format: https://www.youtube.com/embed/videoseries?list=PLWT-zYoWpS5YoNgUPPF7Igzf_t_sRequt&amp;showinfo=0</div>
 
-			 <li><%= message %></li>
 
-		<% end %>
-	</ul>
+<% if @playlist.errors.any? %>
+  <ul>
+    <% @playlist.errors.full_messages.each do |message| %>
 
+       <li><%= message %></li>
+
+    <% end %>
+  </ul>
 <% end %>
+
 
 <a class="notice"><%= flash[:notice] if flash[:notice] %></a>
 
-<%= form_for @streamer, :html => {  :autocomplete => :off, :multipart => true } do |f| %>
-	
-	<%= f.text_field :streamer, placeholder: "Streamer's Name" %><br />
-	<%= f.text_field :link, placeholder: "Stream Link"  %><br />
-	<button onclick="parent.$.fancybox.close();" type="button" class="formbuttons closefb">Cancel</button>
-	<%= f.submit :class => 'formbuttons submitbutton', :id => 'signupformbut'%>
-	<br />
+
+
+
+<%= form_for Playlist.find(1), :html => {  :autocomplete => :off} do |f| %>
+  <%= f.text_field :link, placeholder: "Youtube link"  %><br />
+  <button onclick="parent.$.fancybox.close();" type="button" class="formbuttons closefb">Cancel</button>
+  <%= f.submit :class => 'formbuttons submitbutton', :id => 'signupformbut'%>
+  <br />
 <br />
 
 <% end %>
@@ -189,3 +198,4 @@ ul {
 <% else %>
   <%= render 'shared/noaccess' %>  
 <% end %>
+

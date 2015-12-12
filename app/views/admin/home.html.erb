@@ -3,8 +3,6 @@
 <!-- If admin -->
   <% if current_user.admin %>
 
-<h1> this is the procuts index page</h1>
-
   <div id="admin-icon-list">
     <div id="admin-row" class="row">
       <div id="admin-icons" class='col-md-4 body-height'>
@@ -13,7 +11,7 @@
       </div>
       <div id="admin-icons" class='col-md-4 body-height'>
         <div id='icontext'>Update Youtube Playlist</div>
-        <a href="/admin/playlist"><i class="fa fa-youtube"></i></a>
+        <a class="various iframe" data-fancybox-type="iframe" style="text-decoration : none" href="<%= edit_playlist_path(1) %>"><i class="fa fa-youtube"></i></a>
       </div>
       <div id="admin-icons" class='col-md-4 body-height'>
         <div id='icontext' class="recruiticon">Update Recruitment Icons</div>
@@ -39,10 +37,5 @@
 News
  - add new news (need database)
  - if exceeds 5 news create a new home page
-
-Video
- - Edit video only (no add)
- - need really good regex so people dont fuck up
- - should give good instructions
 
 

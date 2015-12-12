@@ -13,10 +13,9 @@ class AdminController < ApplicationController
   end
 
   def home
+    @playlist = Playlist.find(1)
   end
 
-  def playlist
-  end
 
   def recruitment
     @recruitments = Recruitment.all

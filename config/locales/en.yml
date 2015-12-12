@@ -24,6 +24,7 @@ en:
     models: 
       stream: "Stream"
       video: "Video"
+      playlist: "Youtube Playlist"
     attributes:
       video:
         link: "Youtube Link"
@@ -31,8 +32,14 @@ en:
       stream:
         link: "Streamer's Link"
         streamer: "Streamer's Name"
+      playlist:
+        link: "Youtube Playlist link"
     errors:
       models:
+        playlist:
+          attributes:
+            link:
+              blank: "cannot be empty"
         video:
           attributes:
             link:

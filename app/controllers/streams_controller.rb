@@ -38,7 +38,6 @@ class StreamsController < ApplicationController
   	else
       render :layout => "../streams/edit"
     end
-
   end
 
   def destroy
