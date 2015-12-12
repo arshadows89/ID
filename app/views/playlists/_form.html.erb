@@ -179,10 +179,7 @@ ul {
 
 <a class="notice"><%= flash[:notice] if flash[:notice] %></a>
 
-
-
-
-<%= form_for Playlist.find(1), :html => {  :autocomplete => :off} do |f| %>
+<%= form_for @playlist, :html => {  :autocomplete => :off} do |f| %>
   <%= f.text_field :link, placeholder: "Youtube link"  %><br />
   <button onclick="parent.$.fancybox.close();" type="button" class="formbuttons closefb">Cancel</button>
   <%= f.submit :class => 'formbuttons submitbutton', :id => 'signupformbut'%>
