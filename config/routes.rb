@@ -37,6 +37,7 @@ get "signup" => "users#new", :as => "signup"
   resources :password_resets
   resources :streams
   resources :videos
+  resources :homepage, only: [:show]
 
   get 'home/closefb'
 

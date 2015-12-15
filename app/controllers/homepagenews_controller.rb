@@ -16,7 +16,27 @@ class HomepagenewsController < ApplicationController
   def create
   	@homepagenew = Homepagenew.new(homepagenews_params)
       if @homepagenew.save
-       redirect_to home_closefb_path, notice: "News section was successfully created"
+        xid = 1
+        x = 1
+        Homepagenew.all.sort.reverse.each do |i|
+        i.update(:homepage_id => xid)
+          if x % 5 == 0
+           xid += 1
+          end
+        x += 1
+        end
+        if Homepage.count != (Homepagenew.count / 5.to_f).ceil
+          if Homepage.count > (Homepagenew.count / 5.to_f).ceil
+            while Homepage.count != (Homepagenew.count / 5.to_f).ceil do
+              Homepage.find(Homepage.count).destroy
+            end
+          elsif Homepage.count < (Homepagenew.count / 5.to_f).ceil
+            while Homepage.count != (Homepagenew.count / 5.to_f).ceil do
+              Homepage.create(:id => (Homepage.count + 1))
+            end
+          end
+        end
+        redirect_to home_closefb_path, notice: "News section was successfully created"
       else
         render :layout => "../homepagenews/new"
     end
@@ -32,6 +52,26 @@ class HomepagenewsController < ApplicationController
 
   def destroy
   	@homepagenew.destroy
+    xid = 1
+    x = 1
+    Homepagenew.all.sort.reverse.each do |i|
+    i.update(:homepage_id => xid)
+    if x % 5 == 0
+    xid += 1
+    end
+    x +=1
+    end
+    if Homepage.count != (Homepagenew.count / 5.to_f).ceil
+      if Homepage.count > (Homepagenew.count / 5.to_f).ceil
+        while Homepage.count != (Homepagenew.count / 5.to_f).ceil do
+          Homepage.find(Homepage.count).destroy
+        end
+      elsif Homepage.count < (Homepagenew.count / 5.to_f).ceil
+        while Homepage.count != (Homepagenew.count / 5.to_f).ceil do
+          Homepage.create(:id => (Homepage.count + 1))
+        end
+      end
+    end
   	redirect_to admin_news_path, notice: "News section was deleted."
   end
 
@@ -49,3 +89,4 @@ class HomepagenewsController < ApplicationController
     Homepagenew.find(params[:id])
   end
 end
+

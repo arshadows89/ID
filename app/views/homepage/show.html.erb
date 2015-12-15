@@ -4,7 +4,7 @@
 	<div id="header-row" class="row paneladd">
 		<!-- News Panel -->
 		<div id="news" class='col-md-9'>
-			<% Homepagenew.where(homepage_id: 1).all.sort.reverse.each do |news_section| %>
+			<% Homepagenew.where(homepage_id: @homepage).all.sort.reverse.each do |news_section| %>
 				<div class="newstitle">
 					<%= news_section.title %>
 				</div>
@@ -17,11 +17,28 @@
 			<% end %>
 			<div id='homepagelinks'>
 				<% if Homepage.count > 10 %>
-				 	<% Homepage.take(9).each do |x| %>
-						<%= link_to x.id, homepage_path(x.id) %>
+					<%if @homepage.id <= 5%>
+					 	<% Homepage.take(9).each do |x| %>
+							<%= link_to x.id, homepage_path(x.id) %>
+						<% end %>
+						...
+						<%= link_to Homepage.last.id, homepage_path(Homepage.last.id) %>
+					<% elsif @homepage.id > ((Homepage.last.id) - 5)%>
+						...
+						<%= link_to Homepage.first.id, homepage_path(Homepage.first.id) %>
+						...
+						<% Homepage.last(9).each do |x| %>
+							<%= link_to x.id, homepage_path(x.id) %>
+						<% end %>
+					<% else %>
+						<%= link_to Homepage.first.id, homepage_path(Homepage.first.id) %>
+						...
+					 	<% Homepage.where(:id =>(@homepage.id - 4)..(@homepage.id + 4)).each do |x| %>
+							<%= link_to x.id, homepage_path(x.id) %>
+						<% end %>
+						...
+						<%= link_to Homepage.last.id, homepage_path(Homepage.last.id) %>
 					<% end %>
-					...
-					<%= link_to Homepage.last.id, homepage_path(Homepage.last.id) %>
 				<% else %>
 					<% Homepage.all.each do |x| %>
 						<%= link_to x.id, homepage_path(x.id) %>
