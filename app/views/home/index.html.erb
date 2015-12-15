@@ -4,28 +4,17 @@
 					<div id="header-row" class="row paneladd">
 						<!-- News Panel -->
 						<div id="news" class='col-md-9'>
-							<div class="newstitle">
-								Fel Lord Downed Sept 23rd!
-							</div>
-							<div class="newstext">
-								A year later and we killed Fel Lord, screen shot to follow. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aut sequi, nostrum optio non nemo nam rerum. Ut vitae minima animi, dolor accusamus, tenetur molestiae obcaecati soluta impedit nihil. Minus, est! Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias natus rem nobis similique facilis ab earum repellendus consectetur aspernatur rerum, dolorum, aliquid. Molestias velit officiis saepe nostrum reprehenderit ut. Eaque.
-							</div>
-							<div class="newsdate">
-								September 20th 2014
-							</div>
-
-
-
-							<div class="newstitle">
-								Need a better construct main!
-							</div>
-							<div class="newstext">
-								Today We killed Socrethar after 392 attempts. This was mainly due to our construct tank failing every pull.  Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aut sequi, nostrum optio non nemo nam rerum. Ut vitae minima animi, dolor accusamus, tenetur molestiae obcaecati soluta impedit nihil. Minus, est! Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias natus rem nobis similique facilis ab earum repellendus consectetur aspernatur rerum, dolorum, aliquid. Molestias velit officiis saepe nostrum reprehenderit ut. Eaque. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Similique necessitatibus facere sint, debitis accusantium ipsa. Esse, libero reprehenderit doloremque cumque expedita autem obcaecati repellendus qui, atque inventore, error cupiditate vero.Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quia vero, totam ad, consequatur necessitatibus odit! Perferendis vel vitae omnis hic, reiciendis provident quidem pariatur minima autem neque qui libero, consequatur!
-							</div>
-							<%= image_tag("testscreenshot.png", :alt => "rss feed", :class => 'newsimage') %>
-							<div class="newsdate">
-								September 10th 2013
-							</div>
+							<% Homepagenew.all.sort.reverse.each do |news_section| %>
+								<div class="newstitle">
+									<%= news_section.title %>
+								</div>
+								<div class="newstext">
+									<%= news_section.news %>
+								</div>
+								<div class="newsdate">
+									<%= news_section.created_at.strftime("%B %d, %Y") %>
+								</div>
+							<% end %>
 						</div>
 						<!-- News Panel Closed -->
 						<div id="side-panel" class='col-md-3'>

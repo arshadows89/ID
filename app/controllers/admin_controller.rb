@@ -19,6 +19,10 @@ class AdminController < ApplicationController
   def adminupdate
   end
 
+  def news
+    @homepagenews = Homepagenew.all
+  end
+
   def recruitment
     @recruitments = Recruitment.all
     @wowclassspec = Recruitment.new

@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   root 'home#index'
 
   get 'admin/streams'
+  get 'admin/news'
   get 'admin/videos'
   get 'admin/home'
   get 'admin/recruitment'
@@ -28,7 +29,8 @@ Rails.application.routes.draw do
 get "logout" => "sessions#destroy", :as => "logout"
 get "login" => "sessions#new", :as => "login"
 get "signup" => "users#new", :as => "signup"
-  
+ 
+  resources :homepagenews, only: [:edit, :update, :new, :create, :destroy]
   resources :playlists, only: [:edit, :update]
   resources :users
   resources :sessions

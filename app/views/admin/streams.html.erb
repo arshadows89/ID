@@ -11,7 +11,7 @@
 			<a class="various iframe" data-fancybox-type="iframe" style="text-decoration : none" href="<%= new_stream_path %>"><input type="submit" class="guildbutton" value="Add Streamer" /></a>
 		</div>
 		<div id="adminstreamerlist">
-		    <% @streamer.reverse.each do |admin| %>
+		    <% @streamer.sort.reverse.each do |admin| %>
 		        <div id='adminstreamername'><%= admin.streamer %></div>
 		        <a class="various iframe" data-fancybox-type="iframe" style="text-decoration : none" href="<%= edit_stream_path(admin) %>">Edit</a>
 		        <div id="adminstreamerdelete"><%= link_to 'Delete', admin, method: :delete, data: { confirm: 'Are you sure?' } %></div>
