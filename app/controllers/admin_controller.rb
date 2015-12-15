@@ -16,9 +16,12 @@ class AdminController < ApplicationController
     @playlist = Playlist.find(1)
   end
 
+  def adminupdate
+  end
 
   def recruitment
     @recruitments = Recruitment.all
     @wowclassspec = Recruitment.new
   end
+
 end

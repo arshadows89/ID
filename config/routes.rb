@@ -10,9 +10,12 @@ Rails.application.routes.draw do
   get 'admin/videos'
   get 'admin/home'
   get 'admin/recruitment'
+  get 'admin/adminupdate'
   get '/admin', to: 'admin#index', as: 'admin_index'
   get '/recruitments/edit_multiple(.:format)', to: 'recruitments#edit_multiple', as: 'edit_multiple_recruitments'
   put '/recruitments/update_multiple(.:format)', to: 'recruitments#update_multiple', as: 'update_multiple_recruitments'
+  get '/users/edit_multiple(.:format)', to: 'users#edit_multiple', as: 'edit_multiple_users'
+  put '/users/update_multiple(.:format)', to: 'users#update_multiple', as: 'update_multiple_users'
 
 
   # resources :recruitments do
@@ -25,7 +28,7 @@ Rails.application.routes.draw do
 get "logout" => "sessions#destroy", :as => "logout"
 get "login" => "sessions#new", :as => "login"
 get "signup" => "users#new", :as => "signup"
-
+  
   resources :playlists, only: [:edit, :update]
   resources :users
   resources :sessions

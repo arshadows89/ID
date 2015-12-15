@@ -4,9 +4,9 @@
 	<% if current_user.admin %>
 		<div id="recruitmentpage" class="row">
 			<div id="recruitmentheader">Recruitment Icon Controlls</div>
-			<div id="recruitmenthelp">
+			<!-- <div id="recruitmenthelp">
 				Any Checked off classes will mean we are recruiting. Any Un-Checked classes will mean we are currently not recruiting.
-			</div>
+			</div> -->
 			<div class="col-md-4"></div>
 			<div class="col-md-4">
 				<%= form_tag update_multiple_recruitments_path, method: :put do %>
@@ -20,7 +20,20 @@
 					  	<% Recruitmentclass.all.each do |wowclass| %>
 							<% Recruitmentclass.find(wowclass.id).recruitments.all.sort.each do |recruitment| %>
 					    	<tr>
-						        <td><%= check_box_tag "recruitment_ids[]", recruitment.id %></td>
+
+
+
+
+
+
+						        <td><%= check_box_tag "recruitment_ids[]", recruitment.id, recruitment.recruiting %></td>
+
+
+
+
+
+
+
 						        <td><%= wowclass.wowclass %></td>
 						        <td><%= recruitment.spec.split.map(&:capitalize).join(' ')%></td>
 						        <td <% if recruitment.recruiting == true %> style="background-color: #3AFF78" <% else %> style="background-color: #FF5348" <% end %>

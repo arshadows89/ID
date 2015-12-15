@@ -16,7 +16,6 @@ class PlaylistsController < ApplicationController
       render :layout => "../playlists/edit"
     end
   end
-
   private
 
   def set_playlist

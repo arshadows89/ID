@@ -53,6 +53,22 @@ class UsersController < ApplicationController
   	redirect_to users_path, notice: "User was deleted."
   end
 
+  def edit_multiple
+    @user = User.find(params[:user_ids])
+  end
+
+  def update_multiple
+    if params[:user_ids].present? == false
+      # User.update_all(:admin => false)
+    else
+      @users = User.find(params[:user_ids])
+      @users.reject! do |user|
+        user.toggle! :admin
+      end
+    end
+    redirect_to admin_adminupdate_path, notice: "Admin Status has been Updated."
+  end
+
   private
 
   def set_user

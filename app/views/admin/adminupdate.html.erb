@@ -1,0 +1,51 @@
+<!-- if loged in -->
+<% if current_user != nil %>
+<!-- If admin -->
+	<% if current_user.admin %>
+		<div id="recruitmentpage" class="row">
+			<div id="recruitmentheader">Update User Admin</div>
+			<div id="recruitmenthelp">
+			</div>
+			<div class="col-md-4"></div>
+			<div class="col-md-4">
+				<%= form_tag update_multiple_users_path, method: :put do %>
+					<table>
+					 	<tr>
+						    <th></th>
+						    <th>User</th>
+						    <th>Current Admin?</th>
+					    </tr>
+					    <% User.where(admin: true).sort_by{ |m| m.username.downcase }.each do |useradmin| %>
+					    	<tr>
+						        <td><%= radio_button_tag "user_ids[]", useradmin.id %></td>
+						        <td><%= useradmin.username %></td>
+						        
+						        <td <% if useradmin.admin == true %> style="background-color: #3AFF78; text-align: right;" <% else %> style="background-color: #FF5348; text-align: right;" <% end %>
+						    	> <%= useradmin.admin ? "Yes" : "No" %></td>
+					    	</tr>
+					    <% end %>
+					  	<% User.where(admin: false).sort_by{ |m| m.username.downcase }.each do |useradmin| %>
+					    	<tr>
+						        <td><%= radio_button_tag "user_ids[]", useradmin.id %></td>
+						        <td><%= useradmin.username %></td>
+						        
+						        <td <% if useradmin.admin == true %> style="background-color: #3AFF78; text-align: right;" <% else %> style="background-color: #FF5348; text-align: right;" <% end %>
+						    	> <%= useradmin.admin ? "Yes" : "No" %></td>
+					    	</tr>
+					    <% end %>
+					</table>
+					<%= submit_tag "Give Admin" %>
+				<% end %>
+			</div>
+		</div>
+		<div class="col-md-4"></div>
+		<div id="back-button">
+			<%= link_to "Back", admin_index_path %>
+		</div>
+<!-- If not admin -->
+	<% else %>
+		<%= render 'shared/noaccess' %>	   
+	<% end %>
+<% else %>
+	<%= render 'shared/noaccess' %>	 
+<% end %>
