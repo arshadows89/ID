@@ -11,10 +11,28 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151215173841) do
+ActiveRecord::Schema.define(version: 20151217165012) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "comments", force: :cascade do |t|
+    t.integer  "post_id"
+    t.integer  "user_id"
+    t.text     "body"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "forums", force: :cascade do |t|
+    t.integer "post_id"
+    t.string  "title"
+    t.integer "forumtype_id"
+  end
+
+  create_table "forumtypes", force: :cascade do |t|
+    t.string "title"
+  end
 
   create_table "homepagenews", force: :cascade do |t|
     t.string   "title"
@@ -29,6 +47,15 @@ ActiveRecord::Schema.define(version: 20151215173841) do
 
   create_table "playlists", force: :cascade do |t|
     t.string "link"
+  end
+
+  create_table "posts", force: :cascade do |t|
+    t.integer  "user_id"
+    t.text     "body"
+    t.string   "title"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer  "forum_id"
   end
 
   create_table "recruitmentclasses", force: :cascade do |t|

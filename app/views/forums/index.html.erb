@@ -1,0 +1,60 @@
+<% @forumtype.each do |forumtype| %>
+	<div id="forumtype">
+	<%= forumtype.title %>
+	</div>
+	<div id="forumtypeforum">
+	<% forumtype.forums.all.sort.each do |forum| %>
+		<div id="forumtypeforumtitle">
+			<%= link_to forum.title, forum_path(forum) %>
+		</div>
+		<div id="forumtypeforumpccount">
+			<%= forum.posts.count %>
+			<% commentcount = 0 %>
+			<% forum.posts.all.each do |post| %>
+				<% commentcount += (post.comments.count) %>
+			<% end %>	
+			<%= commentcount %>
+		</div>
+		<div id="forumtypeforumlastpost">
+			<% postupdatedat = Time.now - 10.years
+				forum.posts.all.each do |post|
+					if post.comments.order(:updated_at).last.updated_at > postupdatedat
+						@postupdatedatall = post.comments.order(:updated_at).last
+						@postupdatedat = post.comments.order(:updated_at).last.updated_at
+					end
+				end %>
+			<% postcreatedat = Time.now - 10.years
+				forum.posts.all.each do |post|
+					if post.comments.order(:created_at).last.created_at > postcreatedat
+						@postcreatedatall = post.comments.order(:created_at).last		
+						@postcreatedat = post.comments.order(:created_at).last.created_at
+					end
+				end %>
+			 <% if postupdatedat > postcreatedat %>
+			 	<%= @postupdatedatall.post.title %>
+			 	<%= @postupdatedatall.post.user.username %>
+			 	<%= @postupdatedat.strftime("%B %d, %Y") %>
+			 <% else %>
+			 	<%= @postcreatedatall.post.title %>
+			 	<%= @postcreatedatall.post.user.username %>
+				<%= @postcreatedat.strftime("%B %d, %Y") %>
+			 <% end %>
+		</div>
+	<% end %>
+	</div>
+<% end %>
+
+[]Death Knight   Total Posts: 1    How to DeathKnight - arshadows89
+			Total Comments: 3 4    Hours ago 36 min
+	
+
+
+time is based on server time ... need to solve for time.now for the client...  time is utc so need to do math when displaying????
+
+folder icon???
+
+This page just lists all Forums
+
+do we want add edit for this page????
+
+

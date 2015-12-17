@@ -1,0 +1,17 @@
+<div><%= @forum.title %></div>
+
+<% @forum.posts.all.sort.each do |post| %>
+	<%= link_to post.title, forum_post_path(@forum, post) %>
+<% end %>
+
+
+
+This page is all posts associated with this forum
+
+so people who are not loged on cant see page
+
+people loged on can see page add posts and edit if its there post.
+
+admins can delete posts... and do the above
+
+

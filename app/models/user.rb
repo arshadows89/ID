@@ -1,4 +1,7 @@
 class User < ActiveRecord::Base
+	has_many :posts
+	has_many :comments
+	
 	before_create { generate_token(:auth_token) }
 	before_save { self.email = email.downcase }
 	has_secure_password validations: false

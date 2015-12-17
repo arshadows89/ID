@@ -651,5 +651,39 @@ i.fa.fa-newspaper-o {
 	font-size: 12px;
 }
 
+// Forums page
+#forumtype,
+#forumtypeforum {
+	color: $primary-color;
+}
+
+#forumtype {
+	color: $secondary-color;
+	font-size: 16px;
+	background: rgba(0, 0, 0, 0.8);
+    background-image: repeating-linear-gradient(45deg, $secondary-color-op 0%, $secondary-color-op 25%, transparent 25%, transparent 50%);
+    background-image: -webkit-repeating-linear-gradient(45deg, $secondary-color-op 0%, $secondary-color-op 25%, transparent 25%, transparent 50%);
+    background-image: -moz-repeating-linear-gradient(45deg, $secondary-color-op 0%, $secondary-color-op 25%, transparent 25%, transparent 50%);
+    background-image: -ms-repeating-linear-gradient(45deg, $secondary-color-op 0%, $secondary-color-op 25%, transparent 25%, transparent 50%);
+    background-image: -o-repeating-linear-gradient(45deg, $secondary-color-op 0%, $secondary-color-op 25%, transparent 25%, transparent 50%);
+    -webkit-background-size: 5px 5px;
+    -moz-background-size: 5px 5px;
+    -o-background-size: 5px 5px;
+    background-size: 5px 5px;
+    -webkit-clip-path: polygon(100% 0, 100% 0%, 85% 100%, 0 100%, 0 0);
+    clip-path: polygon(100% 0, 100% 0%, 85% 100%, 0 100%, 0 0);
+    margin-bottom: 15px;
+    font-size: 25px;
+    padding: 5px 0;
+    clear: both;
+    padding-left: 15px;
+	margin-top: 20px;
+	padding-right: 40px;
+	display: inline-block;
+}
+
+#forumtypeforum {
+
+}
 
 
