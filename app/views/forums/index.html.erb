@@ -2,7 +2,7 @@
 	<div id="forumtype">
 	<%= forumtype.title %>
 	</div>
-	<% forumtype.forums.all.sort.each do |forum| %>
+	<% forumtype.forums.all.order('title ASC').each do |forum| %>
 	<div id="forumtypeforum" class="row">
 		<div id="forumtypeforumtitle" class='col-md-8 col-sd-8'>
 			<%= link_to forum.title, forum_path(forum) %>
