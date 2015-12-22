@@ -659,7 +659,6 @@ i.fa.fa-newspaper-o {
 
 #forumtype {
 	color: $secondary-color;
-	font-size: 16px;
 	background: rgba(0, 0, 0, 0.8);
     background-image: repeating-linear-gradient(45deg, $secondary-color-op 0%, $secondary-color-op 25%, transparent 25%, transparent 50%);
     background-image: -webkit-repeating-linear-gradient(45deg, $secondary-color-op 0%, $secondary-color-op 25%, transparent 25%, transparent 50%);
@@ -672,18 +671,37 @@ i.fa.fa-newspaper-o {
     background-size: 5px 5px;
     -webkit-clip-path: polygon(100% 0, 100% 0%, 85% 100%, 0 100%, 0 0);
     clip-path: polygon(100% 0, 100% 0%, 85% 100%, 0 100%, 0 0);
-    margin-bottom: 15px;
+    // margin-bottom: 15px;
     font-size: 25px;
     padding: 5px 0;
     clear: both;
     padding-left: 15px;
-	margin-top: 20px;
+	// margin-top: 20px;
+	margin-top: 10px;
 	padding-right: 40px;
 	display: inline-block;
 }
 
 #forumtypeforum {
-
+	color: $primary-color;
+	margin: 15px;
+	-webkit-box-shadow: inset 0px 0px 15px 0px rgba(51,51,51,0.66);
+	-moz-box-shadow: inset 0px 0px 15px 0px rgba(51,51,51,0.66);
+	box-shadow: inset 0px 0px 15px 0px rgba(51,51,51,0.66);
 }
 
+#forumtypeforumpccount {
+	text-align: right;
+	font-size: 12px;
+	padding: 4px 20px;
+}
 
+#forumtypeforumtitle {
+	line-height: 59px;
+    font-size: 22px;
+}
+
+#forumtypeforumlastpost {
+	font-size: 12px;
+	padding: 4px 0;
+}

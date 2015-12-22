@@ -2,59 +2,76 @@
 	<div id="forumtype">
 	<%= forumtype.title %>
 	</div>
-	<div id="forumtypeforum">
 	<% forumtype.forums.all.sort.each do |forum| %>
-		<div id="forumtypeforumtitle">
+	<div id="forumtypeforum" class="row">
+		<div id="forumtypeforumtitle" class='col-md-8 col-sd-8'>
 			<%= link_to forum.title, forum_path(forum) %>
 		</div>
-		<div id="forumtypeforumpccount">
-			<%= forum.posts.count %>
+		<div id="forumtypeforumpccount" class='col-md-2 col-sd-2'>
+			<div>Total Posts <%= forum.posts.count %></div>
 			<% commentcount = 0 %>
 			<% forum.posts.all.each do |post| %>
 				<% commentcount += (post.comments.count) %>
 			<% end %>	
-			<%= commentcount %>
+			<div>Total Comments <%= commentcount %></div>
 		</div>
-		<div id="forumtypeforumlastpost">
-			<% postupdatedat = Time.now - 10.years
+		<div id="forumtypeforumlastpost" class='col-md-2 col-sd-2'>
+			<% @postupdatedat = Time.now - 100.years
 				forum.posts.all.each do |post|
-					if post.comments.order(:updated_at).last.updated_at > postupdatedat
-						@postupdatedatall = post.comments.order(:updated_at).last
-						@postupdatedat = post.comments.order(:updated_at).last.updated_at
-					end
+					if post.comments.empty? == true
+						@postupdatedatall = post
+						@postupdatedat = post.updated_at %>
+					<% else
+						if post.comments.order(:updated_at).last.updated_at > @postupdatedat
+							@postupdatedatall = post.comments.order(:updated_at).last
+							@postupdatedat = post.comments.order(:updated_at).last.updated_at
+						end %>
+					<% end
 				end %>
-			<% postcreatedat = Time.now - 10.years
-				forum.posts.all.each do |post|
-					if post.comments.order(:created_at).last.created_at > postcreatedat
-						@postcreatedatall = post.comments.order(:created_at).last		
-						@postcreatedat = post.comments.order(:created_at).last.created_at
-					end
-				end %>
-			 <% if postupdatedat > postcreatedat %>
-			 	<%= @postupdatedatall.post.title %>
-			 	<%= @postupdatedatall.post.user.username %>
-			 	<%= @postupdatedat.strftime("%B %d, %Y") %>
-			 <% else %>
-			 	<%= @postcreatedatall.post.title %>
-			 	<%= @postcreatedatall.post.user.username %>
-				<%= @postcreatedat.strftime("%B %d, %Y") %>
+			<% if @postupdatedatall.class == Post %>
+				<% postlength = '' %>
+				<% if @postupdatedatall.title.length > 25 %>
+					<% postlength = '...' %>
+				<% end %>
+				 	<%= link_to (@postupdatedatall.title[0...25] + postlength), forum_post_path(forum.title, @postupdatedatall.id) %>
+				 	<div>by <%= @postupdatedatall.user.username %></div>
+			<% elsif @postupdatedatall.class == Comment %>
+				<% postlength = '' %>
+				<% if @postupdatedatall.post.title.length > 25 %>
+					<% postlength = '...' %>
+				<% end %>
+			 	<%= link_to (@postupdatedatall.post.title[0...25] + postlength), forum_post_path(forum.title, @postupdatedatall.post.id) %>
+			 	<div>by <%= @postupdatedatall.post.user.username %></div>
 			 <% end %>
+		 	<div>
+			 	<% recenttime = Time.now - @postupdatedatall.updated_at  %>
+			 	<% if recenttime < 60 %>
+			 		posted less than a min ago
+			 	<% elsif recenttime < 3600 %>
+			 		posted less than an hour ago
+			 	<% elsif recenttime < 86400 %>
+			 		posted less than a day ago
+			 	<% elsif recenttime < 604800 %>
+			 		posted less than a week ago
+			 	<% elsif recenttime < 2592000 %>
+			 		posted less than a month ago
+			 	<% elsif recenttime < 31536000 %>
+			 		posted less than a year ago
+			 	<% elsif recenttime >= 31536000 %>
+			 		posted more than a year ago
+			 	<% else %>
+			 		an error occured
+			 	<% end %>
+		 	</div>
 		</div>
-	<% end %>
 	</div>
+	<% end %>
 <% end %>
 
-[]Death Knight   Total Posts: 1    How to DeathKnight - arshadows89
-			Total Comments: 3 4    Hours ago 36 min
-	
-
-
-time is based on server time ... need to solve for time.now for the client...  time is utc so need to do math when displaying????
-
-folder icon???
-
-This page just lists all Forums
 
 do we want add edit for this page????
+
+
+
 
 

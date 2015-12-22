@@ -29,12 +29,9 @@ Rails.application.routes.draw do
 get "logout" => "sessions#destroy", :as => "logout"
 get "login" => "sessions#new", :as => "login"
 get "signup" => "users#new", :as => "signup"
-  resources :forums, only: [:index, :show] do
-    resources :posts, only: [:show] do
-      resources :comments
-    end
-  end
   resources :forums, only: [:index, :show]
+  get '/forums/:forum_id(.:format)/posts/:id(.:format)', to: 'posts#show', as: 'forum_post'
+
   resources :homepagenews, only: [:edit, :update, :new, :create, :destroy]
   resources :playlists, only: [:edit, :update]
   resources :users

@@ -1,8 +1,57 @@
-<div><%= @forum.title %></div>
+<div id="forumtype">
+	<%= @forum.title %>
+</div>
 
-<% @forum.posts.all.sort.each do |post| %>
-	<%= link_to post.title, forum_post_path(@forum, post) %>
+<% @forum.posts.all_ordered_by_child.each do |forum| %>
+	<div id="forumtypeforum" class="row">
+		<div id="forumtypeforumtitle" class='col-md-8 col-sd-8'>
+			<%= link_to forum.title, forum_post_path(@forum.title ,forum) %>
+		</div>
+		<div id="forumtypeforumpccount" class='col-md-2 col-sd-2'>
+			<div>Total Comments <%= forum.comments.count %></div>
+		</div>
+		<div id="forumtypeforumlastpost" class='col-md-2 col-sd-2'>
+
+			<% if forum.comments.count == 0 %>
+				<% @recenttime = Time.now - forum.updated_at %>
+				<div>by <%= forum.user.username %></div>
+			<% else %>
+			 	<%=  forum.comments.order(:updated_at).last.body[0...25] %>
+			 	<% if forum.comments.order(:updated_at).last.body.length > 25 %>
+				...
+			 	<% end %>
+			 	<div>by <%= forum.comments.order(:updated_at).last.user.username %></div>
+			 	<% @recenttime = Time.now - forum.comments.order(:updated_at).last.updated_at  %>
+			<% end %>
+			<div>
+			 	<% if @recenttime < 60 %>
+			 		posted less than a min ago
+			 	<% elsif @recenttime < 3600 %>
+			 		posted less than an hour ago
+			 	<% elsif @recenttime < 86400 %>
+			 		posted less than a day ago
+			 	<% elsif @recenttime < 604800 %>
+			 		posted less than a week ago
+			 	<% elsif @recenttime < 2592000 %>
+			 		posted less than a month ago
+			 	<% elsif @recenttime < 31536000 %>
+			 		posted less than a year ago
+			 	<% elsif @recenttime >= 31536000 %>
+			 		posted more than a year ago
+			 	<% else %>
+			 		an error occured
+			 	<% end %>
+		 	</div>
+		</div>
+	</div>
 <% end %>
+
+
+do we want add edit for this page????
+
+if click forum box it takes u too the route instead of having to click general discussion
+
+
 
 
 
@@ -15,3 +64,8 @@ people loged on can see page add posts and edit if its there post.
 admins can delete posts... and do the above
 
 
+
+if there are no comments associated with the post it flips out...
+so something like if post.comments.count = 0
+	then use the post info????
+	else ...

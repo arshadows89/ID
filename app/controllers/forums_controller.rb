@@ -9,6 +9,8 @@ class ForumsController < ApplicationController
   end
 
   def show
+    @forums = Forum.all
+    @forumtype = Forumtype.all
   end
 
   private
@@ -16,4 +18,5 @@ class ForumsController < ApplicationController
   def set_forum
     @forum = Forum.find_by_title(params[:id])
   end
+
 end
