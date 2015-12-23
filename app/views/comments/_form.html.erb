@@ -1,3 +1,13 @@
+<!-- if loged in -->
+<% if current_user != nil %>
+
+<style>
+	textarea {
+		width: 98%;
+		margin: 10px;
+	}
+</style>
+
 <% 	def findcommenttime(thect)
 	 	recenttime = Time.now - thect
 	 	if recenttime < 60
@@ -83,36 +93,36 @@
 		</div>
 	</div>
 <% end %>
-<% if current_user != nil %>
-	<div class='hvr-grow lasthvrgrow'>
-		<a  style="text-decoration : none" href="<%= (new_forum_post_comment_path(@post.forum_id, @post.id)+ '#commentsubmit') %>"><input type="submit" class="guildbutton" value="Add Comment" /></a>
-	</div>
+<a name="commentsubmit"></a>
+<div id="forumtypepost" class="row">
+<% if @comment.errors.any? %>
+	<ul>
+		<% @comment.errors.full_messages.each do |message| %>
+
+			 <li><%= message %></li>
+
+		<% end %>
+	</ul>
+
 <% end %>
 
+<a class="notice"><%= flash[:notice] if flash[:notice] %></a>
 
+<%= form_for ([@forum, @post, @comment]), :html => {  :autocomplete => :off, :multipart => true } do |f| %>
+	<%= f.text_area :body, placeholder: "Comment Section", cols: "50", rows: "8"  %><br />
+	<%= f.submit 'Submit', :class => 'guildbutton', :id => 'commentbutton'%>
+	<br />
+<br />
+<% end %>
+</div>
 
+<!-- If admin -->
+  <% if current_user.admin %>
 
-Tomorow:
-add edit comments
-
-go through and check the following
-	admin
-		can edit anyones
-		can delete anyones
-		can create new post
-	user
-		can edit own
-		can delete own
-		can create new post
-	non user
-		cant edit
-		cant delete
-		cant create
-		but can see page
-
-Validations, must include post id, user id, and body.length cant be blank
-
-comment and post need to only show 10 per a page? so need to do the same thing i did for news
-
-
-
+<!-- If not admin -->
+  <% else %>
+    <%= render 'shared/noaccess' %>    
+  <% end %>
+<% else %>
+  <%= render 'shared/noaccess' %>  
+<% end %>

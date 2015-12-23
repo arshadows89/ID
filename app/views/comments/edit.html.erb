@@ -1,0 +1,19 @@
+<!-- if loged in -->
+<% if current_user != nil %>
+<!-- If admin -->
+	<% if current_user.admin %>
+		<div id="header" class="container-fluid">
+		<div id="header-row" class="row">
+			<div id="signupform" class='col-sm-12'>
+				<h1>Edit a Streamer</h1>
+			<%= render 'form' %>
+			</div>
+		</div>
+		</div>
+<!-- If not admin -->
+	<% else %>
+		<%= render 'shared/noaccess' %>	   
+	<% end %>
+<% else %>
+	<%= render 'shared/noaccess' %>	 
+<% end %>
