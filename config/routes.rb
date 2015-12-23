@@ -29,7 +29,7 @@ Rails.application.routes.draw do
 get "logout" => "sessions#destroy", :as => "logout"
 get "login" => "sessions#new", :as => "login"
 get "signup" => "users#new", :as => "signup"
-  resources :forums, only: [:index, :show] do
+  resources :forums, param: :title, only: [:index, :show] do
     resources :posts, only: [:show] do
         resources :comments, only: [:edit, :update, :new, :create, :destroy]
     end

@@ -1,9 +1,10 @@
 class CommentsController < ApplicationController
-  before_action :set_comment, :set_post, :set_forum, only: [:edit, :update, :show, :destroy]
+  before_action :set_comment, :set_forum_by_name, :set_post, :set_forum, only: [:edit, :update, :show, :destroy]
 
   def edit
-  	@comment = current_comment
-    render :layout => "../comments/edit"
+  	@comment = set_comment
+    @post = set_post
+    @forum = set_forum
   end
 
   def new
@@ -22,10 +23,11 @@ class CommentsController < ApplicationController
   end
 
   def update
+    @forum = set_forum.id
   	if @comment.update(comment_params)
-  		redirect_to home_closefb_path, notice: "Comment successfully updated."
+      redirect_to forum_post_path(current_forum, current_post), notice: "Comment was successfully updated"
   	else
-      render :layout => "../commentss/edit"
+      redirect_to (edit_forum_post_comment_path(current_forum, current_post, current_comment)+ '#commentsubmit') 
     end
   end
 
@@ -43,6 +45,10 @@ class CommentsController < ApplicationController
 
   def set_forum
     @forum = Forum.find(params[:forum_id])
+  end
+
+  def set_forum_by_name
+    @forumname = Forum.find_by_title(params[:forum_id])
   end
 
   def set_post
