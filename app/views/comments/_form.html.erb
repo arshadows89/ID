@@ -108,7 +108,7 @@
 
 <a class="notice"><%= flash[:notice] if flash[:notice] %></a>
 
-<%= form_for ([@forum, @post, @comment]), :html => {  :autocomplete => :off, :multipart => true } do |f| %>
+<%= form_for ([(Forum.find(params[:forum_id])), @post, @comment]), :html => {  :autocomplete => :off, :multipart => true } do |f| %>
 	<%= f.text_area :body, placeholder: "Comment Section", cols: "50", rows: "8"  %><br />
 	<%= f.submit 'Submit', :class => 'guildbutton', :id => 'commentbutton'%>
 	<br />

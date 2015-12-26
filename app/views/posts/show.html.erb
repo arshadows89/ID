@@ -64,7 +64,7 @@
 			<div id='postuserbody'><%= comment.body %></div>
 			<div id='postdate'>
 				<div id="commentedit">
-					<%= link_to 'Edit', edit_forum_post_comment_path(@post.forum_id, @post.id, comment, comment.id) %>
+					<%= link_to 'Edit', edit_forum_post_comment_path(@post.forum_id, @post.id, comment, comment.id) + '#commentsubmit' %>
 				</div>
 				<div id="commentdelete">
 					<%= link_to 'Delete', forum_post_comment_path(@post.forum_id, @post.id, comment), method: :delete, data: { confirm: 'Are you sure?' } %>

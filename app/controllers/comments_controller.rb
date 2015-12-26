@@ -44,7 +44,14 @@ class CommentsController < ApplicationController
   end
 
   def set_forum
-    @forum = Forum.find(params[:forum_id])
+    @forum = Forum.find_by_title(params[:forum_id])
+    # @forum = Forum.find(params[:forum_id])
+
+    # if Forum.find(params[:forum_id]).nil? == true
+    #   @forum = Forum.find_by_title(params[:forum_id])
+    # else
+    #   @forum = Forum.find(params[:forum_id])
+    # end
   end
 
   def set_forum_by_name
