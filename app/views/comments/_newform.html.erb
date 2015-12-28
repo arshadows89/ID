@@ -1,7 +1,5 @@
 <!-- if loged in -->
 <% if current_user != nil %>
-<!-- If admin -->
-  <% if current_user == @comment.user || current_user.admin %>
 
 <style>
 	textarea {
@@ -109,7 +107,7 @@
 <% end %>
 
 
-<%= form_for @comment, url: forum_post_comment_path(@forum, @post, @comment, :anchor => 'commentsubmit'), html: { :autocomplete => :off, :multipart => true, method: :put } do |f| %>
+<%= form_for @comment, url: forum_post_comments_path(@forum, @post, :anchor => 'commentsubmit'), html: { :autocomplete => :off, :multipart => true, method: :post } do |f| %>
 	<%= f.text_area :body, placeholder: "Comment Section", cols: "50", rows: "8"  %><br />
 	<%= f.submit 'Submit', :class => 'guildbutton', :id => 'commentbutton'%>
 	<br />
@@ -117,10 +115,6 @@
 <% end %>
 </div>
 
-<!-- If not admin -->
-  <% else %>
-    <%= render 'shared/noaccess' %>    
-  <% end %>
 <% else %>
   <%= render 'shared/noaccess' %>  
 <% end %>

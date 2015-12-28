@@ -1,5 +1,6 @@
 class CommentsController < ApplicationController
   before_action :set_comment, :set_forum_by_name, :set_post, :set_forum, only: [:edit, :update, :show, :destroy]
+  before_action :set_forum_by_name, :set_post, :set_forum, only: [:new, :create]
 
   def edit
   	@comment = set_comment
@@ -18,16 +19,17 @@ class CommentsController < ApplicationController
       if @comment.save
        redirect_to forum_post_path(current_forum, current_post), notice: "Comment was successfully created"
       else
-        redirect_to (new_forum_post_comment_path(current_forum, current_post)+ '#commentsubmit') 
+        render :new 
     end
   end
 
   def update
-    @forum = set_forum.id
-  	if @comment.update(comment_params)
+    @forum = set_forum
+    @post = set_post
+  	if @comment.update(comment_params_update)
       redirect_to forum_post_path(current_forum, current_post), notice: "Comment was successfully updated"
   	else
-      redirect_to (edit_forum_post_comment_path(current_forum, current_post, current_comment)+ '#commentsubmit') 
+      render :edit 
     end
   end
 
@@ -68,6 +70,10 @@ class CommentsController < ApplicationController
 
   def comment_params
   	params.require(:comment).permit(:body, :post_id).merge(post_id: current_post.id, user_id: current_user.id)
+  end
+
+  def comment_params_update
+    params.require(:comment).permit(:body)
   end
 
   def current_comment

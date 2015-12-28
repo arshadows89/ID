@@ -1,10 +1,8 @@
 <!-- if loged in -->
 <% if current_user != nil %>
-	<%= render 'form' %>
-
 <!-- If admin -->
-	<% if current_user.admin %>
-<!-- If not admin -->
+	<% if current_user == @comment.user || current_user.admin %>
+		<%= render 'form' %>
 	<% else %>
 		<%= render 'shared/noaccess' %>	   
 	<% end %>

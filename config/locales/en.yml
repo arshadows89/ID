@@ -22,10 +22,13 @@
 en:  
   activerecord:
     models: 
+      comment: "Comment"
       stream: "Stream"
       video: "Video"
       playlist: "Youtube Playlist"
     attributes:
+      comment:
+        body: "Comment"
       video:
         link: "Youtube Link"
         text: "Video Title"
@@ -36,6 +39,10 @@ en:
         link: "Youtube Playlist link"
     errors:
       models:
+        comment:
+          attributes:
+            body:
+              blank: "cannot be empty"
         playlist:
           attributes:
             link:

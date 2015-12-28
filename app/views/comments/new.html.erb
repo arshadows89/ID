@@ -1,13 +1,6 @@
 <!-- if loged in -->
 <% if current_user != nil %>
-	<%= render 'form' %>
-
-<!-- If admin -->
-	<% if current_user.admin %>
-<!-- If not admin -->
-	<% else %>
-		<%= render 'shared/noaccess' %>	   
-	<% end %>
+	<%= render 'newform' %>
 <% else %>
 	<%= render 'shared/noaccess' %>	 
 <% end %>

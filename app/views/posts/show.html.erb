@@ -19,6 +19,9 @@
 	 	end
 	end %>
 
+<a style="float: right; padding-right: 10px;" class="notice"><%= flash[:notice] if flash[:notice] %></a>
+
+
 <div id='posttitlecenter'>
 	<div id='posttitle'>
 		<%= @post.title %>	
@@ -64,10 +67,18 @@
 			<div id='postuserbody'><%= comment.body %></div>
 			<div id='postdate'>
 				<div id="commentedit">
-					<%= link_to 'Edit', edit_forum_post_comment_path(@post.forum_id, @post.id, comment, comment.id) + '#commentsubmit' %>
+					<% if current_user != nil %>
+						<% if current_user == comment.user || current_user.admin %>
+							<%= link_to 'Edit', edit_forum_post_comment_path(Forum.find(@post.forum_id).title, @post.id, comment, comment.id) + '#commentsubmit' %>
+						<% end %>
+					<% end %>
 				</div>
 				<div id="commentdelete">
-					<%= link_to 'Delete', forum_post_comment_path(@post.forum_id, @post.id, comment), method: :delete, data: { confirm: 'Are you sure?' } %>
+					<% if current_user != nil %>
+						<% if current_user == comment.user || current_user.admin %>
+							<%= link_to 'Delete', forum_post_comment_path(@post.forum_id, @post.id, comment), method: :delete, data: { confirm: 'Are you sure?' } %>
+						<% end %>
+					<% end %>
 				</div>
 				<div id='commentcu'>
 					Created on: <%= comment.created_at.strftime("%B %d, %Y") %>
@@ -84,16 +95,22 @@
 	</div>
 <% end %>
 <% if current_user != nil %>
-	<div class='hvr-grow lasthvrgrow'>
-		<a  style="text-decoration : none" href="<%= (new_forum_post_comment_path(@post.forum_id, @post.id)+ '#commentsubmit') %>"><input type="submit" class="guildbutton" value="Add Comment" /></a>
-	</div>
+	<% if current_user %>
+		<div class='hvr-grow lasthvrgrow'>
+			<a  style="text-decoration : none" href="<%= (new_forum_post_comment_path(Forum.find(@post.forum_id).title, @post.id)+ '#commentsubmit') %>"><input type="submit" class="guildbutton" value="Add Comment" /></a>
+		</div>
+	<% end %>
 <% end %>
 
 
 
+login should take u to the page u were on, not home page
+
+random user create ???edit also??? comes up with error tags
+
+can enter in paragraphs.
 
 Tomorow:
-add edit comments
 
 go through and check the following
 	admin
@@ -109,8 +126,6 @@ go through and check the following
 		cant delete
 		cant create
 		but can see page
-
-Validations, must include post id, user id, and body.length cant be blank
 
 comment and post need to only show 10 per a page? so need to do the same thing i did for news
 
