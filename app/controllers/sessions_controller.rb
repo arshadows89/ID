@@ -18,6 +18,7 @@ class SessionsController < ApplicationController
 	# end
 
 def create
+  session[:return_to] ||= request.referer
   user = User.where(:username => params[:user][:username].downcase).first
   if user && user.authenticate(params[:user][:password])
     if params[:user][:remember_me]
@@ -26,9 +27,9 @@ def create
       cookies[:auth_token] = user.auth_token
     end
     session[:user_id] = user.id
-    redirect_to root_url, :notice => "Logged in!"
+    redirect_to session.delete(:return_to), :notice => "Logged in!"
   else
-    redirect_to root_url, :notice => "Invalid username or password"
+    redirect_to session.delete(:return_to), :notice => "Invalid username or password"
   end
 end
 
