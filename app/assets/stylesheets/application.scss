@@ -821,5 +821,20 @@ textarea:focus {
 	color: red;
 }
 
+input#post_title {
+	margin: 0 auto;
+    display: block;
+    text-align: center;
+}
 
+form#new_post,
+form#edit_post {
+	margin-top: 10px;
+}
 
+#commentdelete a img {
+    display: inherit;
+    position: absolute;
+    left: 5px;
+    margin-top: -10px;
+}

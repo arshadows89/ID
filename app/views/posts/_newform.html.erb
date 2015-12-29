@@ -1,10 +1,39 @@
+<!-- if loged in -->
+<% if current_user != nil %>
+
 <style>
+	textarea {
+		width: 98%;
+		margin: 10px;
+	}
 	#commentdelete {
 		display: block !important;
 		padding-left: 0 !important;
 		font-size: 0 !important;
 	}
 </style>
+
+<% 	def findcommenttime(thect)
+	 	recenttime = Time.now - thect
+	 	if recenttime < 60
+	 		@commenttime = 'posted less than a min ago'
+	 	elsif recenttime < 3600
+	 		@commenttime = 'posted less than an hour ago'
+	 	elsif recenttime < 86400
+	 		@commenttime = 'posted less than a day ago'
+	 	elsif recenttime < 604800
+	 		@commenttime = 'posted less than a week ago'
+	 	elsif recenttime < 2592000
+	 		@commenttime = 'posted less than a month ago'
+	 	elsif recenttime < 31536000
+	 		@commenttime = 'posted less than a year ago'
+	 	elsif recenttime >= 31536000
+	 		@commenttime = 'posted more than a year ago'
+	 	else
+	 		@commenttime = 'an error occured'
+	 	end
+	end %>
+
 <div id="forumtype">
 	<%= @forum.title %>
 </div>
@@ -37,8 +66,8 @@
 			 	<div>by <%= forum.comments.order(:updated_at).last.user.username %></div>
 			 	<% @recenttime = Time.now - forum.comments.order(:updated_at).last.updated_at  %>
 			<% end %>
-			<div>
-			 	<% if @recenttime < 60 %>
+			<div>				
+				<% if @recenttime < 60 %>
 			 		posted less than a min ago
 			 	<% elsif @recenttime < 3600 %>
 			 		posted less than an hour ago
@@ -60,34 +89,47 @@
 	</div>
 <% end %>
 
-<% if current_user != nil %>
-	<% if current_user %>
-		<div class='hvr-grow lasthvrgrow'>
-			<a  style="text-decoration : none" href="<%= (new_forum_post_path(@forum.title)+ '#commentsubmit') %>"><input type="submit" class="guildbutton" value="Add Post" /></a>
-		</div>
-	<% end %>
+
+
+
+<a name="commentsubmit"></a>
+<div id="forumtypepost" class="row">
+<% if @post.errors.any? %>
+	<ul>
+		<% @post.errors.full_messages.each do |message| %>
+
+			 <li><%= message %></li>
+
+		<% end %>
+	</ul>
+
+<% end %>
+
+<%= form_for @post, url: forum_posts_path(@forum, :anchor => 'commentsubmit'), html: { :autocomplete => :off, :multipart => true, method: :post } do |f| %>
+	<%= f.text_field :title, placeholder: "Post Title" %><br />
+	<%= f.text_area :body, placeholder: "Comment Section", cols: "50", rows: "8"  %><br />
+	<%= f.submit 'Submit', :class => 'guildbutton', :id => 'commentbutton'%>
+	<br />
+<br />
+<% end %>
+</div>
+
+<% else %>
+  <%= render 'shared/noaccess' %>  
 <% end %>
 
 
-do we want add edit for this page????
-
-if click forum box it takes u too the route instead of having to click general discussion
 
 
 
 
 
-This page is all posts associated with this forum
-
-so people who are not loged on cant see page
-
-people loged on can see page add posts and edit if its there post.
-
-admins can delete posts... and do the above
 
 
 
-if there are no comments associated with the post it flips out...
-so something like if post.comments.count = 0
-	then use the post info????
-	else ...
+
+
+
+
+
+
