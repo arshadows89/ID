@@ -10,6 +10,14 @@
 
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
 
+<script>
+$(document).ready(function() {
+    $("#forumrulelink").click(function(){
+        $("#forumrulelist").toggle();
+    });
+});
+</script>
+
 <style>
 	/*
  *= require_tree .
@@ -58,6 +66,8 @@ html, body, .body-height {
 }
 
 #content-frame {
+	margin-top: 20px;
+	margin-bottom: 20px;
 	padding: 0;
 	background-color: white;
     border: 1px solid #5c5c5c;
@@ -157,17 +167,58 @@ ul {
 	text-align: left;
 	padding-left: 30px;
 }
-</style>
 
+#forumrulelist {
+	display: none;
+}
+
+textarea {
+    width: 98%;
+    margin: 10px;
+}
+
+#forumrulelist ul {
+	list-style-type: none;
+	color: #333333;
+}
+
+#forumrules {
+	text-align: left;
+}
+
+div#forumrulenote {
+	padding-left: 20px;
+	font-size: 10px;
+}
+
+.spacethis {
+	display: inline-block;
+    padding: 0 10px;
+    font-size: 12px;
+}
+</style>
+<div id="forumrules">
+	<a id="forumrulelink">Formating Help</a>
+	<div id="forumrulelist">
+		<ul>
+			<li>&lt;   <div class="spacethis">is</div>   &amp;lt;</li>
+			<li>&gt;   <div class="spacethis">is</div>    &amp;gt;</li>
+			<li>&amp;   <div class="spacethis">is</div>    &amp;amp;</li>
+			<li>Add Image <div class="spacethis">=</div> &lt;img src='www.linkgoeshere.com'&gt;</li>
+			<li>Add Video <div class="spacethis">=</div> &lt;iframe width="560" height="315" src="https://www.youtube.com/embed/ddBJubYf7EQ?list=RDsRicwVSTPEc&amp;showinfo=0" frameborder="0" allowfullscreen&gt;&lt;/iframe &gt;</li>
+			<li><div class="spacethis">You can copy any embed video or image link</div></li>
+		</ul>
+	</div>
+	<div id="forumrulenote">
+		You can write in html
+	</div>
+</div>
 <% if @homepagenew.errors.any? %>
 	<ul>
 		<% @homepagenew.errors.full_messages.each do |message| %>
-
 			 <li><%= message %></li>
-
 		<% end %>
 	</ul>
-
 <% end %>
 
 <a class="notice"><%= flash[:notice] if flash[:notice] %></a>

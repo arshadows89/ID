@@ -1,3 +1,6 @@
+<div id="forumnav">
+	<%= link_to 'Forum', forums_path %>
+</div>
 <% @forumtype.each do |forumtype| %>
 	<div id="forumtype">
 	<%= forumtype.title %>
@@ -29,18 +32,20 @@
 					<% end
 				end %>
 			<% if @postupdatedatall.class == Post %>
-				<% postlength = '' %>
-				<% if @postupdatedatall.title.length > 25 %>
-					<% postlength = '...' %>
-				<% end %>
-				 	<%= link_to (@postupdatedatall.title[0...25] + postlength), forum_post_path(forum.title, @postupdatedatall.id) %>
-				 	<div>by <%= @postupdatedatall.user.username %></div>
+				<div id="forumtypeforumbodyinline">
+			 		<%= link_to ( simple_format(@postupdatedatall.title[0...25], {}, wrapper_tag: "div", id: 'postuserbody', sanitize: false) ), forum_post_path(forum.title, @postupdatedatall.id) %>
+			 		<% if @postupdatedatall.title.length > 25 %>
+						<div style="display: inline-block;">...</div>
+			 		<% end %>
+			 	</div>
+				 <div>by <%= @postupdatedatall.user.username %></div>
 			<% elsif @postupdatedatall.class == Comment %>
-				<% postlength = '' %>
-				<% if @postupdatedatall.post.title.length > 25 %>
-					<% postlength = '...' %>
-				<% end %>
-			 	<%= link_to (@postupdatedatall.post.title[0...25] + postlength), forum_post_path(forum.title, @postupdatedatall.post.id) %>
+				<div id="forumtypeforumbodyinline">
+			 		<%= link_to ( simple_format(@postupdatedatall.post.title[0...25], {}, wrapper_tag: "div", id: 'postuserbody', sanitize: false) ), forum_post_path(forum.title, @postupdatedatall.post.id) %>
+			 		<% if @postupdatedatall.post.title.length > 25 %>
+						<div style="display: inline-block;">...</div>
+			 		<% end %>
+			 	</div>
 			 	<div>by <%= @postupdatedatall.post.user.username %></div>
 			 <% end %>
 		 	<div>
@@ -67,11 +72,3 @@
 	</div>
 	<% end %>
 <% end %>
-
-
-do we want add edit for this page????
-
-
-
-
-

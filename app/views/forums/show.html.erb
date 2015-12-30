@@ -5,6 +5,9 @@
 		font-size: 0 !important;
 	}
 </style>
+<div id="forumnav">
+	<%= link_to 'Forum', forums_path %> » <%= link_to @forum.title, forum_path(@forum.title) %>
+</div>
 <div id="forumtype">
 	<%= @forum.title %>
 </div>
@@ -19,10 +22,10 @@
 			<% end %>
 		</div>
 		<div id="forumtypeforumtitle" class='col-md-8 col-sd-8'>
-			<%= link_to forum.title, forum_post_path(@forum.title ,forum) %>
+			<%= link_to truncate(forum.title, length: 30), forum_post_path(@forum.title ,forum) %>
 		</div>
 		<div id="forumtypeforumpccount" class='col-md-2 col-sd-2'>
-			<div>Total Comments <%= forum.comments.count %></div>
+			<div>Total Comments <%= forum.comments.count + 1 %></div>
 		</div>
 		<div id="forumtypeforumlastpost" class='col-md-2 col-sd-2'>
 
@@ -30,10 +33,12 @@
 				<% @recenttime = Time.now - forum.updated_at %>
 				<div>by <%= forum.user.username %></div>
 			<% else %>
-			 	<%=  forum.comments.order(:updated_at).last.body[0...25] %>
-			 	<% if forum.comments.order(:updated_at).last.body.length > 25 %>
-				...
-			 	<% end %>
+				<div id="forumtypeforumbodyinline">
+			 		<%= simple_format(forum.comments.order(:updated_at).last.body[0...25], {}, wrapper_tag: "div", id: 'postuserbody', sanitize: false) %>
+			 		<% if forum.comments.order(:updated_at).last.body.length > 25 %>
+						<div style="display: inline-block;">...</div>
+			 		<% end %>
+			 	</div>
 			 	<div>by <%= forum.comments.order(:updated_at).last.user.username %></div>
 			 	<% @recenttime = Time.now - forum.comments.order(:updated_at).last.updated_at  %>
 			<% end %>

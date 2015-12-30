@@ -30,7 +30,9 @@
 	 		@commenttime = 'an error occured'
 	 	end
 	end %>
-
+<div id="forumnav">
+	<%= link_to 'Forum', forums_path %> » <%= link_to Forum.find(@post.forum_id).title, forum_path(Forum.find(@post.forum_id).title) %> » <%= link_to @post.title, forum_post_path(Forum.find(@post.forum_id).title, @post) %>
+</div>
 <div id='posttitlecenter'>
 	<div id='posttitle'>
 		<%= @post.title %>	
@@ -48,7 +50,7 @@
 				<% findcommenttime(@post.created_at) %>
 				<%= @commenttime %>
 			</div>
-		<div id='postuserbody'><%= @post.body %></div>
+		<div id='postuserbody'><%= simple_format(@post.body, {}, wrapper_tag: "div", id: 'postuserbody', sanitize: false) %></div>
 		<div id='postdate'>
 			Created on: <%= @post.created_at.strftime("%B %d, %Y") %>
 			<% if @post.created_at != @post.updated_at %>
@@ -73,7 +75,7 @@
 				<% findcommenttime(comment.created_at) %>
 				<%= @commenttime %>
 			</div>
-			<div id='postuserbody'><%= comment.body %></div>
+			<div id='postuserbody'><%= simple_format(comment.body, {}, wrapper_tag: "div", id: 'postuserbody', sanitize: false) %></div>
 			<div id='postdate'>
 				<div id="commentdelete">
 <%= link_to 'Delete', forum_post_comment_path(@post.forum_id, @post.id, comment), method: :delete, data: { confirm: 'Are you sure?' } %></div>
@@ -93,22 +95,29 @@
 <% end %>
 <a name="commentsubmit"></a>
 <div id="forumtypepost" class="row">
+	<div id="forumrules">
+		<a id="forumrulelink">Formating Help</a>
+		<div id="forumrulelist">
+			<ul>
+				<li>&lt;   <div class="spacethis">is</div>   &amp;lt;</li>
+				<li>&gt;   <div class="spacethis">is</div>    &amp;gt;</li>
+				<li>&amp;   <div class="spacethis">is</div>    &amp;amp;</li>
+				<li>Add Image <div class="spacethis">=</div> &lt;img src='www.linkgoeshere.com'&gt;</li>
+				<li>Add Video <div class="spacethis">=</div> &lt;iframe width="560" height="315" src="https://www.youtube.com/embed/ddBJubYf7EQ?list=RDsRicwVSTPEc&amp;showinfo=0" frameborder="0" allowfullscreen&gt;&lt;/iframe &gt;</li>
+				<li><div class="spacethis">You can copy any embed video or image link</div></li>
+			</ul>
+		</div>
+		<div id="forumrulenote">
+			You can write in html
+		</div>
+	</div>
 <% if @post.errors.any? %>
 	<ul>
 		<% @post.errors.full_messages.each do |message| %>
-
 			 <li><%= message %></li>
-
 		<% end %>
 	</ul>
-
 <% end %>
-
-<style>
-	form {
-		margin-top: 10px;
-	}
-</style>
 <%= form_for @post, url: forum_post_path(@forum, @post, :anchor => 'commentsubmit'), html: { :autocomplete => :off, :multipart => true, method: :put } do |f| %>
 	<%= f.text_field :title, placeholder: "Post Title" %><br />
 	<%= f.text_area :body, placeholder: "Comment Section", cols: "50", rows: "8"  %><br />

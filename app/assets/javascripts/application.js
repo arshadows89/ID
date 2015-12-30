@@ -21,6 +21,9 @@
 
 
 $(document).ready(function() {
+    $("#forumrulelink").click(function(){
+        $("#forumrulelist").toggle();
+    });
 	$('.youtubepagetext').quickfit();
 	$('.streampagestreamer').quickfit();
 	$(".various").fancybox({
@@ -124,7 +127,9 @@ $(document).ready(function() {
 // var closefancybox = parent.$.fancybox.close();
 
 
-
+$(window).load(function() {
+	$( ".newstext iframe" ).parent().css( "text-align", "center" );
+});
 
 
 

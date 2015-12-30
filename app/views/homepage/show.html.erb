@@ -9,7 +9,7 @@
 					<%= news_section.title %>
 				</div>
 				<div class="newstext">
-					<%= news_section.news %>
+					<%= simple_format(news_section.news, {}, wrapper_tag: "div", sanitize: false) %>
 				</div>
 				<div class="newsdate">
 					<%= news_section.created_at.strftime("%B %d, %Y") %>

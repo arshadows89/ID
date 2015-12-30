@@ -20,8 +20,9 @@
 	end %>
 
 <a style="float: right; padding-right: 10px;" class="notice"><%= flash[:notice] if flash[:notice] %></a>
-
-
+<div id="forumnav">
+	<%= link_to 'Forum', forums_path %> » <%= link_to Forum.find(@post.forum_id).title, forum_path(Forum.find(@post.forum_id).title) %> » <%= link_to @post.title, forum_post_path(Forum.find(@post.forum_id).title, @post) %>
+</div>
 <div id='posttitlecenter'>
 	<div id='posttitle'>
 		<%= @post.title %>	
@@ -39,7 +40,7 @@
 				<% findcommenttime(@post.created_at) %>
 				<%= @commenttime %>
 			</div>
-		<div id='postuserbody'><%= @post.body %></div>
+		<div id='postuserbody'><%= simple_format(@post.body, {}, wrapper_tag: "div", id: 'postuserbody', sanitize: false) %></div>
 		<div id='postdate'>
 			<div id="commentedit">
 				<% if current_user != nil %>
@@ -73,7 +74,7 @@
 				<% findcommenttime(comment.created_at) %>
 				<%= @commenttime %>
 			</div>
-			<div id='postuserbody'><%= comment.body %></div>
+			<div id='postuserbody'><%= simple_format(comment.body, {}, wrapper_tag: "div", id: 'postuserbody', sanitize: false) %></div>
 			<div id='postdate'>
 				<div id="commentedit">
 					<% if current_user != nil %>
@@ -110,81 +111,3 @@
 		</div>
 	<% end %>
 <% end %>
-
-
-
-login should take u to the page u were on, not home page
-
-can enter in paragraphs.
-
-back button
-
-forums/Warlock
-	when post has no comment comment should be 1 (add 1 to the comment count then) and should maybe should u what the post is about like how comment does it.
-
-Tomorow:
-
-comment and post need to only show 10 per a page? so need to do the same thing i did for news
-
-____________________________
-
-http://localhost:3000/forums/Warlock/posts/1/commentpages/1
-
-Database (dont forget to update model)
-	Actualcomment
-		comment_id 
-	Comment
-		post_id
-
-		how does it get post id...
-
-	everytime there is a post created it also creates a comment
-		if post gets destroyed it needs to also destroy associated comment
-
-change every comment model veiw and controller to actualcomment???
-
-need to do routes
-
-what happened to comments did they transfer over to actualcomments?
-	check if actualcomment.find(10) is there still (need to update model first)
-
-what wil it do to the current comment section????
-	link-to, forms broken...
-
-how should routes go
-how important is posts/1/comment/1/actualcomment/1...
-	you only get the current comment param when editing...
-	so yeah should nest it underneath it....
-
-
-	_________________________
-
-
-Post/1
-	show all 10
-but when hit next posts/1/comments/1
-	show first 10
-posts/1/comments/2
-	show 11-20
-
-
-current issue is that how do get posts/1 to show multiple pages
-
-
-
-
-
-Need to delete comment database
-	homepagenews is our current comments so that becomes our veiws/controller/model
-Database
-  create_table "homepagenews", force: :cascade do |t|
-    t.string   "title"
-    t.text     "news"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
-    t.integer  "homepage_id"
-  end
-
-  create_table "homepages", force: :cascade do |t|
-  end
-

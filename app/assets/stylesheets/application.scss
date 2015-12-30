@@ -57,6 +57,8 @@ html, body, .body-height {
 }
 
 #content-frame {
+	margin-top: 20px;
+	margin-bottom: 20px;
 	padding: 0;
 	background-color: white;
     border: 1px solid #5c5c5c;
@@ -757,7 +759,7 @@ i.fa.fa-newspaper-o {
 .row:before, .row:after {
     content: " ";
     display: table;
-    height: 2%;
+    // height: 2%;
 }
 
 #postdate {
@@ -838,3 +840,60 @@ form#edit_post {
     left: 5px;
     margin-top: -10px;
 }
+
+#postuserbody img,
+#postuserbody iframe {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+#forumrulelist {
+	display: none;
+}
+
+#forumrulelist ul {
+	list-style-type: none;
+}
+
+#forumrules {
+	padding-top: 7px;
+	padding-left: 10px;
+}
+
+div#forumrulenote {
+	padding-left: 20px;
+	font-size: 10px;
+}
+
+.newstext div {
+	// text-align: center;
+}
+.newstext iframe {
+	// display: inline-block;
+}
+
+.spacethis {
+	display: inline-block;
+    padding: 0 10px;
+    font-size: 12px;
+}
+
+input#post_title {
+	width: 50%;
+	border: 1px solid #333333;
+}
+
+#forumtypeforumbodyinline div {
+	display: inline-block;
+}
+
+#forumnav {
+	color: #337ab7;
+    font-size: 20px;
+    padding-left: 10px;
+    padding-top: 10px;
+}
+
+
+
+

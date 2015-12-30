@@ -34,7 +34,8 @@ def create
 end
 
 def destroy
-	session[:user_id] = nil
+  session[:return_to] ||= request.referer
+  session[:user_id] = nil
   cookies.delete(:auth_token)
   redirect_to root_url, :notice => "Logged out!"
 end

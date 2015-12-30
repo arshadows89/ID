@@ -33,7 +33,9 @@
 	 		@commenttime = 'an error occured'
 	 	end
 	end %>
-
+<div id="forumnav">
+	<%= link_to 'Forum', forums_path %> » <%= link_to @forum.title, forum_path(@forum.title) %>
+</div>
 <div id="forumtype">
 	<%= @forum.title %>
 </div>
@@ -48,10 +50,10 @@
 			<% end %>
 		</div>
 		<div id="forumtypeforumtitle" class='col-md-8 col-sd-8'>
-			<%= link_to forum.title, forum_post_path(@forum.title ,forum) %>
+			<%= link_to truncate(forum.title, length: 30), forum_post_path(@forum.title ,forum) %>
 		</div>
 		<div id="forumtypeforumpccount" class='col-md-2 col-sd-2'>
-			<div>Total Comments <%= forum.comments.count %></div>
+			<div>Total Comments <%= forum.comments.count + 1 %></div>
 		</div>
 		<div id="forumtypeforumlastpost" class='col-md-2 col-sd-2'>
 
@@ -59,10 +61,12 @@
 				<% @recenttime = Time.now - forum.updated_at %>
 				<div>by <%= forum.user.username %></div>
 			<% else %>
-			 	<%=  forum.comments.order(:updated_at).last.body[0...25] %>
-			 	<% if forum.comments.order(:updated_at).last.body.length > 25 %>
-				...
-			 	<% end %>
+			 	<div id="forumtypeforumbodyinline">
+			 		<%= simple_format(forum.comments.order(:updated_at).last.body[0...25], {}, wrapper_tag: "div", id: 'postuserbody', sanitize: false) %>
+			 		<% if forum.comments.order(:updated_at).last.body.length > 25 %>
+						<div style="display: inline-block;">...</div>
+			 		<% end %>
+			 	</div>
 			 	<div>by <%= forum.comments.order(:updated_at).last.user.username %></div>
 			 	<% @recenttime = Time.now - forum.comments.order(:updated_at).last.updated_at  %>
 			<% end %>
@@ -94,15 +98,28 @@
 
 <a name="commentsubmit"></a>
 <div id="forumtypepost" class="row">
+	<div id="forumrules">
+		<a id="forumrulelink">Formating Help</a>
+		<div id="forumrulelist">
+			<ul>
+				<li>&lt;   <div class="spacethis">is</div>   &amp;lt;</li>
+				<li>&gt;   <div class="spacethis">is</div>    &amp;gt;</li>
+				<li>&amp;   <div class="spacethis">is</div>    &amp;amp;</li>
+				<li>Add Image <div class="spacethis">=</div> &lt;img src='www.linkgoeshere.com'&gt;</li>
+				<li>Add Video <div class="spacethis">=</div> &lt;iframe width="560" height="315" src="https://www.youtube.com/embed/ddBJubYf7EQ?list=RDsRicwVSTPEc&amp;showinfo=0" frameborder="0" allowfullscreen&gt;&lt;/iframe &gt;</li>
+				<li><div class="spacethis">You can copy any embed video or image link</div></li>
+			</ul>
+		</div>
+		<div id="forumrulenote">
+			You can write in html
+		</div>
+	</div>
 <% if @post.errors.any? %>
 	<ul>
 		<% @post.errors.full_messages.each do |message| %>
-
 			 <li><%= message %></li>
-
 		<% end %>
 	</ul>
-
 <% end %>
 
 <%= form_for @post, url: forum_posts_path(@forum, :anchor => 'commentsubmit'), html: { :autocomplete => :off, :multipart => true, method: :post } do |f| %>
