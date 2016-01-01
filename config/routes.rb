@@ -22,7 +22,6 @@ Rails.application.routes.draw do
 
 
 
-  get '/forums/:forum_id/:id(.:format)', to: 'forumpage#show', as: 'forumpage_show'
   # resources :recruitments do
   #   collection do
   #     get :edit_multiple
