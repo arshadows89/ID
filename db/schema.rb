@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151217165012) do
+ActiveRecord::Schema.define(version: 20151230233529) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -22,6 +22,10 @@ ActiveRecord::Schema.define(version: 20151217165012) do
     t.text     "body"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "forumpages", force: :cascade do |t|
+    t.integer "forum_id"
   end
 
   create_table "forums", force: :cascade do |t|
@@ -53,9 +57,10 @@ ActiveRecord::Schema.define(version: 20151217165012) do
     t.integer  "user_id"
     t.text     "body"
     t.string   "title"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
     t.integer  "forum_id"
+    t.integer  "forumpage_id"
   end
 
   create_table "recruitmentclasses", force: :cascade do |t|

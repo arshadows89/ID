@@ -1,0 +1,230 @@
+the add post
+the add post page view
+the delete post
+the delte post page view
+
+reminder for when i make a ton of comments
+
+x = 1
+150.times do
+	Post.create(:user_id => 5, :forum_id => 11, :title => x.to_s + " page test", :body => x.to_s + " body test" )
+	x += 1
+end
+
+
+<style>
+	#commentdelete {
+		display: block !important;
+		padding-left: 0 !important;
+		font-size: 0 !important;
+	}
+</style>
+<div id="forumnav">
+	<%= link_to 'Forum', forums_path %> » <%= link_to @forum.title, forum_path(@forum.title) %>
+</div>
+<div id="forumtype">
+	<%= @forum.title %>
+</div>
+<div id='homepagelinks' class="padthisright">
+	<% if ((@forum.posts.count / 10) + 1) > 10 %>
+		<%if params[:page].to_i <= 6%>
+			<% numberofforumpages = 1 %>
+		 	<% 9.times do %>
+				<%= link_to numberofforumpages, forum_show_page_path(@forum.title, numberofforumpages) %>
+				<% numberofforumpages += 1 %>
+			<% end %>
+			...
+			<%= link_to ((@forum.posts.count / 10) + 1), forum_show_page_path(@forum.title, ((@forum.posts.count / 10) + 1)) %>
+		<% elsif params[:page].to_i > (((@forum.posts.count / 10) + 1) - 6)%>
+			<%= link_to 1, forum_show_page_path(@forum.title, 1) %>
+			...
+			<% numberofforumpages = (((@forum.posts.count / 10) + 1) - 8) %>
+		 	<% 9.times do %>
+				<%= link_to numberofforumpages, forum_show_page_path(@forum.title, numberofforumpages) %>
+				<% numberofforumpages += 1 %>
+			<% end %>
+		<% else %>
+			<%= link_to 1, forum_show_page_path(@forum.title, 1) %>
+			...
+		<% numberofforumpages = (params[:page].to_i - 4) %>
+		<% 4.times do %>
+			<%= link_to numberofforumpages, forum_show_page_path(@forum.title, numberofforumpages) %>
+			<% numberofforumpages += 1 %>
+		<% end %>
+		<%= link_to params[:page].to_i, forum_show_page_path(@forum.title, params[:page].to_i) %>
+		<% numberofforumpages = (params[:page].to_i + 1) %>
+		<% 4.times do %>
+			<%= link_to numberofforumpages, forum_show_page_path(@forum.title, numberofforumpages) %>
+			<% numberofforumpages += 1 %>
+		<% end %>
+			...
+			<%= link_to ((@forum.posts.count / 10) + 1), forum_show_page_path(@forum.title, ((@forum.posts.count / 10) + 1)) %>
+		<% end %>
+	<% else %>
+		<% numberofforumpages = 1 %>
+		<% ((@forum.posts.count / 10) + 1).times do %>
+			<%= link_to numberofforumpages, forum_show_page_path(@forum.title, numberofforumpages) %>
+			<% numberofforumpages += 1 %>
+		<% end %>
+	<% end %>
+</div>
+
+
+
+<% if ((params[:page].to_i * 10) < (((@forum.posts.count / 10)+1)*10)) and ((params[:page].to_i) != 0) %>
+	<% @forum.posts.order('updated_at DESC')[(((params[:page].to_i - 1) * 10) + 1)..(params[:page].to_i * 10)].each do |forum| %>
+		<div id="forumtypeforum" class="row">
+			<div id="commentdelete">
+				<% if current_user != nil %>
+					<% if current_user == forum.user || current_user.admin %>
+						<%= link_to image_tag('xicon.png'), forum_post_path(@forum, forum), method: :delete, data: { confirm: 'Are you sure?' } %>
+					<% end %>
+				<% end %>
+			</div>
+			<div id="forumtypeforumtitle" class='col-md-8 col-sd-8'>
+				<%= link_to truncate(forum.title, length: 30), forum_post_path(@forum.title ,forum) %>
+			</div>
+			<div id="forumtypeforumpccount" class='col-md-2 col-sd-2'>
+				<div>Total Comments <%= forum.comments.count + 1 %></div>
+			</div>
+			<div id="forumtypeforumlastpost" class='col-md-2 col-sd-2'>
+
+				<% if forum.comments.count == 0 %>
+					<% @recenttime = Time.now - forum.updated_at %>
+					<div>by <%= forum.user.username %></div>
+				<% else %>
+					<div id="forumtypeforumbodyinline">
+				 		<%= simple_format(forum.comments.order(:updated_at).last.body[0...25], {}, wrapper_tag: "div", id: 'postuserbody', sanitize: false) %>
+				 		<% if forum.comments.order(:updated_at).last.body.length > 25 %>
+							<div style="display: inline-block;">...</div>
+				 		<% end %>
+				 	</div>
+				 	<div>by <%= forum.comments.order(:updated_at).last.user.username %></div>
+				 	<% @recenttime = Time.now - forum.comments.order(:updated_at).last.updated_at  %>
+				<% end %>
+				<div>
+				 	<% if @recenttime < 60 %>
+				 		posted less than a min ago
+				 	<% elsif @recenttime < 3600 %>
+				 		posted less than an hour ago
+				 	<% elsif @recenttime < 86400 %>
+				 		posted less than a day ago
+				 	<% elsif @recenttime < 604800 %>
+				 		posted less than a week ago
+				 	<% elsif @recenttime < 2592000 %>
+				 		posted less than a month ago
+				 	<% elsif @recenttime < 31536000 %>
+				 		posted less than a year ago
+				 	<% elsif @recenttime >= 31536000 %>
+				 		posted more than a year ago
+				 	<% else %>
+				 		an error occured
+				 	<% end %>
+			 	</div>
+			</div>
+		</div>
+	<% end %>
+<% else %>
+	<% @forum.posts.order('updated_at DESC')[((@forum.posts.count-(@forum.posts.count % 10))+ 1)..(((@forum.posts.count / 10)+1)*10)].each do |forum| %>
+		<div id="forumtypeforum" class="row">
+			<div id="commentdelete">
+				<% if current_user != nil %>
+					<% if current_user == forum.user || current_user.admin %>
+						<%= link_to image_tag('xicon.png'), forum_post_path(@forum, forum), method: :delete, data: { confirm: 'Are you sure?' } %>
+					<% end %>
+				<% end %>
+			</div>
+			<div id="forumtypeforumtitle" class='col-md-8 col-sd-8'>
+				<%= link_to truncate(forum.title, length: 30), forum_post_path(@forum.title ,forum) %>
+			</div>
+			<div id="forumtypeforumpccount" class='col-md-2 col-sd-2'>
+				<div>Total Comments <%= forum.comments.count + 1 %></div>
+			</div>
+			<div id="forumtypeforumlastpost" class='col-md-2 col-sd-2'>
+
+				<% if forum.comments.count == 0 %>
+					<% @recenttime = Time.now - forum.updated_at %>
+					<div>by <%= forum.user.username %></div>
+				<% else %>
+					<div id="forumtypeforumbodyinline">
+				 		<%= simple_format(forum.comments.order(:updated_at).last.body[0...25], {}, wrapper_tag: "div", id: 'postuserbody', sanitize: false) %>
+				 		<% if forum.comments.order(:updated_at).last.body.length > 25 %>
+							<div style="display: inline-block;">...</div>
+				 		<% end %>
+				 	</div>
+				 	<div>by <%= forum.comments.order(:updated_at).last.user.username %></div>
+				 	<% @recenttime = Time.now - forum.comments.order(:updated_at).last.updated_at  %>
+				<% end %>
+				<div>
+				 	<% if @recenttime < 60 %>
+				 		posted less than a min ago
+				 	<% elsif @recenttime < 3600 %>
+				 		posted less than an hour ago
+				 	<% elsif @recenttime < 86400 %>
+				 		posted less than a day ago
+				 	<% elsif @recenttime < 604800 %>
+				 		posted less than a week ago
+				 	<% elsif @recenttime < 2592000 %>
+				 		posted less than a month ago
+				 	<% elsif @recenttime < 31536000 %>
+				 		posted less than a year ago
+				 	<% elsif @recenttime >= 31536000 %>
+				 		posted more than a year ago
+				 	<% else %>
+				 		an error occured
+				 	<% end %>
+			 	</div>
+			</div>
+		</div>
+	<% end %>
+<% end %>
+<div id='homepagelinks' class="padthisright">
+	<% if ((@forum.posts.count / 10) + 1) > 10 %>
+		<%if params[:page].to_i <= 6%>
+			<% numberofforumpages = 1 %>
+		 	<% 9.times do %>
+				<%= link_to numberofforumpages, forum_show_page_path(@forum.title, numberofforumpages) %>
+				<% numberofforumpages += 1 %>
+			<% end %>
+			...
+			<%= link_to ((@forum.posts.count / 10) + 1), forum_show_page_path(@forum.title, ((@forum.posts.count / 10) + 1)) %>
+		<% elsif params[:page].to_i > (((@forum.posts.count / 10) + 1) - 6)%>
+			<%= link_to 1, forum_show_page_path(@forum.title, 1) %>
+			...
+			<% numberofforumpages = (((@forum.posts.count / 10) + 1) - 8) %>
+		 	<% 9.times do %>
+				<%= link_to numberofforumpages, forum_show_page_path(@forum.title, numberofforumpages) %>
+				<% numberofforumpages += 1 %>
+			<% end %>
+		<% else %>
+			<%= link_to 1, forum_show_page_path(@forum.title, 1) %>
+			...
+		<% numberofforumpages = (params[:page].to_i - 4) %>
+		<% 4.times do %>
+			<%= link_to numberofforumpages, forum_show_page_path(@forum.title, numberofforumpages) %>
+			<% numberofforumpages += 1 %>
+		<% end %>
+		<%= link_to params[:page].to_i, forum_show_page_path(@forum.title, params[:page].to_i) %>
+		<% numberofforumpages = (params[:page].to_i + 1) %>
+		<% 4.times do %>
+			<%= link_to numberofforumpages, forum_show_page_path(@forum.title, numberofforumpages) %>
+			<% numberofforumpages += 1 %>
+		<% end %>
+			...
+			<%= link_to ((@forum.posts.count / 10) + 1), forum_show_page_path(@forum.title, ((@forum.posts.count / 10) + 1)) %>
+		<% end %>
+	<% else %>
+		<% numberofforumpages = 1 %>
+		<% ((@forum.posts.count / 10) + 1).times do %>
+			<%= link_to numberofforumpages, forum_show_page_path(@forum.title, numberofforumpages) %>
+			<% numberofforumpages += 1 %>
+		<% end %>
+	<% end %>
+</div>
+<% if current_user != nil %>
+	<% if current_user %>
+		<div class='hvr-grow lasthvrgrow'>
+			<a  style="text-decoration : none" href="<%= (new_forum_post_path(@forum.title)+ '#commentsubmit') %>"><input type="submit" class="guildbutton" value="Add Post" /></a>
+		</div>
+	<% end %>
+<% end %>

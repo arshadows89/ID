@@ -13,6 +13,12 @@ class ForumsController < ApplicationController
     @forumtype = Forumtype.all
   end
 
+  def show_page
+    @forums = Forum.all
+    @forumtype = Forumtype.all
+    @forum = Forum.find_by_title(params[:forum_id])
+  end
+
   private
 
   def set_forum

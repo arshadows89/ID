@@ -6,6 +6,8 @@ Rails.application.routes.draw do
   get 'home/index'
   root 'home#index'
 
+  get "/forums/:forum_id(/page/:page)", to: 'forums#show_page', as: 'forum_show_page'
+
   get 'admin/streams'
   get 'admin/news'
   get 'admin/videos'
@@ -19,6 +21,8 @@ Rails.application.routes.draw do
   put '/users/update_multiple(.:format)', to: 'users#update_multiple', as: 'update_multiple_users'
 
 
+
+  get '/forums/:forum_id/:id(.:format)', to: 'forumpage#show', as: 'forumpage_show'
   # resources :recruitments do
   #   collection do
   #     get :edit_multiple
