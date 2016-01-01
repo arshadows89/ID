@@ -82,13 +82,15 @@ html, body, .body-height {
 }
 
 .login-button,
-.guildbutton {
+.guildbutton,
+.guildbuttonform input {
 	background-color: $primary-color;
 	text-decoration: none;
 }
 
 a.login-button,
-.guildbutton {
+.guildbutton,
+.guildbuttonform input {
 	text-decoration: none;
 	color: $secondary-color
 }
@@ -204,7 +206,8 @@ a:active {
     box-shadow: 0px 0px 1px 0px black, 0px 3px 15px 2px black;
 }
 
-input.guildbutton {
+input.guildbutton,
+.guildbuttonform input {
 	margin-bottom: 7px;
 }
 
@@ -225,7 +228,8 @@ a.various {
 }
 
 input.login-button,
-.guildbutton {
+.guildbutton,
+.guildbuttonform input {
 	display: inline-block;
 }
 
@@ -898,5 +902,7 @@ input#post_title {
 	padding-right: 10px;
 }
 
-
+.bottomhomepagelinks {
+	padding-bottom: 10px;
+}
 

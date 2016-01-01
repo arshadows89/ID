@@ -15,7 +15,8 @@ class PostsController < ApplicationController
   def create
     @post = Post.new(post_params)
       if @post.save
-       redirect_to forum_path(current_forum), notice: "Post was successfully created"
+       # redirect_to forum_path(current_forum), notice: "Post was successfully created"
+       redirect_to forum_post_path(current_forum, Post.last), notice: "Post was successfully created"
       else
         render :new 
     end
@@ -34,6 +35,11 @@ class PostsController < ApplicationController
     @post.destroy
     flash[:notice] = "Post was deleted."
     redirect_to(:back) 
+  end
+
+  def new_show_page
+    @post = Post.new
+    @forum = set_forum
   end
 
 private
