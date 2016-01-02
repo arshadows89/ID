@@ -1,0 +1,6 @@
+<!-- if loged in -->
+<% if current_user != nil %>
+	<%= render 'newform' %>
+<% else %>
+	<%= render 'shared/noaccess' %>	 
+<% end %>

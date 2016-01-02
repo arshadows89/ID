@@ -260,7 +260,12 @@
 <% if current_user != nil %>
 	<% if current_user %>
 		<div class='hvr-grow lasthvrgrow'>
-		<%= button_to 'Add Post', new_post_show_page_path(@forum.title, params[:page].to_i) + '#commentsubmit', :method => :get, form_class: "guildbuttonform" %>
+		<% if params[:page] == nil %>
+			<% parpage = 1 %>
+		<% else %>
+			<% parpage = params[:page].to_i %>
+		<% end %>
+		<%= button_to 'Add Post', new_post_show_page_path(@forum.title, parpage) + '#commentsubmit', :method => :get, form_class: "guildbuttonform" %>
 		</div>
 	<% end %>
 <% end %>

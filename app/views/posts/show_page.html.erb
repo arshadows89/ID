@@ -74,7 +74,7 @@
 </div>
 <!-- these are the comments -->
 <% if ((params[:page].to_i * 10) < (((((@post.comments.count -1)+ 1) / 10)+1)*10)) and ((params[:page].to_i) != 0) and ((params[:page].to_i) != 1) %>
-	<% @post.comments.order('updated_at DESC')[((((params[:page].to_i - 1)) * 10)- 1)..(((params[:page].to_i * 10)-2))].each do |comment| %>
+	<% @post.comments.order('created_at ASC')[((((params[:page].to_i - 1)) * 10)- 1)..(((params[:page].to_i * 10)-2))].each do |comment| %>
 		<div id="forumtypepost" class="row">
 			<div id="postuserinfo" class='col-md-2 col-sd-2'>
 				<div id="postuser"><%= comment.user.username %></div>
@@ -92,7 +92,7 @@
 					<div id="commentedit">
 						<% if current_user != nil %>
 							<% if current_user == comment.user || current_user.admin %>
-								<%= link_to 'Edit', edit_forum_post_comment_path(Forum.find(@post.forum_id).title, @post.id, comment, comment.id) + '#commentsubmit' %>
+								<%= link_to 'Edit', edit_comment_show_page_path(Forum.find(@post.forum_id).title, @post.id, comment, comment.id, params[:page].to_i) + '#commentsubmit' %>
 							<% end %>
 						<% end %>
 					</div>
@@ -152,7 +152,7 @@
 				</div>
 			</div>
 		</div>
-		<% @post.comments.order('updated_at DESC')[0..8].each do |comment| %>
+		<% @post.comments.order('created_at ASC')[0..8].each do |comment| %>
 			<div id="forumtypepost" class="row">
 				<div id="postuserinfo" class='col-md-2 col-sd-2'>
 					<div id="postuser"><%= comment.user.username %></div>
@@ -170,7 +170,7 @@
 						<div id="commentedit">
 							<% if current_user != nil %>
 								<% if current_user == comment.user || current_user.admin %>
-									<%= link_to 'Edit', edit_forum_post_comment_path(Forum.find(@post.forum_id).title, @post.id, comment, comment.id) + '#commentsubmit' %>
+									<%= link_to 'Edit', edit_comment_show_page_path(Forum.find(@post.forum_id).title, @post.id, comment, comment.id, params[:page].to_i) + '#commentsubmit' %>
 								<% end %>
 							<% end %>
 						</div>
@@ -196,7 +196,7 @@
 			</div>			
 		<% end %>
 	<% else %>
-		<% @post.comments.order('updated_at DESC')[((@post.comments.count-(((@post.comments.count - 1)+ 1) % 10))- 1)..((((((@post.comments.count - 1)+ 1)/ 10)+1)*10)- 1)].each do |comment| %>
+		<% @post.comments.order('created_at ASC')[((@post.comments.count-(((@post.comments.count - 1)+ 1) % 10))- 1)..((((((@post.comments.count - 1)+ 1)/ 10)+1)*10)- 1)].each do |comment| %>
 			<div id="forumtypepost" class="row">
 				<div id="postuserinfo" class='col-md-2 col-sd-2'>
 					<div id="postuser"><%= comment.user.username %></div>
@@ -214,7 +214,7 @@
 						<div id="commentedit">
 							<% if current_user != nil %>
 								<% if current_user == comment.user || current_user.admin %>
-									<%= link_to 'Edit', edit_forum_post_comment_path(Forum.find(@post.forum_id).title, @post.id, comment, comment.id) + '#commentsubmit' %>
+									<%= link_to 'Edit', edit_comment_show_page_path(Forum.find(@post.forum_id).title, @post.id, comment, comment.id, params[:page].to_i) + '#commentsubmit' %>
 								<% end %>
 							<% end %>
 						</div>
@@ -289,8 +289,12 @@
 <% if current_user != nil %>
 	<% if current_user %>
 		<div class='hvr-grow lasthvrgrow'>
-			<a  style="text-decoration : none" href="<%= (new_forum_post_comment_path(Forum.find(@post.forum_id).title, @post.id)+ '#commentsubmit') %>"><input type="submit" class="guildbutton" value="Add Comment" /></a>
+		<% if params[:page] == nil %>
+			<% parpage = 1 %>
+		<% else %>
+			<% parpage = params[:page].to_i %>
+		<% end %>
+		<%= button_to 'Add Comment', new_comment_show_page_path(Forum.find(@post.forum_id).title, @post.id, parpage) + '#commentsubmit', :method => :get, form_class: "guildbuttonform" %>
 		</div>
 	<% end %>
 <% end %>
-

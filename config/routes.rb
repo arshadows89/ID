@@ -9,6 +9,15 @@ Rails.application.routes.draw do
   get "/forums/:forum_id(/page/:page)", to: 'forums#show_page', as: 'forum_show_page'
   get "/forums/:forum_id/posts/new(/page/:page)", to: 'posts#new_show_page', as: 'new_post_show_page'
   get "/forums/:forum_id/posts/:id(/page/:page)", to: 'posts#show_page', as: 'post_show_page'
+  get "/forums/:forum_id/posts/:post_id/comments/new(/page/:page)", to: 'comments#new_show_page', as: 'new_comment_show_page'
+  get "/forums/:forum_id/posts/:post_id/comments/:id/edit(.:format)(/page/:page)", to: 'comments#edit_show_page', as: 'edit_comment_show_page'
+
+  # put "/forums/:forum_id/posts/:post_id/comments/:id(/page/:page)", to: 'comments#update', as: 'forum_post_comment'
+
+
+
+patch '/forums/:forum_id/posts/:post_id/comments/:id(/page/:page)', controller: 'comments', action: :update, as: 'forum_post_comment'
+put '/forums/:forum_id/posts/:post_id/comments/:id(/page/:page)', controller: 'comments', action: :update
 
   get 'admin/streams'
   get 'admin/news'
@@ -36,7 +45,7 @@ get "login" => "sessions#new", :as => "login"
 get "signup" => "users#new", :as => "signup"
   resources :forums, only: [:index, :show] do
     resources :posts, only: [:edit, :update, :new, :create, :destroy, :show] do
-        resources :comments, only: [:edit, :update, :new, :create, :destroy]
+        resources :comments, only: [:edit, :new, :create, :destroy]
     end
   end
   # get '/forums/:forum_id(.:format)/posts/:id(.:format)', to: 'posts#show', as: 'forum_post'
