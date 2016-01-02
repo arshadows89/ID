@@ -1,5 +1,5 @@
 class PostsController < ApplicationController
-  before_action :set_post, :set_forum_by_name, :set_forum, only: [:edit, :update, :show, :destroy]
+  before_action :set_post, :set_forum_by_name, :set_forum, only: [:edit, :update, :show, :show_page, :destroy]
   before_action :set_forum_by_name, :set_forum, only: [:new, :create]
 
   def edit
@@ -39,6 +39,10 @@ class PostsController < ApplicationController
 
   def new_show_page
     @post = Post.new
+    @forum = set_forum
+  end
+
+  def show_page
     @forum = set_forum
   end
 

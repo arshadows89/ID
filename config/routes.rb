@@ -8,6 +8,7 @@ Rails.application.routes.draw do
 
   get "/forums/:forum_id(/page/:page)", to: 'forums#show_page', as: 'forum_show_page'
   get "/forums/:forum_id/posts/new(/page/:page)", to: 'posts#new_show_page', as: 'new_post_show_page'
+  get "/forums/:forum_id/posts/:id(/page/:page)", to: 'posts#show_page', as: 'post_show_page'
 
   get 'admin/streams'
   get 'admin/news'
