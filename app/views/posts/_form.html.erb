@@ -33,11 +33,22 @@
 <div id="forumnav">
 	<%= link_to 'Forum', forums_path %> » <%= link_to Forum.find(@post.forum_id).title, forum_path(Forum.find(@post.forum_id).title) %> » <%= link_to @post.title, forum_post_path(Forum.find(@post.forum_id).title, @post) %>
 </div>
+<!-- links -->
+<div id='homepagelinks' class="padthisright">
+	<% numberofforumpages = 1 %>
+ 	<% 9.times do %>
+		<%= link_to numberofforumpages, post_show_page_path(@forum.title, @post, numberofforumpages) %>
+		<% numberofforumpages += 1 %>
+	<% end %>
+	...
+	<%= link_to ((((@post.comments.count - 1)+ 1) / 10) + 1), post_show_page_path(@forum.title, @post, ((((@post.comments.count - 1)+ 1) / 10) + 1)) %>
+</div>
 <div id='posttitlecenter'>
 	<div id='posttitle'>
 		<%= @post.title %>	
 	</div>
 </div>
+<!-- this is the post  -->
 <div id="forumtypepost" class="row">
 	<div id="postuserinfo" class='col-md-2 col-sd-2'>
 		<div id="postuser"><%= @post.user.username %></div>
@@ -52,17 +63,25 @@
 			</div>
 		<div id='postuserbody'><%= simple_format(@post.body, {}, wrapper_tag: "div", id: 'postuserbody', sanitize: false) %></div>
 		<div id='postdate'>
-			Created on: <%= @post.created_at.strftime("%B %d, %Y") %>
-			<% if @post.created_at != @post.updated_at %>
-				<div id="postupdate">
-					(Updated on: <%= @post.updated_at.strftime("%B %d, %Y") %>)
-				</div>
-			<% end %>
+			<div id="commentedit">
+				<% if current_user != nil %>
+					<% if current_user == @post.user || current_user.admin %>
+						<%= link_to 'Edit', edit_forum_post_path(Forum.find(@post.forum_id).title, @post) + '#commentsubmit' %>
+					<% end %>
+				<% end %>
+			</div>
+			<div id='commentcu'>
+				Created on: <%= @post.created_at.strftime("%B %d, %Y") %>
+				<% if @post.created_at != @post.updated_at %>
+					<div id="postupdate">
+						(Updated on: <%= @post.updated_at.strftime("%B %d, %Y") %>)
+					</div>
+				<% end %>
+			</div>
 		</div>
 	</div>
 </div>
-
-<% @post.comments.all.order('created_at ASC').each do |comment| %>
+<% @post.comments.order('created_at ASC')[0..8].each do |comment| %>
 	<div id="forumtypepost" class="row">
 		<div id="postuserinfo" class='col-md-2 col-sd-2'>
 			<div id="postuser"><%= comment.user.username %></div>
@@ -77,8 +96,20 @@
 			</div>
 			<div id='postuserbody'><%= simple_format(comment.body, {}, wrapper_tag: "div", id: 'postuserbody', sanitize: false) %></div>
 			<div id='postdate'>
+				<div id="commentedit">
+					<% if current_user != nil %>
+						<% if current_user == comment.user || current_user.admin %>
+							<%= link_to 'Edit', edit_comment_show_page_path(Forum.find(@post.forum_id).title, @post.id, comment, comment.id, params[:page].to_i) + '#commentsubmit' %>
+						<% end %>
+					<% end %>
+				</div>
 				<div id="commentdelete">
-<%= link_to 'Delete', forum_post_comment_path(@post.forum_id, @post.id, comment), method: :delete, data: { confirm: 'Are you sure?' } %></div>
+					<% if current_user != nil %>
+						<% if current_user == comment.user || current_user.admin %>
+							<%= link_to 'Delete', forum_post_comment_path(@post.forum_id, @post.id, comment), method: :delete, data: { confirm: 'Are you sure?' } %>
+						<% end %>
+					<% end %>
+				</div>
 				<div id='commentcu'>
 					Created on: <%= comment.created_at.strftime("%B %d, %Y") %>
 					<% if comment.created_at != comment.updated_at %>
@@ -91,7 +122,7 @@
 		</div>
 		<div>
 		</div>
-	</div>
+	</div>			
 <% end %>
 <a name="commentsubmit"></a>
 <div id="forumtypepost" class="row">
@@ -126,7 +157,16 @@
 <br />
 <% end %>
 </div>
-
+<!-- links -->
+<div id='homepagelinks' class="padthisright">
+	<% numberofforumpages = 1 %>
+ 	<% 9.times do %>
+		<%= link_to numberofforumpages, post_show_page_path(@forum.title, @post, numberofforumpages) %>
+		<% numberofforumpages += 1 %>
+	<% end %>
+	...
+	<%= link_to ((((@post.comments.count - 1)+ 1) / 10) + 1), post_show_page_path(@forum.title, @post, ((((@post.comments.count - 1)+ 1) / 10) + 1)) %>
+</div>
 <!-- If not admin -->
   <% else %>
     <%= render 'shared/noaccess' %>    

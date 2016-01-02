@@ -25,7 +25,7 @@ class PostsController < ApplicationController
   def update
     @forum = set_forum
     if @post.update(post_params_update)
-      redirect_to forum_path(current_forum), notice: "Post was successfully updated"
+      redirect_to post_show_page_path(current_forum, current_post, (1)), notice: "Post was successfully updated"
     else
       render :edit 
     end
