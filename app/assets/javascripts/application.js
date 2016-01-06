@@ -26,6 +26,7 @@ $(document).ready(function() {
     });
 	$('.youtubepagetext').quickfit();
 	$('.streampagestreamer').quickfit();
+	$('.usershowusername').quickfit();
 	$(".various").fancybox({
 		type		: "iframe",
 		padding     : 0,

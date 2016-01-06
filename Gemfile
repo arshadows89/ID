@@ -30,6 +30,8 @@ gem 'bcrypt', '~> 3.1.7'
 
 gem 'font-awesome-sass'
 
+gem 'paperclip'
+gem 'aws-sdk', '<2.0'
 
 
 # Use Unicorn as the app server

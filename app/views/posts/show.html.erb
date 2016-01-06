@@ -31,7 +31,7 @@
 <div id="forumtypepost" class="row">
 	<div id="postuserinfo" class='col-md-2 col-sd-2'>
 		<div id="postuser"><%= @post.user.username %></div>
-		<div id="postuseravatar">avatar</div>
+		<div id="postuseravatar"><%= image_tag @post.user.avatar.url %></div>
 		<div id="postuserjoindate"><b>Join Date:</b> <%= @post.user.created_at.strftime("%B %d, %Y") %></div>
 		<div id="postuserpostcount"><b>Posts:</b> <%= @post.user.comments.count + @post.user.posts.count %></div>
 	</div>

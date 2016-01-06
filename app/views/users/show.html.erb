@@ -1,0 +1,150 @@
+<!-- if loged in -->
+<% if current_user != nil %>
+<!-- If current_user -->
+	<% if current_user.id == params[:id].to_i %>
+		<div id='usershow' class='row'>
+				<div id='adminnoticediv' class='usershowpad'>
+			<a class="notice"><%= flash[:notice] if flash[:notice] %></a>
+			<a class="alert"><%= flash[:alert] if flash[:alert] %></a>
+		</div>
+			<div id="usershowleftside" class='col-md-3 col-sd-3'>
+				<div id="quickfit" class="usershowusername"><%= current_user.username %></div>
+				<div id="usershowavatar">
+					<%= image_tag @user.avatar.url %></div>
+				<div id="usershowemail"><%= current_user.email %></div>
+				<div id="usershowpc">Total Posts: <%= current_user.posts.count %></div>
+				<div id="usershowcc">Total Comments: <%= current_user.comments.count %></div>
+				<div class='hvr-grow lasthvrgrow' id='usereditbut'>
+					<a style="text-decoration : none" href="<%= (edit_user_path(current_user)) %>"><input type="submit" class="guildbutton" value="Edit Profile" /></a>
+				</div>
+			</div>
+			<div id="usershowrightside" class='col-md-9 col-sd-9'>
+<!-- post section -->
+				<div id="usershowpostsectionall">
+					<% if current_user.posts.count == 0 %>
+						<div id="notadminmargin" class='notadminpad'>
+							<div id="notadmin">
+							    <div id="notadminbanner">
+						    	You Currently Have No Posts
+								</div>
+								<div id="notadmintext">
+								Create some posts to view up to your last 5 most recent updated or created posts.
+								</div>
+							</div>
+						</div>
+						<style>
+							#usershowpostsectionall {
+								padding: 20px;
+							}
+						</style>
+					<% else %>
+						<div id='usershowpostinfo'>
+							Your Last 5 Posts
+						</div>
+						<% current_user.posts.order('updated_at ASC').last(5).reverse.each do |x| %>
+							<div id="usershowpostsection">
+								<div id='usershowtitle'>
+									<%= x.title %> 
+								</div>
+								<div id="usershowupdatedwhen">
+									<% @recenttime = Time.now - x.updated_at  %>
+									<% if @recenttime < 60 %>
+								 		posted less than a min ago
+								 	<% elsif @recenttime < 3600 %>
+								 		posted less than an hour ago
+								 	<% elsif @recenttime < 86400 %>
+								 		posted less than a day ago
+								 	<% elsif @recenttime < 604800 %>
+								 		posted less than a week ago
+								 	<% elsif @recenttime < 2592000 %>
+								 		posted less than a month ago
+								 	<% elsif @recenttime < 31536000 %>
+								 		posted less than a year ago
+								 	<% elsif @recenttime >= 31536000 %>
+								 		posted more than a year ago
+								 	<% else %>
+								 		an error occured
+								 	<% end %>
+								 </div>
+
+								<div id='usershowbody'>
+									<%= simple_format(x.body, {}, wrapper_tag: "div", id: 'postuserbody', sanitize: false) %> 
+								</div>
+								<div id="usershowcu">
+									<% if x.created_at == x.updated_at %>
+										created on: <%= x.created_at.strftime("%B %d, %Y") %>
+									<% else %>
+										updated on: <%= x.updated_at.strftime("%B %d, %Y") %>
+									<% end %>
+								</div>
+							</div>
+						<% end %>
+					<% end %>
+				</div>
+<!-- comment section -->
+				<div id='usershowcommentsectionall'>
+					<% if current_user.comments.count == 0 %>
+						<div id="notadminmargin" class='notadminpad'>
+							<div id="notadmin">
+							    <div id="notadminbanner">
+						    	You Currently Have No Comments
+								</div>
+								<div id="notadmintext">
+								Create some comments to view up to your last 5 most recent updated or created comments.
+								</div>
+							</div>
+						</div>
+						<style>
+							#usershowcommentsectionall {
+								padding: 20px;
+							}
+						</style>
+					<% else %>
+						<div id='usershowcommentinfo'>
+							Your Last 5 Comments
+						</div>
+						<% current_user.comments.order('updated_at ASC').last(5).reverse.each do |x| %>
+							<div id='usershowcommentsection'> 
+								<div id="usershowupdatedwhen">
+									<% @recenttime = Time.now - x.updated_at  %>
+									<% if @recenttime < 60 %>
+								 		posted less than a min ago
+								 	<% elsif @recenttime < 3600 %>
+								 		posted less than an hour ago
+								 	<% elsif @recenttime < 86400 %>
+								 		posted less than a day ago
+								 	<% elsif @recenttime < 604800 %>
+								 		posted less than a week ago
+								 	<% elsif @recenttime < 2592000 %>
+								 		posted less than a month ago
+								 	<% elsif @recenttime < 31536000 %>
+								 		posted less than a year ago
+								 	<% elsif @recenttime >= 31536000 %>
+								 		posted more than a year ago
+								 	<% else %>
+								 		an error occured
+								 	<% end %>
+								 </div>
+								 <div id='usershowbody'>
+									<%= simple_format(x.body, {}, wrapper_tag: "div", id: 'postuserbody', sanitize: false) %>
+								</div>
+								<div id="usershowcu">
+									<% if x.created_at == x.updated_at %>
+										created on: <%= x.created_at.strftime("%B %d, %Y") %>
+									<% else %>
+										updated on: <%= x.updated_at.strftime("%B %d, %Y") %>
+									<% end %>
+								</div>
+							</div>
+						<% end %>
+					<% end %>
+				</div>
+			</div>
+		</div>
+<!-- If not current user -->
+	<% else %>
+		<%= render 'shared/noaccess' %>	   
+	<% end %>
+<% else %>
+	<%= render 'shared/noaccess' %>	 
+<% end %>

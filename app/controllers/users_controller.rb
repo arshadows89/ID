@@ -44,7 +44,7 @@ class UsersController < ApplicationController
   		if @user.update(user_params)
   		redirect_to @user, notice: "User successfully updated."
     else
-      render :layout => "../users/new"
+      render :edit
   	end
   end
 
@@ -76,7 +76,7 @@ class UsersController < ApplicationController
   end
 
   def user_params
-  	params.require(:user).permit(:username, :password, :admin, :email)
+  	params.require(:user).permit(:username, :password, :admin, :email, :avatar)
   end
 
   # def current_user

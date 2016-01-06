@@ -66,6 +66,20 @@ html, body, .body-height {
     box-shadow: 0px 0px 1px 0px black, 0px 3px 15px 2px black;
 }
 
+#divider {
+	display: inline-block;
+}
+
+#title-admin {
+	float: right;
+    padding-right: 10px;
+    padding-left: 7px;
+    padding-bottom: 2px;
+    background-color: #333333;
+    margin-top: -1px;
+    margin-right: -1px;
+}
+
 #title {
 	height: 140px;
 	text-align: center;
@@ -905,4 +919,118 @@ input#post_title {
 .bottomhomepagelinks {
 	padding-bottom: 10px;
 }
+
+// user show page
+
+#usershow {
+	color: $primary-color;
+}
+
+#usershowleftside {
+	padding-left: 25px;
+	padding-right: 25px;
+}
+
+.usershowusername {
+	text-align: center;
+}
+
+#usershowavatar {
+	text-align: center;
+}
+
+#usershowavatar img {
+	max-height: 100%;
+	max-width: 100%;
+}
+
+#usershowemail,
+#usershowpc,
+#usershowcc {
+	font-size: 15px;
+}
+
+#usershowcommentsection,
+#usershowpostsection {
+	height: 100%;
+    color: #333333;
+    margin: 15px;
+    -webkit-box-shadow: inset 0px 0px 15px 0px rgba(51, 51, 51, 0.66);
+    -moz-box-shadow: inset 0px 0px 15px 0px rgba(51, 51, 51, 0.66);
+    box-shadow: inset 0px 0px 15px 0px rgba(51, 51, 51, 0.66);
+    padding-bottom: 20px;
+    position: relative;
+}
+
+#usershowpostsectionall,
+#usershowcommentsectionall {
+	height: 100%;
+    color: #333333;
+    margin: 10px;
+    -webkit-box-shadow: inset 0px 0px 15px 0px rgba(51, 51, 51, 0.66);
+    -moz-box-shadow: inset 0px 0px 15px 0px rgba(51, 51, 51, 0.66);
+    box-shadow: inset 0px 0px 15px 0px rgba(51, 51, 51, 0.66);
+    position: relative;
+}
+
+#usershowcommentinfo,
+#usershowpostinfo {
+	text-align: center;
+	padding-top: 10px;
+	font-size: 25px;
+}
+
+#usershowupdatedwhen {
+	text-align: right;
+    font-size: 10px;
+    padding-top: 5px;
+    padding-right: 10px;
+    padding-bottom: 5px;
+}
+
+#usershowcu {
+	display: inline-block;
+    float: right;
+    padding-right: 10px;
+    font-size: 10px;
+}
+
+#postuseravatar img {
+	max-height: 100%;
+	max-width: 100%
+}
+
+
+#usershowbody {
+	padding: 0 15px;
+}
+
+#usershowcommentsectionall {
+	margin-top: 50px;
+}
+
+#usershowtitle {
+	color: #e1f2f5;
+    background: rgba(0, 0, 0, 0.8);
+    background-image: repeating-linear-gradient(45deg, rgba(225, 242, 245, 0.05) 0%, rgba(225, 242, 245, 0.05) 25%, transparent 25%, transparent 50%);
+    background-image: -webkit-repeating-linear-gradient(45deg, rgba(225, 242, 245, 0.05) 0%, rgba(225, 242, 245, 0.05) 25%, transparent 25%, transparent 50%);
+    background-image: -moz-repeating-linear-gradient(45deg, rgba(225, 242, 245, 0.05) 0%, rgba(225, 242, 245, 0.05) 25%, transparent 25%, transparent 50%);
+    background-image: -ms-repeating-linear-gradient(45deg, rgba(225, 242, 245, 0.05) 0%, rgba(225, 242, 245, 0.05) 25%, transparent 25%, transparent 50%);
+    background-image: -o-repeating-linear-gradient(45deg, rgba(225, 242, 245, 0.05) 0%, rgba(225, 242, 245, 0.05) 25%, transparent 25%, transparent 50%);
+    -webkit-background-size: 5px 5px;
+    -moz-background-size: 5px 5px;
+    -o-background-size: 5px 5px;
+    background-size: 5px 5px;
+    font-size: 25px;
+    text-align: center;
+}
+
+#usereditbut {
+	margin-left: 0;
+}
+
+.usershowpad {
+	padding-right: 20px !important;
+}
+
 

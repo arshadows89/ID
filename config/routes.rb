@@ -53,7 +53,7 @@ get "signup" => "users#new", :as => "signup"
 
   resources :homepagenews, only: [:edit, :update, :new, :create, :destroy]
   resources :playlists, only: [:edit, :update]
-  resources :users
+  resources :users, only: [:edit, :update, :new, :create, :destroy, :show]
   resources :sessions
   resources :password_resets
   resources :streams
