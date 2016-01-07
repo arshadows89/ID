@@ -1,27 +1,64 @@
-<% if @user.errors.any? %>
-	<ul>
-		<% @user.errors.full_messages.each do |message| %>
-			 <li><%= message %></li>
-		<% end %>
-	</ul>
+<!-- if loged in -->
+<% if current_user != nil %>
+<!-- If current_user -->
+	<% if current_user.id == params[:id].to_i %>
+		<div id='usereditformbox'>
+			<div id='usereditform'>
+			<div id='usereditformtitle'>
+				Edit User Profile
+			</div>
+				<% if @user.errors.any? %>
+					<ul>
+						<% @user.errors.full_messages.each do |message| %>
+							 <li><%= message %></li>
+						<% end %>
+					</ul>
+				<% end %>
+				<a class="notice"><%= flash[:notice] if flash[:notice] %></a>
+
+				<%= form_for @user, :html => {  :multipart => true } do |f| %>
+					<div class='usereditform'>
+						Username: <%= f.text_field :username, placeholder: "Username" %>
+					</div>
+					<div class='usereditform'>
+						<div id='usereditformemail'>Email:</div> <%= f.text_field :email, placeholder: "Email"  %>
+					</div>
+					<div class='usereditform'>
+						Password: <%= f.password_field :password %>
+					</div>
+					<div class='usereditform usereditformavatar'>
+						<%= f.file_field :avatar %>
+						<span id='val'></span>
+			 			<span id='button'>Select File</span>
+					</div>
+					<div class='usereditformsubmit'>	
+						<button onclick="parent.$.fancybox.close();" type="button" class="formbuttons closefb">Cancel</button>
+						<%= f.submit :class => 'formbuttons submitbutton', :id => 'signupformbut'%>
+					</div>
+				<% end %>
+			</div>
+		</div>
+		<div id="edituserback-button">
+			<%= link_to "Back", user_path(current_user) %>
+		</div>
+		<script>
+		$(document).ready(function() {
+			var x = '<%=j current_user.avatar_file_name.to_s %>'
+			$('#val').text(x)
+		});
+
+		$('#button').click(function () {
+		    $("input[type='file']").trigger('click');
+		})
+
+		$("input[type='file']").change(function () {
+		    $('#val').text(this.value.replace(/C:\\fakepath\\/i, ''))
+		})
+		</script>
+<!-- If not current user -->
+	<% else %>
+		<%= render 'shared/noaccess' %>	   
+	<% end %>
+<% else %>
+	<%= render 'shared/noaccess' %>	 
 <% end %>
-<a class="notice"><%= flash[:notice] if flash[:notice] %></a>
-
-<%= form_for @user, :html => {  :multipart => true } do |f| %>
-	
-	<%= f.text_field :username, placeholder: "Username" %><br />
-	<%= f.text_field :email, placeholder: "Email"  %><br />
-	<%= f.password_field :password, placeholder: "Password" %><br />
-	<%= f.file_field :avatar %><br />
-	<button onclick="parent.$.fancybox.close();" type="button" class="formbuttons closefb">Cancel</button>
-	<%= f.submit :class => 'formbuttons submitbutton', :id => 'signupformbut'%>
-	<br />
-<br />
-
-<% end %>
-
-
-
-<% params.each do |key,value|
-  Rails.logger.warn "Param #{key}: #{value}"
-end %>

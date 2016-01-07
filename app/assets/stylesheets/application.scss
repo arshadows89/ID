@@ -1044,6 +1044,13 @@ input#post_title {
 	text-align: center;
 }
 
+#usershowavatar img {
+    max-width: 100%;
+    width: auto;
+    padding: 0 5%;
+    max-height: 200px;
+}
+
 #postuserjoindate,
 #postuserpostcount {
 	padding-left: 5px;
@@ -1061,3 +1068,98 @@ input#post_title {
 	margin-left: 0px !important;
 	margin-right: 0px !important;
 }
+
+.usereditform {
+	padding: 5px 0px;
+	text-align: left;
+    padding-left: 15px;
+}
+
+.usereditformsubmit {
+	padding: 5px 0px;
+	text-align: center;
+}
+
+#usereditformemail {
+	display: inline-block;
+    padding-right: 30px;
+}
+
+#usereditform {
+	text-align: center;
+	padding: 25px 0px;
+	color: #333333; 
+}
+
+#edituserback-button {
+	bottom: 0;
+    position: absolute;
+    right: 0;
+    padding-right: 20px;
+    padding-bottom: 5px;
+}
+
+#usereditformtitle {
+	font-size: 25px;
+    padding-bottom: 20px;
+}
+
+#usereditform input[type="file"] {
+/*    display: inline-block;
+    padding-left: 100px;*/
+    width:400px;
+    height:25px;
+    opacity:0
+}
+
+#usereditformbox {
+	color: #333333;
+    margin: 25px auto;
+	-webkit-box-shadow: inset 0px 0px 15px 0px rgba(51,51,51,0.66);
+	-moz-box-shadow: inset 0px 0px 15px 0px rgba(51,51,51,0.66);
+	box-shadow: inset 0px 0px 15px 0px rgba(51,51,51,0.66);
+	width: 500px;
+}
+
+.usereditformavatar {
+    width: 400px;
+    height: 25px;
+    background-color: white;
+    box-shadow: 1px 2px 3px #ededed;
+    position:relative;
+    border: 1px solid #d8d8d8;
+    margin-left: 15px;
+}
+
+#val {
+    width: 400px;
+    height:25px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    font-size:13px;
+    line-height: 25px;
+    text-indent: 10px;
+    pointer-events: none;
+}
+#button {
+    display: block;
+    width: 90px;
+    background-color: #333333;
+    height:25px;
+    color: white;
+    position: absolute;
+    right:0;
+    top: 0;
+    font-size: 11px;
+    line-height:25px;
+    text-align: center;
+    -webkit-transition: 500ms all;
+    -moz-transition: 500ms all;
+    transition: 500ms all;
+}
+
+#button:hover {
+    background-color: #337ab7;
+}
+
