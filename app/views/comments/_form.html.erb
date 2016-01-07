@@ -85,167 +85,189 @@
 <!-- these are the comments -->
 <% if ((params[:page].to_i * 10) < (((((@post.comments.count -1)+ 1) / 10)+1)*10)) and ((params[:page].to_i) != 0) and ((params[:page].to_i) != 1) %>
 	<% @post.comments.order('created_at ASC')[((((params[:page].to_i - 1)) * 10)- 1)..(((params[:page].to_i * 10)-2))].each do |comment| %>
-		<div id="forumtypepost" class="row">
-			<div id="postuserinfo" class='col-md-2 col-sd-2'>
-				<div id="postuser"><%= comment.user.username %></div>
-				<div id="postuseravatar">avatar</div>
-				<div id="postuserjoindate"><b>Join Date:</b> <%= comment.user.created_at.strftime("%B %d, %Y") %></div>
-				<div id="postuserpostcount"><b>Posts:</b> <%= comment.user.comments.count + comment.user.posts.count %></div>
-			</div>
-			<div id="postinfo" class='col-md-10 col-sd-10'>
-				<div id='postwhen'>
-					<% findcommenttime(comment.created_at) %>
-					<%= @commenttime %>
+		<div id="forumtypepost">
+			<div class='row nomarginrow'>
+				<div id="postuserinfo" class='col-md-2 col-sd-2'>
+					<div id="postuser"><%= comment.user.username %></div>
+					<div id="postuseravatar"><%= image_tag comment.user.avatar.url %></div>
+					<div id="postuserjoindate"><b>Join Date:</b> <%= comment.user.created_at.strftime("%B %d, %Y") %></div>
+					<div id="postuserpostcount"><b>Posts:</b> <%= comment.user.comments.count + comment.user.posts.count %></div>
 				</div>
-				<div id='postuserbody'><%= simple_format(comment.body, {}, wrapper_tag: "div", id: 'postuserbody', sanitize: false) %></div>
-				<div id='postdate'>
-					<div id="commentedit">
-						<% if current_user != nil %>
-							<% if current_user == comment.user || current_user.admin %>
-								<%= link_to 'Edit', edit_comment_show_page_path(Forum.find(@post.forum_id).title, @post.id, comment, comment.id, params[:page].to_i) + '#commentsubmit' %>
-							<% end %>
-						<% end %>
+				<div id="postinfo" class='col-md-10 col-sd-10'>
+					<div id='postwhen'>
+						<% findcommenttime(comment.created_at) %>
+						<%= @commenttime %>
 					</div>
-					<div id="commentdelete">
-						<% if current_user != nil %>
-							<% if current_user == comment.user || current_user.admin %>
-								<%= link_to 'Delete', forum_post_comment_path(@post.forum_id, @post.id, comment), method: :delete, data: { confirm: 'Are you sure?' } %>
-							<% end %>
-						<% end %>
-					</div>
-					<div id='commentcu'>
-						Created on: <%= comment.created_at.strftime("%B %d, %Y") %>
-						<% if comment.created_at != comment.updated_at %>
-							<div id="postupdate">
-								(Updated on: <%= comment.updated_at.strftime("%B %d, %Y") %>)
-							</div>
-						<% end %>
-					</div>
+					<div id='postuserbody'><%= simple_format(comment.body, {}, wrapper_tag: "div", id: 'postuserbody', sanitize: false) %></div>
 				</div>
 			</div>
-			<div>
+			<div class='row nomarginrow'>
+				<div id="postuserinfo" class='col-md-2 col-sd-2'></div>
+				<div id="postinfo" class='col-md-10 col-sd-10 postinfoleftpad'>
+					<div id='postdate'>
+						<div id="commentedit">
+							<% if current_user != nil %>
+								<% if current_user == comment.user || current_user.admin %>
+									<%= link_to 'Edit', edit_comment_show_page_path(Forum.find(@post.forum_id).title, @post.id, comment, comment.id, params[:page].to_i) + '#commentsubmit' %>
+								<% end %>
+							<% end %>
+						</div>
+						<div id="commentdelete">
+							<% if current_user != nil %>
+								<% if current_user == comment.user || current_user.admin %>
+									<%= link_to 'Delete', forum_post_comment_path(@post.forum_id, @post.id, comment), method: :delete, data: { confirm: 'Are you sure?' } %>
+								<% end %>
+							<% end %>
+						</div>
+						<div id='commentcu'>
+							Created on: <%= comment.created_at.strftime("%B %d, %Y") %>
+							<% if comment.created_at != comment.updated_at %>
+								<div id="postupdate">
+									(Updated on: <%= comment.updated_at.strftime("%B %d, %Y") %>)
+								</div>
+							<% end %>
+						</div>
+					</div>
+				</div>
 			</div>
 		</div>
 	<% end %>
 <% else %>
 	<% if params[:page] == nil or params[:page].to_i == 1 %>
 		<!-- this is the post  -->
-		<div id="forumtypepost" class="row">
-			<div id="postuserinfo" class='col-md-2 col-sd-2'>
-				<div id="postuser"><%= @post.user.username %></div>
-				<div id="postuseravatar">avatar</div>
-				<div id="postuserjoindate"><b>Join Date:</b> <%= @post.user.created_at.strftime("%B %d, %Y") %></div>
-				<div id="postuserpostcount"><b>Posts:</b> <%= @post.user.comments.count + @post.user.posts.count %></div>
+		<div id="forumtypepost">
+			<div class='row nomarginrow'>
+				<div id="postuserinfo" class='col-md-2 col-sd-2'>
+					<div id="postuser"><%= @post.user.username %></div>
+					<div id="postuseravatar"><%= image_tag @post.user.avatar.url %></div>
+					<div id="postuserjoindate"><b>Join Date:</b> <%= @post.user.created_at.strftime("%B %d, %Y") %></div>
+					<div id="postuserpostcount"><b>Posts:</b> <%= @post.user.comments.count + @post.user.posts.count %></div>
+				</div>
+				<div id="postinfo" class='col-md-10 col-sd-10'>
+						<div id='postwhen'>
+							<% findcommenttime(@post.created_at) %>
+							<%= @commenttime %>
+						</div>
+					<div id='postuserbody'><%= simple_format(@post.body, {}, wrapper_tag: "div", id: 'postuserbody', sanitize: false) %></div>
+				</div>
 			</div>
-			<div id="postinfo" class='col-md-10 col-sd-10'>
-					<div id='postwhen'>
-						<% findcommenttime(@post.created_at) %>
-						<%= @commenttime %>
-					</div>
-				<div id='postuserbody'><%= simple_format(@post.body, {}, wrapper_tag: "div", id: 'postuserbody', sanitize: false) %></div>
-				<div id='postdate'>
-					<div id="commentedit">
-						<% if current_user != nil %>
-							<% if current_user == @post.user || current_user.admin %>
-								<%= link_to 'Edit', edit_forum_post_path(Forum.find(@post.forum_id).title, @post) + '#commentsubmit' %>
+			<div class='row nomarginrow'>
+				<div id="postuserinfo" class='col-md-2 col-sd-2'></div>
+				<div id="postinfo" class='col-md-10 col-sd-10 postinfoleftpad'>
+					<div id='postdate'>
+						<div id="commentedit">
+							<% if current_user != nil %>
+								<% if current_user == @post.user || current_user.admin %>
+									<%= link_to 'Edit', edit_forum_post_path(Forum.find(@post.forum_id).title, @post) + '#commentsubmit' %>
+								<% end %>
 							<% end %>
-						<% end %>
-					</div>
-					<div id='commentcu'>
-						Created on: <%= @post.created_at.strftime("%B %d, %Y") %>
-						<% if @post.created_at != @post.updated_at %>
-							<div id="postupdate">
-								(Updated on: <%= @post.updated_at.strftime("%B %d, %Y") %>)
-							</div>
-						<% end %>
+						</div>
+						<div id='commentcu'>
+							Created on: <%= @post.created_at.strftime("%B %d, %Y") %>
+							<% if @post.created_at != @post.updated_at %>
+								<div id="postupdate">
+									(Updated on: <%= @post.updated_at.strftime("%B %d, %Y") %>)
+								</div>
+							<% end %>
+						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 		<% @post.comments.order('created_at ASC')[0..8].each do |comment| %>
-			<div id="forumtypepost" class="row">
-				<div id="postuserinfo" class='col-md-2 col-sd-2'>
-					<div id="postuser"><%= comment.user.username %></div>
-					<div id="postuseravatar">avatar</div>
-					<div id="postuserjoindate"><b>Join Date:</b> <%= comment.user.created_at.strftime("%B %d, %Y") %></div>
-					<div id="postuserpostcount"><b>Posts:</b> <%= comment.user.comments.count + comment.user.posts.count %></div>
-				</div>
-				<div id="postinfo" class='col-md-10 col-sd-10'>
-					<div id='postwhen'>
-						<% findcommenttime(comment.created_at) %>
-						<%= @commenttime %>
+			<div id="forumtypepost">
+				<div class='row nomarginrow'>
+					<div id="postuserinfo" class='col-md-2 col-sd-2'>
+						<div id="postuser"><%= comment.user.username %></div>
+						<div id="postuseravatar"><%= image_tag comment.user.avatar.url %></div>
+						<div id="postuserjoindate"><b>Join Date:</b> <%= comment.user.created_at.strftime("%B %d, %Y") %></div>
+						<div id="postuserpostcount"><b>Posts:</b> <%= comment.user.comments.count + comment.user.posts.count %></div>
 					</div>
-					<div id='postuserbody'><%= simple_format(comment.body, {}, wrapper_tag: "div", id: 'postuserbody', sanitize: false) %></div>
-					<div id='postdate'>
-						<div id="commentedit">
-							<% if current_user != nil %>
-								<% if current_user == comment.user || current_user.admin %>
-									<%= link_to 'Edit', edit_comment_show_page_path(Forum.find(@post.forum_id).title, @post.id, comment, comment.id, params[:page].to_i) + '#commentsubmit' %>
-								<% end %>
-							<% end %>
+					<div id="postinfo" class='col-md-10 col-sd-10'>
+						<div id='postwhen'>
+							<% findcommenttime(comment.created_at) %>
+							<%= @commenttime %>
 						</div>
-						<div id="commentdelete">
-							<% if current_user != nil %>
-								<% if current_user == comment.user || current_user.admin %>
-									<%= link_to 'Delete', forum_post_comment_path(@post.forum_id, @post.id, comment), method: :delete, data: { confirm: 'Are you sure?' } %>
-								<% end %>
-							<% end %>
-						</div>
-						<div id='commentcu'>
-							Created on: <%= comment.created_at.strftime("%B %d, %Y") %>
-							<% if comment.created_at != comment.updated_at %>
-								<div id="postupdate">
-									(Updated on: <%= comment.updated_at.strftime("%B %d, %Y") %>)
-								</div>
-							<% end %>
-						</div>
+						<div id='postuserbody'><%= simple_format(comment.body, {}, wrapper_tag: "div", id: 'postuserbody', sanitize: false) %></div>
 					</div>
 				</div>
-				<div>
+				<div class='row nomarginrow'>
+					<div id="postuserinfo" class='col-md-2 col-sd-2'></div>
+					<div id="postinfo" class='col-md-10 col-sd-10 postinfoleftpad'>
+						<div id='postdate'>
+							<div id="commentedit">
+								<% if current_user != nil %>
+									<% if current_user == comment.user || current_user.admin %>
+										<%= link_to 'Edit', edit_comment_show_page_path(Forum.find(@post.forum_id).title, @post.id, comment, comment.id, params[:page].to_i) + '#commentsubmit' %>
+									<% end %>
+								<% end %>
+							</div>
+							<div id="commentdelete">
+								<% if current_user != nil %>
+									<% if current_user == comment.user || current_user.admin %>
+										<%= link_to 'Delete', forum_post_comment_path(@post.forum_id, @post.id, comment), method: :delete, data: { confirm: 'Are you sure?' } %>
+									<% end %>
+								<% end %>
+							</div>
+							<div id='commentcu'>
+								Created on: <%= comment.created_at.strftime("%B %d, %Y") %>
+								<% if comment.created_at != comment.updated_at %>
+									<div id="postupdate">
+										(Updated on: <%= comment.updated_at.strftime("%B %d, %Y") %>)
+									</div>
+								<% end %>
+							</div>
+						</div>
+					</div>
 				</div>
 			</div>			
 		<% end %>
 	<% else %>
 		<% @post.comments.order('created_at ASC')[((@post.comments.count-(((@post.comments.count - 1)+ 1) % 10))- 1)..((((((@post.comments.count - 1)+ 1)/ 10)+1)*10)- 1)].each do |comment| %>
-			<div id="forumtypepost" class="row">
-				<div id="postuserinfo" class='col-md-2 col-sd-2'>
-					<div id="postuser"><%= comment.user.username %></div>
-					<div id="postuseravatar">avatar</div>
-					<div id="postuserjoindate"><b>Join Date:</b> <%= comment.user.created_at.strftime("%B %d, %Y") %></div>
-					<div id="postuserpostcount"><b>Posts:</b> <%= comment.user.comments.count + comment.user.posts.count %></div>
-				</div>
-				<div id="postinfo" class='col-md-10 col-sd-10'>
-					<div id='postwhen'>
-						<% findcommenttime(comment.created_at) %>
-						<%= @commenttime %>
+			<div id="forumtypepost">
+				<div class='row nomarginrow'>
+					<div id="postuserinfo" class='col-md-2 col-sd-2'>
+						<div id="postuser"><%= comment.user.username %></div>
+						<div id="postuseravatar"><%= image_tag comment.user.avatar.url %></div>
+						<div id="postuserjoindate"><b>Join Date:</b> <%= comment.user.created_at.strftime("%B %d, %Y") %></div>
+						<div id="postuserpostcount"><b>Posts:</b> <%= comment.user.comments.count + comment.user.posts.count %></div>
 					</div>
-					<div id='postuserbody'><%= simple_format(comment.body, {}, wrapper_tag: "div", id: 'postuserbody', sanitize: false) %></div>
-					<div id='postdate'>
-						<div id="commentedit">
-							<% if current_user != nil %>
-								<% if current_user == comment.user || current_user.admin %>
-									<%= link_to 'Edit', edit_comment_show_page_path(Forum.find(@post.forum_id).title, @post.id, comment, comment.id, params[:page].to_i) + '#commentsubmit' %>
-								<% end %>
-							<% end %>
+					<div id="postinfo" class='col-md-10 col-sd-10'>
+						<div id='postwhen'>
+							<% findcommenttime(comment.created_at) %>
+							<%= @commenttime %>
 						</div>
-						<div id="commentdelete">
-							<% if current_user != nil %>
-								<% if current_user == comment.user || current_user.admin %>
-									<%= link_to 'Delete', forum_post_comment_path(@post.forum_id, @post.id, comment), method: :delete, data: { confirm: 'Are you sure?' } %>
-								<% end %>
-							<% end %>
-						</div>
-						<div id='commentcu'>
-							Created on: <%= comment.created_at.strftime("%B %d, %Y") %>
-							<% if comment.created_at != comment.updated_at %>
-								<div id="postupdate">
-									(Updated on: <%= comment.updated_at.strftime("%B %d, %Y") %>)
-								</div>
-							<% end %>
-						</div>
+						<div id='postuserbody'><%= simple_format(comment.body, {}, wrapper_tag: "div", id: 'postuserbody', sanitize: false) %></div>
 					</div>
 				</div>
-				<div>
+				<div class='row nomarginrow'>
+					<div id="postuserinfo" class='col-md-2 col-sd-2'></div>
+					<div id="postinfo" class='col-md-10 col-sd-10 postinfoleftpad'>
+						<div id='postdate'>
+							<div id="commentedit">
+								<% if current_user != nil %>
+									<% if current_user == comment.user || current_user.admin %>
+										<%= link_to 'Edit', edit_comment_show_page_path(Forum.find(@post.forum_id).title, @post.id, comment, comment.id, params[:page].to_i) + '#commentsubmit' %>
+									<% end %>
+								<% end %>
+							</div>
+							<div id="commentdelete">
+								<% if current_user != nil %>
+									<% if current_user == comment.user || current_user.admin %>
+										<%= link_to 'Delete', forum_post_comment_path(@post.forum_id, @post.id, comment), method: :delete, data: { confirm: 'Are you sure?' } %>
+									<% end %>
+								<% end %>
+							</div>
+							<div id='commentcu'>
+								Created on: <%= comment.created_at.strftime("%B %d, %Y") %>
+								<% if comment.created_at != comment.updated_at %>
+									<div id="postupdate">
+										(Updated on: <%= comment.updated_at.strftime("%B %d, %Y") %>)
+									</div>
+								<% end %>
+							</div>
+						</div>
+					</div>
 				</div>
 			</div>
 		<% end %>
