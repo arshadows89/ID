@@ -90,62 +90,9 @@
 
 
 
-
-<% if ((params[:page].to_i * 10) < ((((@forum.posts.count -1) / 10)+1)*10)) and ((params[:page].to_i) != 0) %>
-	<% @forum.posts.order('updated_at DESC')[(((params[:page].to_i - 1) * 10))..((params[:page].to_i * 10)-1)].each do |forum| %>
-		<div id="forumtypeforum" class="row">
-			<div id="commentdelete">
-				<% if current_user != nil %>
-					<% if current_user == forum.user || current_user.admin %>
-						<%= link_to image_tag('xicon.png'), forum_post_path(@forum, forum), method: :delete, data: { confirm: 'Are you sure?' } %>
-					<% end %>
-				<% end %>
-			</div>
-			<div id="forumtypeforumtitle" class='col-md-8 col-sd-8'>
-				<%= link_to truncate(forum.title, length: 30), forum_post_path(@forum.title ,forum) %>
-			</div>
-			<div id="forumtypeforumpccount" class='col-md-2 col-sd-2'>
-				<div>Total Comments <%= forum.comments.count + 1 %></div>
-			</div>
-			<div id="forumtypeforumlastpost" class='col-md-2 col-sd-2'>
-				<% if forum.comments.count == 0 %>
-					<% @recenttime = Time.now - forum.updated_at %>
-					<div>by <%= forum.user.username %></div>
-				<% else %>
-					<div id="forumtypeforumbodyinline">
-				 		<%= simple_format(forum.comments.order(:updated_at).last.body[0...25], {}, wrapper_tag: "div", id: 'postuserbody', sanitize: false) %>
-				 		<% if forum.comments.order(:updated_at).last.body.length > 25 %>
-							<div style="display: inline-block;">...</div>
-				 		<% end %>
-				 	</div>
-				 	<div>by <%= forum.comments.order(:updated_at).last.user.username %></div>
-				 	<% @recenttime = Time.now - forum.comments.order(:updated_at).last.updated_at  %>
-				<% end %>
-				<div>
-				 	<% if @recenttime < 60 %>
-				 		posted less than a min ago
-				 	<% elsif @recenttime < 3600 %>
-				 		posted less than an hour ago
-				 	<% elsif @recenttime < 86400 %>
-				 		posted less than a day ago
-				 	<% elsif @recenttime < 604800 %>
-				 		posted less than a week ago
-				 	<% elsif @recenttime < 2592000 %>
-				 		posted less than a month ago
-				 	<% elsif @recenttime < 31536000 %>
-				 		posted less than a year ago
-				 	<% elsif @recenttime >= 31536000 %>
-				 		posted more than a year ago
-				 	<% else %>
-				 		an error occured
-				 	<% end %>
-			 	</div>
-			</div>
-		</div>
-	<% end %>
-<% else %>
-	<% if params[:page] == nil %>
-	<% @forum.posts.order('updated_at DESC')[0..9].each do |forum| %>
+<% if @forum.posts.empty? == false %>
+	<% if ((params[:page].to_i * 10) < ((((@forum.posts.count -1) / 10)+1)*10)) and ((params[:page].to_i) != 0) %>
+		<% @forum.posts.order('updated_at DESC')[(((params[:page].to_i - 1) * 10))..((params[:page].to_i * 10)-1)].each do |forum| %>
 			<div id="forumtypeforum" class="row">
 				<div id="commentdelete">
 					<% if current_user != nil %>
@@ -197,60 +144,113 @@
 			</div>
 		<% end %>
 	<% else %>
-		<% @forum.posts.order('updated_at DESC')[((@forum.posts.count-((@forum.posts.count - 1) % 10))- 1)..(((((@forum.posts.count - 1)/ 10)+1)*10)- 1)].each do |forum| %>
-			<div id="forumtypeforum" class="row">
-				<div id="commentdelete">
-					<% if current_user != nil %>
-						<% if current_user == forum.user || current_user.admin %>
-							<%= link_to image_tag('xicon.png'), forum_post_path(@forum, forum), method: :delete, data: { confirm: 'Are you sure?' } %>
+		<% if params[:page] == nil %>
+		<% @forum.posts.order('updated_at DESC')[0..9].each do |forum| %>
+				<div id="forumtypeforum" class="row">
+					<div id="commentdelete">
+						<% if current_user != nil %>
+							<% if current_user == forum.user || current_user.admin %>
+								<%= link_to image_tag('xicon.png'), forum_post_path(@forum, forum), method: :delete, data: { confirm: 'Are you sure?' } %>
+							<% end %>
 						<% end %>
-					<% end %>
-				</div>
-				<div id="forumtypeforumtitle" class='col-md-8 col-sd-8'>
-					<%= link_to truncate(forum.title, length: 30), forum_post_path(@forum.title ,forum) %>
-				</div>
-				<div id="forumtypeforumpccount" class='col-md-2 col-sd-2'>
-					<div>Total Comments <%= forum.comments.count + 1 %></div>
-				</div>
-				<div id="forumtypeforumlastpost" class='col-md-2 col-sd-2'>
-					<% if forum.comments.count == 0 %>
-						<% @recenttime = Time.now - forum.updated_at %>
-						<div>by <%= forum.user.username %></div>
-					<% else %>
-						<div id="forumtypeforumbodyinline">
-					 		<%= simple_format(forum.comments.order(:updated_at).last.body[0...25], {}, wrapper_tag: "div", id: 'postuserbody', sanitize: false) %>
-					 		<% if forum.comments.order(:updated_at).last.body.length > 25 %>
-								<div style="display: inline-block;">...</div>
-					 		<% end %>
+					</div>
+					<div id="forumtypeforumtitle" class='col-md-8 col-sd-8'>
+						<%= link_to truncate(forum.title, length: 30), forum_post_path(@forum.title ,forum) %>
+					</div>
+					<div id="forumtypeforumpccount" class='col-md-2 col-sd-2'>
+						<div>Total Comments <%= forum.comments.count + 1 %></div>
+					</div>
+					<div id="forumtypeforumlastpost" class='col-md-2 col-sd-2'>
+						<% if forum.comments.count == 0 %>
+							<% @recenttime = Time.now - forum.updated_at %>
+							<div>by <%= forum.user.username %></div>
+						<% else %>
+							<div id="forumtypeforumbodyinline">
+						 		<%= simple_format(forum.comments.order(:updated_at).last.body[0...25], {}, wrapper_tag: "div", id: 'postuserbody', sanitize: false) %>
+						 		<% if forum.comments.order(:updated_at).last.body.length > 25 %>
+									<div style="display: inline-block;">...</div>
+						 		<% end %>
+						 	</div>
+						 	<div>by <%= forum.comments.order(:updated_at).last.user.username %></div>
+						 	<% @recenttime = Time.now - forum.comments.order(:updated_at).last.updated_at  %>
+						<% end %>
+						<div>
+						 	<% if @recenttime < 60 %>
+						 		posted less than a min ago
+						 	<% elsif @recenttime < 3600 %>
+						 		posted less than an hour ago
+						 	<% elsif @recenttime < 86400 %>
+						 		posted less than a day ago
+						 	<% elsif @recenttime < 604800 %>
+						 		posted less than a week ago
+						 	<% elsif @recenttime < 2592000 %>
+						 		posted less than a month ago
+						 	<% elsif @recenttime < 31536000 %>
+						 		posted less than a year ago
+						 	<% elsif @recenttime >= 31536000 %>
+						 		posted more than a year ago
+						 	<% else %>
+						 		an error occured
+						 	<% end %>
 					 	</div>
-					 	<div>by <%= forum.comments.order(:updated_at).last.user.username %></div>
-					 	<% @recenttime = Time.now - forum.comments.order(:updated_at).last.updated_at  %>
-					<% end %>
-					<div>
-					 	<% if @recenttime < 60 %>
-					 		posted less than a min ago
-					 	<% elsif @recenttime < 3600 %>
-					 		posted less than an hour ago
-					 	<% elsif @recenttime < 86400 %>
-					 		posted less than a day ago
-					 	<% elsif @recenttime < 604800 %>
-					 		posted less than a week ago
-					 	<% elsif @recenttime < 2592000 %>
-					 		posted less than a month ago
-					 	<% elsif @recenttime < 31536000 %>
-					 		posted less than a year ago
-					 	<% elsif @recenttime >= 31536000 %>
-					 		posted more than a year ago
-					 	<% else %>
-					 		an error occured
-					 	<% end %>
-				 	</div>
+					</div>
 				</div>
-			</div>
+			<% end %>
+		<% else %>
+			<% @forum.posts.order('updated_at DESC')[((@forum.posts.count-((@forum.posts.count - 1) % 10))- 1)..(((((@forum.posts.count - 1)/ 10)+1)*10)- 1)].each do |forum| %>
+				<div id="forumtypeforum" class="row">
+					<div id="commentdelete">
+						<% if current_user != nil %>
+							<% if current_user == forum.user || current_user.admin %>
+								<%= link_to image_tag('xicon.png'), forum_post_path(@forum, forum), method: :delete, data: { confirm: 'Are you sure?' } %>
+							<% end %>
+						<% end %>
+					</div>
+					<div id="forumtypeforumtitle" class='col-md-8 col-sd-8'>
+						<%= link_to truncate(forum.title, length: 30), forum_post_path(@forum.title ,forum) %>
+					</div>
+					<div id="forumtypeforumpccount" class='col-md-2 col-sd-2'>
+						<div>Total Comments <%= forum.comments.count + 1 %></div>
+					</div>
+					<div id="forumtypeforumlastpost" class='col-md-2 col-sd-2'>
+						<% if forum.comments.count == 0 %>
+							<% @recenttime = Time.now - forum.updated_at %>
+							<div>by <%= forum.user.username %></div>
+						<% else %>
+							<div id="forumtypeforumbodyinline">
+						 		<%= simple_format(forum.comments.order(:updated_at).last.body[0...25], {}, wrapper_tag: "div", id: 'postuserbody', sanitize: false) %>
+						 		<% if forum.comments.order(:updated_at).last.body.length > 25 %>
+									<div style="display: inline-block;">...</div>
+						 		<% end %>
+						 	</div>
+						 	<div>by <%= forum.comments.order(:updated_at).last.user.username %></div>
+						 	<% @recenttime = Time.now - forum.comments.order(:updated_at).last.updated_at  %>
+						<% end %>
+						<div>
+						 	<% if @recenttime < 60 %>
+						 		posted less than a min ago
+						 	<% elsif @recenttime < 3600 %>
+						 		posted less than an hour ago
+						 	<% elsif @recenttime < 86400 %>
+						 		posted less than a day ago
+						 	<% elsif @recenttime < 604800 %>
+						 		posted less than a week ago
+						 	<% elsif @recenttime < 2592000 %>
+						 		posted less than a month ago
+						 	<% elsif @recenttime < 31536000 %>
+						 		posted less than a year ago
+						 	<% elsif @recenttime >= 31536000 %>
+						 		posted more than a year ago
+						 	<% else %>
+						 		an error occured
+						 	<% end %>
+					 	</div>
+					</div>
+				</div>
+			<% end %>
 		<% end %>
 	<% end %>
 <% end %>
-
 
 
 
