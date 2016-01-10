@@ -16,7 +16,7 @@
 				<% end %>
 				<a class="notice"><%= flash[:notice] if flash[:notice] %></a>
 
-				<%= form_for @user, :html => {  :multipart => true } do |f| %>
+				<%= form_for @user, :html => { :multipart => true } do |f| %>
 					<div class='usereditform'>
 						Username: <%= f.text_field :username, placeholder: "Username" %>
 					</div>
@@ -32,8 +32,8 @@
 			 			<span id='button'>Select File</span>
 					</div>
 					<div class='usereditformsubmit'>	
-						<button onclick="parent.$.fancybox.close();" type="button" class="formbuttons closefb">Cancel</button>
-						<%= f.submit :class => 'formbuttons submitbutton', :id => 'signupformbut'%>
+						<%= link_to "Cancel", user_path(current_user), class: "guildbuttonform guildbuttonformpad" %>
+						<%= f.submit :class => 'guildbuttonform' %>
 					</div>
 				<% end %>
 			</div>

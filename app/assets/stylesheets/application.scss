@@ -1163,3 +1163,37 @@ input#post_title {
     background-color: #337ab7;
 }
 
+.field_with_errors {
+	display: inline-block;
+}
+
+#usereditform ul {
+	color: red;
+	text-align: left;
+}
+
+.guildbuttonform {
+	text-decoration: none;
+	color: $secondary-color;
+	margin-bottom: 7px;
+	display: inline-block;
+	background-color: $primary-color;
+	text-decoration: none;
+    cursor: pointer;
+}
+.guildbuttonformpad {
+	padding: 2px 6px 3px 6px;
+	align-items: flex-start;
+    text-align: center;
+    cursor: default;
+    /* color: buttontext; */
+    border-image-source: initial;
+    border-image-slice: initial;
+    border-image-width: initial;
+    border-image-outset: initial;
+    border-image-repeat: initial;
+    /* background-color: buttonface; */
+    box-sizing: border-box;
+    padding: 2px 6px 3px;
+    border: 2px outset buttonface;
+}
