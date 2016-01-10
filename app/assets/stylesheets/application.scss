@@ -66,7 +66,8 @@ html, body, .body-height {
     box-shadow: 0px 0px 1px 0px black, 0px 3px 15px 2px black;
 }
 
-#divider {
+#divider,
+#divider44 {
 	display: inline-block;
 }
 
@@ -89,10 +90,11 @@ html, body, .body-height {
 }
 
 #login {
+	height: 44px;
 	float: right;
-	background-image: radial-gradient(circle at 0 0, rgba(204,0,0,0) 37px, $primary-color 39.3px);
-	padding-left: 45px;
+    background-image: radial-gradient(circle at 0 0, rgba(204, 0, 0, 0) 45px, #333333 38.3px);
 	margin-right: -2px;
+	padding-left: 45px;
 }
 
 .login-button,
@@ -1217,4 +1219,49 @@ input#post_title {
 
 .addpostblock {
 	display: block !important;
+}
+
+.rememberme {
+	font-weight: normal;
+	padding-right: 5px;
+	font-size: 11px;
+}
+
+.homesignupbut {
+	margin-top: 6px
+}
+
+input#user_username,
+input#user_password {
+	width: 55%;
+}
+
+#username {
+	margin-right: -33px;
+}
+
+#user-password {
+	margin-right: -26px;
+}
+
+#usernamelogedin {
+	display: inline-block;
+	margin: 0 2.5px;
+}
+
+.lastdivider {
+	padding-right: 5px;
+	display: inline-block;
+}
+
+.forgotpwhome {
+	font-size: 11px;
+}
+
+#usernamelogedin,
+.lastdivider,
+#divider44 {
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
 }
