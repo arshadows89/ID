@@ -6,69 +6,171 @@
 	<%= forumtype.title %>
 	</div>
 	<% forumtype.forums.all.order('title ASC').each do |forum| %>
-	<div id="forumtypeforum" class="row">
-		<div id="forumtypeforumtitle" class='col-md-8 col-sd-8'>
-			<%= link_to forum.title, forum_path(forum) %>
-		</div>
-		<div id="forumtypeforumpccount" class='col-md-2 col-sd-2'>
-			<div>Total Posts <%= forum.posts.count %></div>
-			<% commentcount = 0 %>
-			<% forum.posts.all.each do |post| %>
-				<% commentcount += (post.comments.count) %>
-			<% end %>	
-			<div>Total Comments <%= commentcount %></div>
-		</div>
-		<div id="forumtypeforumlastpost" class='col-md-2 col-sd-2'>
-			<% @postupdatedat = Time.now - 100.years
-				forum.posts.all.each do |post|
-					if post.comments.empty? == true
-						@postupdatedatall = post
-						@postupdatedat = post.updated_at %>
-					<% else
-						if post.comments.order(:updated_at).last.updated_at > @postupdatedat
-							@postupdatedatall = post.comments.order(:updated_at).last
-							@postupdatedat = post.comments.order(:updated_at).last.updated_at
-						end %>
-					<% end
-				end %>
-			<% if @postupdatedatall.class == Post %>
-				<div id="forumtypeforumbodyinline">
-			 		<%= link_to ( simple_format(@postupdatedatall.title[0...25], {}, wrapper_tag: "div", id: 'postuserbody', sanitize: false) ), forum_post_path(forum.title, @postupdatedatall.id) %>
-			 		<% if @postupdatedatall.title.length > 25 %>
-						<div style="display: inline-block;">...</div>
-			 		<% end %>
-			 	</div>
-				 <div>by <%= @postupdatedatall.user.username %></div>
-			<% elsif @postupdatedatall.class == Comment %>
-				<div id="forumtypeforumbodyinline">
-			 		<%= link_to ( simple_format(@postupdatedatall.post.title[0...25], {}, wrapper_tag: "div", id: 'postuserbody', sanitize: false) ), forum_post_path(forum.title, @postupdatedatall.post.id) %>
-			 		<% if @postupdatedatall.post.title.length > 25 %>
-						<div style="display: inline-block;">...</div>
-			 		<% end %>
-			 	</div>
-			 	<div>by <%= @postupdatedatall.post.user.username %></div>
-			 <% end %>
-		 	<div>
-			 	<% recenttime = Time.now - @postupdatedatall.updated_at  %>
-			 	<% if recenttime < 60 %>
-			 		posted less than a min ago
-			 	<% elsif recenttime < 3600 %>
-			 		posted less than an hour ago
-			 	<% elsif recenttime < 86400 %>
-			 		posted less than a day ago
-			 	<% elsif recenttime < 604800 %>
-			 		posted less than a week ago
-			 	<% elsif recenttime < 2592000 %>
-			 		posted less than a month ago
-			 	<% elsif recenttime < 31536000 %>
-			 		posted less than a year ago
-			 	<% elsif recenttime >= 31536000 %>
-			 		posted more than a year ago
-			 	<% else %>
-			 		an error occured
-			 	<% end %>
-		 	</div>
-		</div>
-	</div>
+		<% if forum.title == 'Officer Discussion' %>
+			<% if current_user != nil %>
+				<% if current_user.admin %>
+					<div id="forumtypeforum" class="row">	
+						<div id="forumtypeforumtitle" class='col-md-8 col-sd-8'>
+							<%= link_to forum.title, forum_path(forum) %>
+						</div>
+						<div id="forumtypeforumpccount" class='col-md-2 col-sd-2'>
+							<div>Total Posts <%= forum.posts.count %></div>
+							<% commentcount = 0 %>
+							<% forum.posts.all.each do |post| %>
+								<% commentcount += (post.comments.count) %>
+							<% end %>	
+							<div>Total Comments <%= commentcount %></div>
+						</div>
+						<div id="forumtypeforumlastpost" class='col-md-2 col-sd-2'>
+							<% @postupdatedat = Time.now - 100.years %>
+							<% if forum.posts.count == 0 %>
+								<!-- 0 posts -->
+								<% forum.posts.all.each do |post|
+									if post.comments.empty? == true
+										@postupdatedatall = post
+										@postupdatedat = post.updated_at %>
+									<% else
+										if post.comments.order(:updated_at).last.updated_at > @postupdatedat
+											@postupdatedatall = post.comments.order(:updated_at).last
+											@postupdatedat = post.comments.order(:updated_at).last.updated_at
+										end %>
+									<% end %>
+								<% end %>
+							<% else %>
+								<% forum.posts.all.each do |post|
+									if post.comments.empty? == true
+										@postupdatedatall = post
+										@postupdatedat = post.updated_at %>
+									<% else
+										if post.comments.order(:updated_at).last.updated_at > @postupdatedat
+											@postupdatedatall = post.comments.order(:updated_at).last
+											@postupdatedat = post.comments.order(:updated_at).last.updated_at
+										end %>
+									<% end %>
+								<% end %>
+								<% if @postupdatedatall.class == Post %>
+									<div id="forumtypeforumbodyinline">
+								 		<%= link_to ( simple_format(@postupdatedatall.title[0...25], {}, wrapper_tag: "div", id: 'postuserbody', sanitize: false) ), forum_post_path(forum.title, @postupdatedatall.id) %>
+								 		<% if @postupdatedatall.title.length > 25 %>
+											<div style="display: inline-block;">...</div>
+								 		<% end %>
+								 	</div>
+									 <div>by <%= @postupdatedatall.user.username %></div>
+								<% elsif @postupdatedatall.class == Comment %>
+									<div id="forumtypeforumbodyinline">
+								 		<%= link_to ( simple_format(@postupdatedatall.post.title[0...25], {}, wrapper_tag: "div", id: 'postuserbody', sanitize: false) ), forum_post_path(forum.title, @postupdatedatall.post.id) %>
+								 		<% if @postupdatedatall.post.title.length > 25 %>
+											<div style="display: inline-block;">...</div>
+								 		<% end %>
+								 	</div>
+								 	<div>by <%= @postupdatedatall.post.user.username %></div>
+								 <% end %>
+							 	<div>
+								 	<% recenttime = Time.now - @postupdatedatall.updated_at  %>
+								 	<% if recenttime < 60 %>
+								 		posted less than a min ago
+								 	<% elsif recenttime < 3600 %>
+								 		posted less than an hour ago
+								 	<% elsif recenttime < 86400 %>
+								 		posted less than a day ago
+								 	<% elsif recenttime < 604800 %>
+								 		posted less than a week ago
+								 	<% elsif recenttime < 2592000 %>
+								 		posted less than a month ago
+								 	<% elsif recenttime < 31536000 %>
+								 		posted less than a year ago
+								 	<% elsif recenttime >= 31536000 %>
+								 		posted more than a year ago
+								 	<% else %>
+								 		an error occured
+								 	<% end %>
+							 	</div>
+							<% end %>
+						</div>
+					</div>
+				<% end %>
+			<% else %>
+			<% end %>
+		<% else %>	
+			<div id="forumtypeforum" class="row">	
+				<div id="forumtypeforumtitle" class='col-md-8 col-sd-8'>
+					<%= link_to forum.title, forum_path(forum) %>
+				</div>
+				<div id="forumtypeforumpccount" class='col-md-2 col-sd-2'>
+					<div>Total Posts <%= forum.posts.count %></div>
+					<% commentcount = 0 %>
+					<% forum.posts.all.each do |post| %>
+						<% commentcount += (post.comments.count) %>
+					<% end %>	
+					<div>Total Comments <%= commentcount %></div>
+				</div>
+				<div id="forumtypeforumlastpost" class='col-md-2 col-sd-2'>
+					<% @postupdatedat = Time.now - 100.years %>
+					<% if forum.posts.count == 0 %>
+						<!-- 0 posts -->
+						<% forum.posts.all.each do |post|
+							if post.comments.empty? == true
+								@postupdatedatall = post
+								@postupdatedat = post.updated_at %>
+							<% else
+								if post.comments.order(:updated_at).last.updated_at > @postupdatedat
+									@postupdatedatall = post.comments.order(:updated_at).last
+									@postupdatedat = post.comments.order(:updated_at).last.updated_at
+								end %>
+							<% end %>
+						<% end %>
+					<% else %>
+						<% forum.posts.all.each do |post|
+							if post.comments.empty? == true
+								@postupdatedatall = post
+								@postupdatedat = post.updated_at %>
+							<% else
+								if post.comments.order(:updated_at).last.updated_at > @postupdatedat
+									@postupdatedatall = post.comments.order(:updated_at).last
+									@postupdatedat = post.comments.order(:updated_at).last.updated_at
+								end %>
+							<% end %>
+						<% end %>
+						<% if @postupdatedatall.class == Post %>
+							<div id="forumtypeforumbodyinline">
+						 		<%= link_to ( simple_format(@postupdatedatall.title[0...25], {}, wrapper_tag: "div", id: 'postuserbody', sanitize: false) ), forum_post_path(forum.title, @postupdatedatall.id) %>
+						 		<% if @postupdatedatall.title.length > 25 %>
+									<div style="display: inline-block;">...</div>
+						 		<% end %>
+						 	</div>
+							 <div>by <%= @postupdatedatall.user.username %></div>
+						<% elsif @postupdatedatall.class == Comment %>
+							<div id="forumtypeforumbodyinline">
+						 		<%= link_to ( simple_format(@postupdatedatall.post.title[0...25], {}, wrapper_tag: "div", id: 'postuserbody', sanitize: false) ), forum_post_path(forum.title, @postupdatedatall.post.id) %>
+						 		<% if @postupdatedatall.post.title.length > 25 %>
+									<div style="display: inline-block;">...</div>
+						 		<% end %>
+						 	</div>
+						 	<div>by <%= @postupdatedatall.post.user.username %></div>
+						 <% end %>
+					 	<div>
+						 	<% recenttime = Time.now - @postupdatedatall.updated_at  %>
+						 	<% if recenttime < 60 %>
+						 		posted less than a min ago
+						 	<% elsif recenttime < 3600 %>
+						 		posted less than an hour ago
+						 	<% elsif recenttime < 86400 %>
+						 		posted less than a day ago
+						 	<% elsif recenttime < 604800 %>
+						 		posted less than a week ago
+						 	<% elsif recenttime < 2592000 %>
+						 		posted less than a month ago
+						 	<% elsif recenttime < 31536000 %>
+						 		posted less than a year ago
+						 	<% elsif recenttime >= 31536000 %>
+						 		posted more than a year ago
+						 	<% else %>
+						 		an error occured
+						 	<% end %>
+					 	</div>
+					<% end %>
+				</div>
+			</div>
+		<% end %>
 	<% end %>
 <% end %>

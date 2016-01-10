@@ -22,24 +22,11 @@ class UsersController < ApplicationController
 
   def create
   	@user = User.new(user_params)
-    
-    # respond_to do |format|
       if @user.save
-        # format.html { redirect_to :back }
-       #  flash.now[:notice] = 'Account successfully created'
        redirect_to home_closefb_path, notice: "Account successfully created"
-       # # #redirect to root_path and close fancybox
-       # respond_to do |format|
-       #   format.html { redirect_to root_path, notice: "Account successfully created" }
-       #    format.js { render :js => "closefancybox();" }
-       # end
       else
-        # redirect_to root_path, notice: "Failed to create an account"
-        #REDIRECT TO ROOT BUT RENDER _FORM IN FANCYBOX
         render :layout => "../users/new"
-      # end
       end
- 
   end
 
   def update

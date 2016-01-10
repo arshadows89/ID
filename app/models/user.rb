@@ -2,10 +2,7 @@ class User < ActiveRecord::Base
 	has_many :posts
 	has_many :comments
 	accepts_nested_attributes_for :posts
-	accepts_nested_attributes_for :comments
-
-	
-	
+	accepts_nested_attributes_for :comments	
 	before_create { generate_token(:auth_token) }
 	before_save { self.email = email.downcase }
 	has_secure_password validations: false

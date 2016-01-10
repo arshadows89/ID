@@ -1181,6 +1181,7 @@ input#post_title {
 	background-color: $primary-color;
 	text-decoration: none;
     cursor: pointer;
+    margin-top: 15px;
 }
 
 .guildbuttonform:hover {
@@ -1212,4 +1213,8 @@ input#post_title {
 
 .conpasswordform {
 	padding-right: 113px;
+}
+
+.addpostblock {
+	display: block !important;
 }
