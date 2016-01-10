@@ -1,6 +1,7 @@
 <!-- if loged in -->
 <% if current_user != nil %>
-
+	<% if params[:forum_id].to_s == 'Officer Discussion'%>
+		<% if current_user.admin %>
 <style>
 	textarea {
 		width: 98%;
@@ -348,6 +349,359 @@
 		<% end %>
 	<% end %>
 </div>
+		<% else %>
+  			<%= render 'shared/noaccess' %>  
+		<% end %>
+	<% else %>
+<style>
+	textarea {
+		width: 98%;
+		margin: 10px;
+	}
+</style>
+
+<% 	def findcommenttime(thect)
+	 	recenttime = Time.now - thect
+	 	if recenttime < 60
+	 		@commenttime = 'posted less than a min ago'
+	 	elsif recenttime < 3600
+	 		@commenttime = 'posted less than an hour ago'
+	 	elsif recenttime < 86400
+	 		@commenttime = 'posted less than a day ago'
+	 	elsif recenttime < 604800
+	 		@commenttime = 'posted less than a week ago'
+	 	elsif recenttime < 2592000
+	 		@commenttime = 'posted less than a month ago'
+	 	elsif recenttime < 31536000
+	 		@commenttime = 'posted less than a year ago'
+	 	elsif recenttime >= 31536000
+	 		@commenttime = 'posted more than a year ago'
+	 	else
+	 		@commenttime = 'an error occured'
+	 	end
+	end %>
+<div id="forumnav">
+	<%= link_to 'Forum', forums_path %> » <%= link_to Forum.find(@post.forum_id).title, forum_path(Forum.find(@post.forum_id).title) %> » <%= link_to @post.title, forum_post_path(Forum.find(@post.forum_id).title, @post) %>
+</div>
+<!-- links -->
+<div id='homepagelinks' class="padthisright">
+	<% if ((((@post.comments.count - 1)+ 1) / 10) + 1) > 10 %>
+		<%if params[:page].to_i <= 6%>
+			<% numberofforumpages = 1 %>
+		 	<% 9.times do %>
+				<%= link_to numberofforumpages, post_show_page_path(@forum.title, @post, numberofforumpages) %>
+				<% numberofforumpages += 1 %>
+			<% end %>
+			...
+			<%= link_to ((((@post.comments.count - 1)+ 1) / 10) + 1), post_show_page_path(@forum.title, @post, ((((@post.comments.count - 1)+ 1) / 10) + 1)) %>
+		<% elsif params[:page].to_i > (((((@post.comments.count - 1)+ 1) / 10) + 1) - 6)%>
+			<%= link_to 1, post_show_page_path(@forum.title, @post, 1) %>
+			...
+			<% numberofforumpages = (((((@post.comments.count - 1)+ 1) / 10) + 1) - 8) %>
+		 	<% 9.times do %>
+				<%= link_to numberofforumpages, post_show_page_path(@forum.title, @post, numberofforumpages) %>
+				<% numberofforumpages += 1 %>
+			<% end %>
+		<% else %>
+			<%= link_to 1, post_show_page_path(@forum.title, @post, 1) %>
+			...
+		<% numberofforumpages = (params[:page].to_i - 4) %>
+		<% 4.times do %>
+			<%= link_to numberofforumpages, post_show_page_path(@forum.title, @post, numberofforumpages) %>
+			<% numberofforumpages += 1 %>
+		<% end %>
+		<%= link_to params[:page].to_i, post_show_page_path(@forum.title, @post, params[:page].to_i) %>
+		<% numberofforumpages = (params[:page].to_i + 1) %>
+		<% 4.times do %>
+			<%= link_to numberofforumpages, post_show_page_path(@forum.title, @post, numberofforumpages) %>
+			<% numberofforumpages += 1 %>
+		<% end %>
+			...
+			<%= link_to ((((@post.comments.count - 1)+ 1) / 10) + 1), post_show_page_path(@forum.title, @post, ((((@post.comments.count - 1)+ 1) / 10) + 1)) %>
+		<% end %>
+	<% else %>
+		<% numberofforumpages = 1 %>
+		<% ((((@post.comments.count - 1)+ 1) / 10) + 1).times do %>
+			<%= link_to numberofforumpages, post_show_page_path(@forum.title, @post, numberofforumpages) %>
+			<% numberofforumpages += 1 %>
+		<% end %>
+	<% end %>
+</div>
+<div id='posttitlecenter'>
+	<div id='posttitle'>
+		<%= @post.title %>	
+	</div>
+</div>
+<!-- these are the comments -->
+<% if ((params[:page].to_i * 10) < (((((@post.comments.count -1)+ 1) / 10)+1)*10)) and ((params[:page].to_i) != 0) and ((params[:page].to_i) != 1) %>
+	<% @post.comments.order('created_at ASC')[((((params[:page].to_i - 1)) * 10)- 1)..(((params[:page].to_i * 10)-2))].each do |comment| %>
+		<div id="forumtypepost">
+			<div class='row nomarginrow'>
+				<div id="postuserinfo" class='col-md-2 col-sd-2'>
+					<div id="postuser"><%= comment.user.username %></div>
+					<div id="postuseravatar"><%= image_tag comment.user.avatar.url %></div>
+					<div id="postuserjoindate"><b>Join Date:</b> <%= comment.user.created_at.strftime("%B %d, %Y") %></div>
+					<div id="postuserpostcount"><b>Posts:</b> <%= comment.user.comments.count + comment.user.posts.count %></div>
+				</div>
+				<div id="postinfo" class='col-md-10 col-sd-10'>
+					<div id='postwhen'>
+						<% findcommenttime(comment.created_at) %>
+						<%= @commenttime %>
+					</div>
+					<div id='postuserbody'><%= simple_format(comment.body, {}, wrapper_tag: "div", id: 'postuserbody', sanitize: false) %></div>
+				</div>
+			</div>
+			<div class='row nomarginrow'>
+				<div id="postuserinfo" class='col-md-2 col-sd-2'></div>
+				<div id="postinfo" class='col-md-10 col-sd-10 postinfoleftpad'>
+					<div id='postdate'>
+						<div id="commentedit">
+							<% if current_user != nil %>
+								<% if current_user == comment.user || current_user.admin %>
+									<%= link_to 'Edit', edit_comment_show_page_path(Forum.find(@post.forum_id).title, @post.id, comment, comment.id, params[:page].to_i) + '#commentsubmit' %>
+								<% end %>
+							<% end %>
+						</div>
+						<div id="commentdelete">
+							<% if current_user != nil %>
+								<% if current_user == comment.user || current_user.admin %>
+									<%= link_to 'Delete', forum_post_comment_path(@post.forum_id, @post.id, comment), method: :delete, data: { confirm: 'Are you sure?' } %>
+								<% end %>
+							<% end %>
+						</div>
+						<div id='commentcu'>
+							Created on: <%= comment.created_at.strftime("%B %d, %Y") %>
+							<% if comment.created_at != comment.updated_at %>
+								<div id="postupdate">
+									(Updated on: <%= comment.updated_at.strftime("%B %d, %Y") %>)
+								</div>
+							<% end %>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	<% end %>
+<% else %>
+	<% if params[:page] == nil or params[:page].to_i == 1 %>
+		<!-- this is the post  -->
+		<div id="forumtypepost">
+			<div class='row nomarginrow'>
+				<div id="postuserinfo" class='col-md-2 col-sd-2'>
+					<div id="postuser"><%= @post.user.username %></div>
+					<div id="postuseravatar"><%= image_tag @post.user.avatar.url %></div>
+					<div id="postuserjoindate"><b>Join Date:</b> <%= @post.user.created_at.strftime("%B %d, %Y") %></div>
+					<div id="postuserpostcount"><b>Posts:</b> <%= @post.user.comments.count + @post.user.posts.count %></div>
+				</div>
+				<div id="postinfo" class='col-md-10 col-sd-10'>
+						<div id='postwhen'>
+							<% findcommenttime(@post.created_at) %>
+							<%= @commenttime %>
+						</div>
+					<div id='postuserbody'><%= simple_format(@post.body, {}, wrapper_tag: "div", id: 'postuserbody', sanitize: false) %></div>
+				</div>
+			</div>
+			<div class='row nomarginrow'>
+				<div id="postuserinfo" class='col-md-2 col-sd-2'></div>
+				<div id="postinfo" class='col-md-10 col-sd-10 postinfoleftpad'>
+					<div id='postdate'>
+						<div id="commentedit">
+							<% if current_user != nil %>
+								<% if current_user == @post.user || current_user.admin %>
+									<%= link_to 'Edit', edit_forum_post_path(Forum.find(@post.forum_id).title, @post) + '#commentsubmit' %>
+								<% end %>
+							<% end %>
+						</div>
+						<div id='commentcu'>
+							Created on: <%= @post.created_at.strftime("%B %d, %Y") %>
+							<% if @post.created_at != @post.updated_at %>
+								<div id="postupdate">
+									(Updated on: <%= @post.updated_at.strftime("%B %d, %Y") %>)
+								</div>
+							<% end %>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<% @post.comments.order('created_at ASC')[0..8].each do |comment| %>
+			<div id="forumtypepost">
+				<div class='row nomarginrow'>
+					<div id="postuserinfo" class='col-md-2 col-sd-2'>
+						<div id="postuser"><%= comment.user.username %></div>
+						<div id="postuseravatar"><%= image_tag comment.user.avatar.url %></div>
+						<div id="postuserjoindate"><b>Join Date:</b> <%= comment.user.created_at.strftime("%B %d, %Y") %></div>
+						<div id="postuserpostcount"><b>Posts:</b> <%= comment.user.comments.count + comment.user.posts.count %></div>
+					</div>
+					<div id="postinfo" class='col-md-10 col-sd-10'>
+						<div id='postwhen'>
+							<% findcommenttime(comment.created_at) %>
+							<%= @commenttime %>
+						</div>
+						<div id='postuserbody'><%= simple_format(comment.body, {}, wrapper_tag: "div", id: 'postuserbody', sanitize: false) %></div>
+					</div>
+				</div>
+				<div class='row nomarginrow'>
+					<div id="postuserinfo" class='col-md-2 col-sd-2'></div>
+					<div id="postinfo" class='col-md-10 col-sd-10 postinfoleftpad'>
+						<div id='postdate'>
+							<div id="commentedit">
+								<% if current_user != nil %>
+									<% if current_user == comment.user || current_user.admin %>
+										<%= link_to 'Edit', edit_comment_show_page_path(Forum.find(@post.forum_id).title, @post.id, comment, comment.id, params[:page].to_i) + '#commentsubmit' %>
+									<% end %>
+								<% end %>
+							</div>
+							<div id="commentdelete">
+								<% if current_user != nil %>
+									<% if current_user == comment.user || current_user.admin %>
+										<%= link_to 'Delete', forum_post_comment_path(@post.forum_id, @post.id, comment), method: :delete, data: { confirm: 'Are you sure?' } %>
+									<% end %>
+								<% end %>
+							</div>
+							<div id='commentcu'>
+								Created on: <%= comment.created_at.strftime("%B %d, %Y") %>
+								<% if comment.created_at != comment.updated_at %>
+									<div id="postupdate">
+										(Updated on: <%= comment.updated_at.strftime("%B %d, %Y") %>)
+									</div>
+								<% end %>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>			
+		<% end %>
+	<% else %>
+		<% @post.comments.order('created_at ASC')[((@post.comments.count-(((@post.comments.count - 1)+ 1) % 10))- 1)..((((((@post.comments.count - 1)+ 1)/ 10)+1)*10)- 1)].each do |comment| %>
+			<div id="forumtypepost">
+				<div class='row nomarginrow'>
+					<div id="postuserinfo" class='col-md-2 col-sd-2'>
+						<div id="postuser"><%= comment.user.username %></div>
+						<div id="postuseravatar"><%= image_tag comment.user.avatar.url %></div>
+						<div id="postuserjoindate"><b>Join Date:</b> <%= comment.user.created_at.strftime("%B %d, %Y") %></div>
+						<div id="postuserpostcount"><b>Posts:</b> <%= comment.user.comments.count + comment.user.posts.count %></div>
+					</div>
+					<div id="postinfo" class='col-md-10 col-sd-10'>
+						<div id='postwhen'>
+							<% findcommenttime(comment.created_at) %>
+							<%= @commenttime %>
+						</div>
+						<div id='postuserbody'><%= simple_format(comment.body, {}, wrapper_tag: "div", id: 'postuserbody', sanitize: false) %></div>
+					</div>
+				</div>
+				<div class='row nomarginrow'>
+					<div id="postuserinfo" class='col-md-2 col-sd-2'></div>
+					<div id="postinfo" class='col-md-10 col-sd-10 postinfoleftpad'>
+						<div id='postdate'>
+							<div id="commentedit">
+								<% if current_user != nil %>
+									<% if current_user == comment.user || current_user.admin %>
+										<%= link_to 'Edit', edit_comment_show_page_path(Forum.find(@post.forum_id).title, @post.id, comment, comment.id, params[:page].to_i) + '#commentsubmit' %>
+									<% end %>
+								<% end %>
+							</div>
+							<div id="commentdelete">
+								<% if current_user != nil %>
+									<% if current_user == comment.user || current_user.admin %>
+										<%= link_to 'Delete', forum_post_comment_path(@post.forum_id, @post.id, comment), method: :delete, data: { confirm: 'Are you sure?' } %>
+									<% end %>
+								<% end %>
+							</div>
+							<div id='commentcu'>
+								Created on: <%= comment.created_at.strftime("%B %d, %Y") %>
+								<% if comment.created_at != comment.updated_at %>
+									<div id="postupdate">
+										(Updated on: <%= comment.updated_at.strftime("%B %d, %Y") %>)
+									</div>
+								<% end %>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		<% end %>
+	<% end %>
+<% end %>
+<!-- end of comment section -->
+<a name="commentsubmit"></a>
+<div id="forumtypepost" class="row">
+	<div id="forumrules">
+		<a id="forumrulelink">Formating Help</a>
+		<div id="forumrulelist">
+			<ul>
+				<li>&lt;   <div class="spacethis">is</div>   &amp;lt;</li>
+				<li>&gt;   <div class="spacethis">is</div>    &amp;gt;</li>
+				<li>&amp;   <div class="spacethis">is</div>    &amp;amp;</li>
+				<li>Add Image <div class="spacethis">=</div> &lt;img src='www.linkgoeshere.com'&gt;</li>
+				<li>Add Video <div class="spacethis">=</div> &lt;iframe width="560" height="315" src="https://www.youtube.com/embed/ddBJubYf7EQ?list=RDsRicwVSTPEc&amp;showinfo=0" frameborder="0" allowfullscreen&gt;&lt;/iframe &gt;</li>
+				<li><div class="spacethis">You can copy any embed video or image link</div></li>
+			</ul>
+		</div>
+		<div id="forumrulenote">
+			You can write in html
+		</div>
+	</div>
+<% if @comment.errors.any? %>
+	<ul>
+		<% @comment.errors.full_messages.each do |message| %>
+			 <li><%= message %></li>
+		<% end %>
+	</ul>
+<% end %>
+<%= form_for @comment, url: forum_post_comments_path(@forum, @post, :anchor => 'commentsubmit'), html: { :autocomplete => :off, :multipart => true, method: :post } do |f| %>
+	<%= f.text_area :body, placeholder: "Comment Section", cols: "50", rows: "8"  %><br />
+	<%= f.submit 'Submit', :class => 'guildbutton', :id => 'commentbutton'%>
+	<br />
+<br />
+<% end %>
+</div>
+<!-- links -->
+<div id='homepagelinks' class="padthisright">
+	<% if ((((@post.comments.count - 1)+ 1) / 10) + 1) > 10 %>
+		<%if params[:page].to_i <= 6%>
+			<% numberofforumpages = 1 %>
+		 	<% 9.times do %>
+				<%= link_to numberofforumpages, post_show_page_path(@forum.title, @post, numberofforumpages) %>
+				<% numberofforumpages += 1 %>
+			<% end %>
+			...
+			<%= link_to ((((@post.comments.count - 1)+ 1) / 10) + 1), post_show_page_path(@forum.title, @post, ((((@post.comments.count - 1)+ 1) / 10) + 1)) %>
+		<% elsif params[:page].to_i > (((((@post.comments.count - 1)+ 1) / 10) + 1) - 6)%>
+			<%= link_to 1, post_show_page_path(@forum.title, @post, 1) %>
+			...
+			<% numberofforumpages = (((((@post.comments.count - 1)+ 1) / 10) + 1) - 8) %>
+		 	<% 9.times do %>
+				<%= link_to numberofforumpages, post_show_page_path(@forum.title, @post, numberofforumpages) %>
+				<% numberofforumpages += 1 %>
+			<% end %>
+		<% else %>
+			<%= link_to 1, post_show_page_path(@forum.title, @post, 1) %>
+			...
+		<% numberofforumpages = (params[:page].to_i - 4) %>
+		<% 4.times do %>
+			<%= link_to numberofforumpages, post_show_page_path(@forum.title, @post, numberofforumpages) %>
+			<% numberofforumpages += 1 %>
+		<% end %>
+		<%= link_to params[:page].to_i, post_show_page_path(@forum.title, @post, params[:page].to_i) %>
+		<% numberofforumpages = (params[:page].to_i + 1) %>
+		<% 4.times do %>
+			<%= link_to numberofforumpages, post_show_page_path(@forum.title, @post, numberofforumpages) %>
+			<% numberofforumpages += 1 %>
+		<% end %>
+			...
+			<%= link_to ((((@post.comments.count - 1)+ 1) / 10) + 1), post_show_page_path(@forum.title, @post, ((((@post.comments.count - 1)+ 1) / 10) + 1)) %>
+		<% end %>
+	<% else %>
+		<% numberofforumpages = 1 %>
+		<% ((((@post.comments.count - 1)+ 1) / 10) + 1).times do %>
+			<%= link_to numberofforumpages, post_show_page_path(@forum.title, @post, numberofforumpages) %>
+			<% numberofforumpages += 1 %>
+		<% end %>
+	<% end %>
+</div>
+	<% end %>
 <% else %>
   <%= render 'shared/noaccess' %>  
 <% end %>
+
