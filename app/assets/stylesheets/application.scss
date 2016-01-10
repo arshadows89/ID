@@ -1265,3 +1265,11 @@ input#user_password {
     top: 50%;
     transform: translateY(-50%);
 }
+
+#newssection {
+	margin-bottom: 55px;
+	padding-bottom: 10px;
+	-webkit-box-shadow: inset 0px 0px 15px 0px rgba(51, 51, 51, 0.66);
+    -moz-box-shadow: inset 0px 0px 15px 0px rgba(51, 51, 51, 0.66);
+    box-shadow: inset 0px 0px 15px 0px rgba(51, 51, 51, 0.66);
+}

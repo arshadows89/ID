@@ -5,6 +5,7 @@
 		<!-- News Panel -->
 		<div id="news" class='col-md-9'>
 			<% Homepagenew.where(homepage_id: @homepage).all.sort.reverse.each do |news_section| %>
+			<div id='newssection'>
 				<div class="newstitle">
 					<%= news_section.title %>
 				</div>
@@ -14,6 +15,7 @@
 				<div class="newsdate">
 					<%= news_section.created_at.strftime("%B %d, %Y") %>
 				</div>
+			</div>
 			<% end %>
 			<div id='homepagelinks'>
 				<% if Homepage.count > 10 %>
