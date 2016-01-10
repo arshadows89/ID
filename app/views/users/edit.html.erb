@@ -4,9 +4,9 @@
 	<% if current_user.id == params[:id].to_i %>
 		<div id='usereditformbox'>
 			<div id='usereditform'>
-			<div id='usereditformtitle'>
-				Edit User Profile
-			</div>
+				<div id='usereditformtitle'>
+					Edit User Profile
+				</div>
 				<% if @user.errors.any? %>
 					<ul>
 						<% @user.errors.full_messages.each do |message| %>
@@ -23,8 +23,11 @@
 					<div class='usereditform'>
 						<div id='usereditformemail'>Email:</div> <%= f.text_field :email, placeholder: "Email"  %>
 					</div>
-					<div class='usereditform'>
-						Password: <%= f.password_field :password %>
+					<div class='usereditform conpasswordform'>
+						Current or New Password: <%= f.password_field :password %>
+					</div>
+					<div class='usereditform usereditformavatarpwcon passwordconfirmationform'>
+						Password Confirmation: <%= f.password_field :password_confirmation %>
 					</div>
 					<div class='usereditform usereditformavatar'>
 						<%= f.file_field :avatar %>

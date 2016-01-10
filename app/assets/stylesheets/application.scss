@@ -1071,7 +1071,7 @@ input#post_title {
 
 .usereditform {
 	padding: 5px 0px;
-	text-align: left;
+	text-align: center;
     padding-left: 15px;
 }
 
@@ -1141,6 +1141,7 @@ input#post_title {
     line-height: 25px;
     text-indent: 10px;
     pointer-events: none;
+    text-align: left;
 }
 #button {
     display: block;
@@ -1181,6 +1182,13 @@ input#post_title {
 	text-decoration: none;
     cursor: pointer;
 }
+
+.guildbuttonform:hover {
+	color: $secondary-color;
+	text-decoration: none;
+	cursor: pointer;
+}
+
 .guildbuttonformpad {
 	padding: 2px 6px 3px 6px;
 	align-items: flex-start;
@@ -1196,4 +1204,12 @@ input#post_title {
     box-sizing: border-box;
     padding: 2px 6px 3px;
     border: 2px outset buttonface;
+}
+
+.passwordconfirmationform {
+	padding-right: 97px;
+}
+
+.conpasswordform {
+	padding-right: 113px;
 }

@@ -3,6 +3,8 @@ class User < ActiveRecord::Base
 	has_many :comments
 	accepts_nested_attributes_for :posts
 	accepts_nested_attributes_for :comments
+
+	
 	
 	before_create { generate_token(:auth_token) }
 	before_save { self.email = email.downcase }
@@ -26,7 +28,7 @@ class User < ActiveRecord::Base
 	validates :email, length: { maximum: 255 },
 	                format: { with: VALID_EMAIL_REGEX },
 	                uniqueness: { case_sensitive: false }
-	validates :password, length: { minimum: 6 }
+	validates :password, length: { minimum: 6 }, :confirmation =>true
 
 
 

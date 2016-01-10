@@ -22,6 +22,7 @@ class UsersController < ApplicationController
 
   def create
   	@user = User.new(user_params)
+    
     # respond_to do |format|
       if @user.save
         # format.html { redirect_to :back }
@@ -37,15 +38,16 @@ class UsersController < ApplicationController
         #REDIRECT TO ROOT BUT RENDER _FORM IN FANCYBOX
         render :layout => "../users/new"
       # end
-    end
+      end
+ 
   end
 
   def update
-  		if @user.update(user_params)
-  		redirect_to @user, notice: "User successfully updated."
+      if @user.update(user_params)
+      redirect_to @user, notice: "User successfully updated."
     else
       render :edit
-  	end
+    end
   end
 
   def destroy
@@ -76,10 +78,7 @@ class UsersController < ApplicationController
   end
 
   def user_params
-  	params.require(:user).permit(:username, :password, :admin, :email, :avatar)
+  	params.require(:user).permit(:username, :password_confirmation, :password, :admin, :email, :avatar)
   end
 
-  # def current_user
-  #   session[:user_id] ? User.find(session[:user_id]) :nil
-  # end
 end
