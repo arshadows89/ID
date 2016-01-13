@@ -1,7 +1,13 @@
-<%= form_tag password_resets_path, :method => :post do %>
-  <div class="field">
-    <%= label_tag :email %>
-    <%= text_field_tag :email, params[:email] %>
-  </div>
-  <div class="actions"><%= submit_tag "Reset Password" %></div>
-<% end %>
+<div id='passwordresetdiv'>
+	<%= form_tag password_resets_path, :method => :post do %>
+	  <div class="field">
+	  	<div id='pwresettitle'>Password Reset Form</div>
+	  	<div id='pwresetcontext'>
+			To reset your password, enter the email address associated with your account. We will email you a password recovery link if said email is associated with an account.
+	  	</div>
+	    <%= label_tag :email %>
+	    <%= text_field_tag :email, params[:email] %>
+	  </div>
+	  <div class="pwresetbutton pwresetbuttonmlnew"><%= submit_tag "Reset Password" %></div>
+	<% end %>
+</div>

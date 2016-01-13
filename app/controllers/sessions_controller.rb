@@ -3,7 +3,7 @@ class SessionsController < ApplicationController
     session[:return_to] ||= request.referer
     user = User.where(:username => params[:user][:username].downcase).first
     if user && user.authenticate(params[:user][:password])
-      if params[:user][:remember_me]
+      if params[:remember_me]
         cookies.permanent[:auth_token] = user.auth_token
       else
         cookies[:auth_token] = user.auth_token
